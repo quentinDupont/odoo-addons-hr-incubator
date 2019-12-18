@@ -3,15 +3,15 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "HR Applicant CAE",
-    "summary": "Applicants in a CAE - Cooperative Activité Emploi",
+    "name": "HR CAE",
+    "summary": "Employee HR in a CAE - Cooperative Activité Emploi",
     "author": "Coop IT Easy SCRL",
     "website": "https://coopiteasy.be",
     "category": "Human Resources",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
-    "depends": ["contacts", "hr_recruitment"],
-    "data": ["views/hr_applicant.xml"],
+    "depends": ["hr", "l10n_fr_department"],
+    "data": ["views/hr.xml"],
     "demo": [],
     "installable": True,
     "application": False,

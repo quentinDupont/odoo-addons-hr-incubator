@@ -10,7 +10,7 @@
         <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
         <field name="arch" type="xml">
             <field name="email_from" position="after">
-                <field name="country_of_birth"/>
+                <field name="country_birth_id"/>
             </field>
         </field>
     </record>
