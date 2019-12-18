@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="hr_contract_view_form" model="ir.ui.view">
+        <field name="name">hr_contract_view_form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+
+            <field name="reported_to_secretariat" position="after">
+                <field name="reason"/>
+            </field>
+
+            <field name="date_start" position="after">
+                <label for="duration"/>
+                <div class="o_row" name="duration">
+                    <field name="duration" nolabel="1"/>
+                    <span>month(s)</span>
+                </div>
+            </field>
+
+            <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <field name="advantages" position="after">
+                <label for="hours"/>
+                <div class="o_row" name="hours">
+                    <field name="hours" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+                <label for="rate"/>
+                <div class="o_row" name="rate">
+                    <field name="rate" nolabel="1"/>
+                    <span>/ hour</span>
+                </div>
+                <label for="turnover_minimum"/>
+                <div class="o_row" name="turnover_minimum">
+                    <field name="turnover_minimum" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </field>
+
+<!--            <xpath expr="//field[@name='child_ids']/.." position="before">-->
+<!--                <page name="leases" string="Leases" autofocus="autofocus">-->
+<!--                    <group>-->
+<!--                        <field name="lease_ids" nolabel="1" context="{'default_tenant_id': id}">-->
+<!--                            <tree>-->
+<!--                                <field name="name"/>-->
+<!--                                <field name="start"/>-->
+<!--                                <field name="end"/>-->
+<!--                                <field name="state"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </group>-->
+<!--                </page>-->
+<!--            </xpath>-->
+
+        </field>
+    </record>
+</odoo>
