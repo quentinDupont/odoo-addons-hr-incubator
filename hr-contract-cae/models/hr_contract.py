@@ -10,9 +10,6 @@ class Contract(models.Model):
     reason = fields.Char(string="Reason for recourse to contract")
 
     duration = fields.Integer(string="Duration", default=6)
-    date_end = fields.Date(
-        "End Date", help="End date of the contract (if it's a fixed-term contract)."
-    )
 
     hours = fields.Float(string="Working Hours", required=True)
     rate = fields.Monetary(string="Hourly Rate", required=True)
