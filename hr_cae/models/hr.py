@@ -9,6 +9,16 @@ class OriginStatus(models.Model):
     name = fields.Char()
 
 
+class OriginStatusDetails(models.Model):
+    _name = "hr.origin.status.details"
+    _description = "Origin Status Details"
+
+    name = fields.Char()
+    origin_status_id = fields.Many2one(
+        comodel_name="hr.origin.status", string="Origin Status", required=False
+    )
+
+
 class Certificate(models.Model):
     _name = "hr.certificate"
     _description = "Certificate Level"
@@ -81,9 +91,15 @@ class Employee(models.Model):
     origin_status_id = fields.Many2one(
         "hr.origin.status", string="Origin Status", required=False
     )
-    certificate = fields.Many2one(
-        "hr.certificate", string="Certificate Level", required=False
+    origin_status_details_id = fields.Many2one(
+        "hr.origin.status.details",
+        string="Origin Status Details",
+        domain="[('origin_status_id', '=', origin_status_id)]",
+        required=False,
     )
+    certificate_id = fields.Many2one(
+        "hr.certificate", string="Certificate Level", required=False
+    )  # TODO: remove standard certificate field from view
     bank_account_payment_id = fields.Many2one(
         "res.partner.bank",
         string="Bank Account Number for Payment",
@@ -94,13 +110,13 @@ class Employee(models.Model):
     coop_role_id = fields.Many2one(
         "hr.coop.role", string="Role in the cooperative", required=False
     )
-    social_insurance = fields.Many2one(
+    social_insurance_id = fields.Many2one(
         "hr.social.insurance", string="Social Insurance", required=False
     )
-    mutual_insurance = fields.Many2one(
+    mutual_insurance_id = fields.Many2one(
         "hr.mutual.insurance", string="Mutual Insurance", required=False
     )
-    mutual_insurance_level = fields.Many2one(
+    mutual_insurance_level_id = fields.Many2one(
         "hr.mutual.insurance.level", string="Mutual Insurance Level", required=False
     )
     mutual_insurance_date_start = fields.Date(
@@ -113,30 +129,34 @@ class Employee(models.Model):
         string="Exemption Date Mutual Insurance", required=False
     )
     medic_dispense_date = fields.Date(string="Date of Medical Dispense", required=False)
-    transport_mode = fields.Many2one(
+    transport_mode_id = fields.Many2one(
         "hr.transport.mode", string="Transport Mode", required=False
     )
     invalidity_rate = fields.Float(
         string="Invalidity Rate", required=False, default=0
     )  # use percentage widget
     job_other_companies = fields.Text(string="Other Employers", required=False)
-    job_all_hours = fields.Float(
-        string="Cumulative Total Working Hours", required=False
+    job_other_hours = fields.Float(
+        string="Cumulative Other Working Hours", required=False
     )  # Todo: in xml, style as 'per month'
     job_retirement = fields.Boolean(
         string="Combining Job and Retirement", required=False
     )
     job_adaptations = fields.Text(string="Job Adaptations", required=False)
-    professional_liability = fields.Many2many(
+    professional_liability_ids = fields.Many2many(
         comodel_name="hr.professional.liability",
         string="Professional Liability",
         required=False,
     )
-    insurance_policy = fields.Text(string="Insurance Policy", required=False)
+    professional_liability_insurance_policy_ref = fields.Text(
+        string="Professional Liability Insurance Policy Reference", required=False
+    )
     vehicle_insurance = fields.Text(string="Vehicle Insurance", required=False)
     office = fields.Text(string="Office", required=False)
     equipment = fields.Text(string="Equipment", required=False)
-    sector = fields.Many2many(comodel_name="hr.sector", string="Sector", required=False)
+    sector_ids = fields.Many2many(
+        comodel_name="hr.sector", string="Sector", required=False
+    )
     adult_dependents = fields.Integer(string="Adult Dependents", required=False)
     social_worker = fields.Text(string="Social Worker", required=False)
     contribution_date_start = fields.Date(
@@ -144,14 +164,14 @@ class Employee(models.Model):
     )
     # contribution_arrangements = fields.Selection(
     #     related="partner_id.contribution_arrangements"
-    # )
-    exemptions_contribution_reason = fields.Text(
+    # ) # Todo: field will be available from Scopa in partner_id
+    contribution_exemption_reason = fields.Text(
         string="Reason for Exemption", required=False
     )
-    exemption_contribution_date_start = fields.Date(
+    contribution_exemption_date_start = fields.Date(
         string="Start Date of Exemption", required=False
     )
-    exemption_contribution_end_start = fields.Date(
+    contribution_exemption_date_end = fields.Date(
         string="End Date of Exemption", required=False
     )
 
@@ -162,9 +182,9 @@ class Employee(models.Model):
             "The percentage of an invalidity_rate should be between 0 and 100.",
         ),
         (
-            "check_job_all_hours",
-            "CHECK(job_all_hours >= 0)",
-            "The cumulative total working hours should greater then or equal to 0.",
+            "check_job_other_hours",
+            "CHECK(job_other_hours >= 0)",
+            "The cumulative other working hours should greater then or equal to 0.",
         ),
         (
             "check_adult_dependents",
@@ -174,15 +194,15 @@ class Employee(models.Model):
     ]
 
     @api.constrains(
-        "exemption_contribution_date_start", "exemption_contribution_date_end"
+        "contribution_exemption_date_start", "contribution_exemption_date_end"
     )
     def _constrain_exemption_date(self):
         for employee in self:
             if (
-                employee.exemption_contribution_date_start,
-                employee.exemption_contribution_date_end,
-                employee.exemption_contribution_date_start
-                > employee.exemption_contribution_date_end,
+                employee.contribution_exemption_date_start,
+                employee.contribution_exemption_date_end,
+                employee.contribution_exemption_date_start
+                > employee.contribution_exemption_date_end,
             ):
                 raise ValidationError(
                     _("The start date of exemption must be before the end date")

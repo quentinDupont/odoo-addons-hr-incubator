@@ -29,6 +29,31 @@
         groups="hr.group_hr_user"
         sequence="1"/>
 
+    <record id="view_origin_status_details_tree" model="ir.ui.view">
+            <field name="name">hr.origin.status.details.tree</field>
+            <field name="model">hr.origin.status.details</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="origin_status_id"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="open_view_origin_status_details_form" model="ir.actions.act_window">
+        <field name="name">Origin Status Details</field>
+        <field name="res_model">hr.origin.status.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_origin_status_details_form"
+        action="open_view_origin_status_details_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
+
     <record id="open_view_certificate_form" model="ir.actions.act_window">
         <field name="name">Certificates</field>
         <field name="res_model">hr.certificate</field>

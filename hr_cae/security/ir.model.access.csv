@@ -1,6 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_hr_origin_status_user,access_hr_origin_status,model_hr_origin_status,hr.group_hr_user,1,0,0,0
 access_hr_origin_status_manager,access_hr_origin_status,model_hr_origin_status,hr.group_hr_manager,1,1,1,1
+access_hr_origin_status_details_user,access_hr_origin_status_details,model_hr_origin_status_details,hr.group_hr_user,1,0,0,0
+access_hr_origin_status_details_manager,access_hr_origin_status_details,model_hr_origin_status_details,hr.group_hr_manager,1,1,1,1
 access_hr_certificate_user,access_hr_certificate,model_hr_certificate,hr.group_hr_user,1,0,0,0
 access_hr_certificate_manager,access_hr_certificate,model_hr_certificate,hr.group_hr_manager,1,1,1,1
 access_hr_coop_role_user,access_hr_coop_role,model_hr_coop_role,hr.group_hr_user,1,0,0,0
