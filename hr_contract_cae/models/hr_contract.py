@@ -4,20 +4,15 @@ from odoo import api, fields, models
 
 
 class Contract(models.Model):
-
     _inherit = "hr.contract"
 
     reason = fields.Char(string="Reason for recourse to contract")
-
     duration = fields.Integer(string="Duration", default=6)
-
     hours = fields.Float(string="Working Hours", required=True)
     rate = fields.Monetary(string="Hourly Rate", required=True)
-
     turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
-
     wage = fields.Monetary(
-        "Wage",
+        string="Wage",
         digits=(16, 2),
         required=True,
         track_visibility="onchange",
