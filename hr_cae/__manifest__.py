@@ -10,7 +10,7 @@
     "category": "Human Resources",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
-    "depends": ["hr", "l10n_fr_department"],
+    "depends": ["hr", "l10n_fr_department", "hr.recruitment"],
     "data": ["security/ir.model.access.csv", "views/hr.xml", "data/data.xml"],
     "demo": [],
     "installable": True,

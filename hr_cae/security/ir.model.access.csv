@@ -3,8 +3,6 @@ access_hr_origin_status_user,access_hr_origin_status,model_hr_origin_status,hr.g
 access_hr_origin_status_manager,access_hr_origin_status,model_hr_origin_status,hr.group_hr_manager,1,1,1,1
 access_hr_origin_status_details_user,access_hr_origin_status_details,model_hr_origin_status_details,hr.group_hr_user,1,0,0,0
 access_hr_origin_status_details_manager,access_hr_origin_status_details,model_hr_origin_status_details,hr.group_hr_manager,1,1,1,1
-access_hr_certificate_user,access_hr_certificate,model_hr_certificate,hr.group_hr_user,1,0,0,0
-access_hr_certificate_manager,access_hr_certificate,model_hr_certificate,hr.group_hr_manager,1,1,1,1
 access_hr_coop_role_user,access_hr_coop_role,model_hr_coop_role,hr.group_hr_user,1,0,0,0
 access_hr_coop_role_manager,access_hr_coop_role,model_hr_coop_role,hr.group_hr_manager,1,1,1,1
 access_hr_social_insurance_user,access_hr_social_insurance,model_hr_social_insurance,hr.group_hr_user,1,0,0,0

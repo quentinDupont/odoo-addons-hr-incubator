@@ -19,13 +19,6 @@ class OriginStatusDetails(models.Model):
     )
 
 
-class Certificate(models.Model):
-    _name = "hr.certificate"
-    _description = "Certificate Level"
-
-    name = fields.Char()
-
-
 class Role(models.Model):
     _name = "hr.coop.role"
     _description = "Role in Cooperative"
@@ -98,15 +91,16 @@ class Employee(models.Model):
         required=False,
     )
     certificate_id = fields.Many2one(
-        "hr.certificate", string="Certificate Level", required=False
+        "hr.recruitment.degree", string="Certificate Level", required=False
     )  # TODO: remove standard certificate field from view
+    # TODO: copy from applicant_id.type_id on creation
     bank_account_payment_id = fields.Many2one(
         "res.partner.bank",
         string="Bank Account Number for Payment",
         required=False,
         domain="[('partner_id', '=', address_home_id)]",
         help="Employee bank salary account",
-    )
+    )  # TODO: check that this one is actually used in logic
     coop_role_id = fields.Many2one(
         "hr.coop.role", string="Role in the cooperative", required=False
     )
@@ -193,21 +187,6 @@ class Employee(models.Model):
         ),
     ]
 
-    @api.constrains(
-        "contribution_exemption_date_start", "contribution_exemption_date_end"
-    )
-    def _constrain_exemption_date(self):
-        for employee in self:
-            if (
-                employee.contribution_exemption_date_start,
-                employee.contribution_exemption_date_end,
-                employee.contribution_exemption_date_start
-                > employee.contribution_exemption_date_end,
-            ):
-                raise ValidationError(
-                    _("The start date of exemption must be before the end date")
-                )
-
     @api.constrains("date_start", "date_end")
     def _constrain_date(self):
         for employee in self:
@@ -231,4 +210,19 @@ class Employee(models.Model):
             ):
                 raise ValidationError(
                     _("The start date of mutual insurance must be before the end date")
+                )
+
+    @api.constrains(
+        "contribution_exemption_date_start", "contribution_exemption_date_end"
+    )
+    def _constrain_exemption_date(self):
+        for employee in self:
+            if (
+                employee.contribution_exemption_date_start,
+                employee.contribution_exemption_date_end,
+                employee.contribution_exemption_date_start
+                > employee.contribution_exemption_date_end,
+            ):
+                raise ValidationError(
+                    _("The start date of exemption must be before the end date")
                 )
