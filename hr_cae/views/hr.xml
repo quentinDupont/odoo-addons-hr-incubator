@@ -4,14 +4,140 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-    <record id="crm_case_form_view_job" model="ir.ui.view">
-        <field name="name">Jobs - Recruitment Form</field>
-        <field name="model">hr.applicant</field>
-        <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <field name="email_from" position="after">
-                <field name="country_birth_id"/>
+            <field name="address_id" position="after">
+                <field name="country_department_id"/>
             </field>
         </field>
     </record>
+
+    <record id="open_view_origin_status_form" model="ir.actions.act_window">
+        <field name="name">Origin Status</field>
+        <field name="res_model">hr.origin.status</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_origin_status_form"
+        action="open_view_origin_status_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
+
+    <record id="open_view_certificate_form" model="ir.actions.act_window">
+        <field name="name">Certificates</field>
+        <field name="res_model">hr.certificate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_certificate_form"
+        action="open_view_certificate_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
+
+    <record id="open_view_coop_role_form" model="ir.actions.act_window">
+        <field name="name">Roles in Cooperative</field>
+        <field name="res_model">hr.coop.role</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_coop_role_form"
+        action="open_view_coop_role_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
+
+    <record id="open_view_social_insurance_form" model="ir.actions.act_window">
+        <field name="name">Social Insurances</field>
+        <field name="res_model">hr.social.insurance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_social_insurance_form"
+        action="open_view_social_insurance_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
+
+    <record id="open_view_mutual_insurance_form" model="ir.actions.act_window">
+        <field name="name">Mutual Insurances</field>
+        <field name="res_model">hr.mutual.insurance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_mutual_insurance_form"
+        action="open_view_mutual_insurance_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
+
+    <record id="open_view_mutual_insurance_level_form" model="ir.actions.act_window">
+        <field name="name">Mutual Insurance Levels</field>
+        <field name="res_model">hr.mutual.insurance.level</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_mutual_insurance_level_form"
+        action="open_view_mutual_insurance_level_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
+
+    <record id="open_view_transport_mode_form" model="ir.actions.act_window">
+        <field name="name">Transport Modes</field>
+        <field name="res_model">hr.transport.mode</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_transport_mode_form"
+        action="open_view_transport_mode_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
+
+    <record id="open_view_professional_liability_form" model="ir.actions.act_window">
+        <field name="name">Professional Liabilities</field>
+        <field name="res_model">hr.professional.liability</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_professional_liability_form"
+        action="open_view_professional_liability_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
+
+    <record id="open_view_sector_form" model="ir.actions.act_window">
+        <field name="name">Sectors</field>
+        <field name="res_model">hr.sector</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_view_sector_form"
+        action="open_view_sector_form"
+        parent="hr.menu_human_resources_configuration"
+        groups="hr.group_hr_user"
+        sequence="1"/>
 </odoo>
