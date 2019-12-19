@@ -26,21 +26,28 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
+            <xpath expr="//div[@name='wage']" position="replace">
+                <div class="o_row" name="wage">
+                    <field name="wage" nolabel="1"/>
+                    <span>€ / month</span>
+                </div>
+            </xpath>
+
             <field name="advantages" position="after">
                 <label for="hours"/>
                 <div class="o_row" name="hours">
                     <field name="hours" nolabel="1"/>
                     <span>/ month</span>
                 </div>
-                <label for="rate"/>
-                <div class="o_row" name="rate">
-                    <field name="rate" nolabel="1"/>
-                    <span>/ hour</span>
+                <label for="hourly_wage"/>
+                <div class="o_row" name="hourly_wage">
+                    <field name="hourly_wage" nolabel="1"/>
+                    <span>€ / hour</span>
                 </div>
                 <label for="turnover_minimum"/>
                 <div class="o_row" name="turnover_minimum">
                     <field name="turnover_minimum" nolabel="1"/>
-                    <span>/ month</span>
+                    <span>€ / month</span>
                 </div>
             </field>
 

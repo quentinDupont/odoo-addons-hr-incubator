@@ -9,7 +9,7 @@ class Contract(models.Model):
     reason = fields.Char(string="Reason for recourse to contract")
     duration = fields.Integer(string="Duration", default=6)
     hours = fields.Float(string="Working Hours", required=True)
-    rate = fields.Monetary(string="Hourly Rate", required=True)
+    hourly_wage = fields.Monetary(string="Hourly Wage", required=True)
     turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
     wage = fields.Monetary(
         string="Wage",
@@ -21,10 +21,10 @@ class Contract(models.Model):
     )
 
     @api.multi
-    @api.depends("hours", "rate")
+    @api.depends("hours", "hourly_wage")
     def _compute_wage(self):
         for contract in self:
-            contract.wage = self.hours * self.rate
+            contract.wage = self.hours * self.hourly_wage
 
     @api.onchange("date_start", "duration")
     def onchange_date_start_duration(self):
@@ -34,4 +34,5 @@ class Contract(models.Model):
     @api.onchange("date_end")
     def onchange_date_end(self):
         if self.date_start and self.date_end:
-            self.duration = relativedelta(self.date_end, self.date_start).months
+            rd = relativedelta(self.date_end, self.date_start)
+            self.duration = rd.months + rd.years * 12
