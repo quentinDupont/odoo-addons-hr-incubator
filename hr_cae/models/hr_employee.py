@@ -46,6 +46,8 @@ class Employee(models.Model):
     social_insurance_id = fields.Many2one(
         "hr.social.insurance", string="Social Insurance", required=False
     )
+    # fixme I don't think mutual is the translation for "mutuelle"
+    # -> health insurance?
     mutual_insurance_id = fields.Many2one(
         "hr.mutual.insurance", string="Mutual Insurance", required=False
     )
@@ -85,7 +87,9 @@ class Employee(models.Model):
         string="Professional Liability Insurance Policy Reference", required=False
     )
     vehicle_insurance = fields.Text(string="Vehicle Insurance", required=False)
+    # fixme office insurance?
     office = fields.Text(string="Office", required=False)
+    # fixme equipment insurance?
     equipment = fields.Text(string="Equipment", required=False)
     sector_ids = fields.Many2many(
         comodel_name="hr.sector", string="Sector", required=False
@@ -98,6 +102,7 @@ class Employee(models.Model):
     # contribution_arrangements = fields.Selection(
     #     related="partner_id.contribution_arrangements"
     # ) # Todo: field will be available from Scopa in partner_id
+    # fixme should be Many2One
     contribution_exemption_reason = fields.Text(
         string="Reason for Exemption", required=False
     )

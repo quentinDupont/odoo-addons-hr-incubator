@@ -4,14 +4,152 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
+
     <record id="view_employee_form" model="ir.ui.view">
         <field name="name">hr.employee.form</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
+
+            <!-- page work information -->
             <field name="address_id" position="after">
                 <field name="country_department_id"/>
             </field>
+
+            <field name="tz" position="after">
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </field>
+
+            <!-- page personal information -->
+
+            <xpath expr="//page[@name='personal_information']//field[@name='passport_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']//field[@name='identification_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']//field[@name='identification_id']" position="after">
+                <field name="marital"/>
+            </xpath>
+
+            <xpath expr="//page[@name='personal_information']//field[@name='bank_account_id']" position="after">
+                <field name="bank_account_payment_id"/>
+<!-- todo                mandat sepa rum-->
+            </xpath>
+            <!-- hide status group -->
+            <xpath expr="//page[@name='personal_information']//field[@name='spouse_complete_name']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- hide work permit group -->
+            <xpath expr="//page[@name='personal_information']//group[@name='work_permit']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='personal_information']//field[@name='google_drive_link']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='personal_information']//field[@name='address_home_id']" position="before">
+                <field name="identification_id"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']//field[@name='address_home_id']" position="after">
+                <field name="mobile_phone"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']//field[@name='km_home_work']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='personal_information']//field[@name='place_of_birth']" position="after">
+<!-- todo               <field name="birth_department"/>-->
+            </xpath>
+            <xpath expr="//page[@name='personal_information']//field[@name='country_of_birth']" position="after">
+<!-- todo               <field name="social_security_no"/>-->
+            </xpath>
+
+            <!-- hide education group -->
+            <xpath expr="//page[@name='personal_information']//field[@name='certificate']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='personal_information']//field[@name='certificate']/.." position="after">
+                <group name="origin" string="Origin">
+                    <field name="certificate"/>
+                    <field name="origin_status_id"/>
+                    <field name="origin_status_details_id"/>
+                </group>
+            </xpath>
+
+            <!-- new pages -->
+            <xpath expr="//page[@name='personal_information']" position="after">
+                <page name="social_status" string="Social Status" groups="hr.group_hr_user">
+                    <group>
+                        <group name="social_status" string="Social Status">
+                            <field name="social_insurance_id"/>
+                            <field name="mutual_insurance_id"/>
+                            <field name="mutual_insurance_level_id"/>
+                            <field name="mutual_insurance_date_start"/>
+                            <field name="mutual_insurance_date_end"/>
+                            <field name="mutual_insurance_date_exemption"/>
+                            <field name="medic_dispense_date"/>
+                        </group>
+                        <group name="transportation" string="Transportation">
+                            <field name="transport_mode_id"/>
+                        </group>
+                        <group name="work_accomodation" string="Work Accomodation">
+                            <field name="invalidity_rate"/>
+                            <field name="job_other_companies"/>
+                            <field name="job_other_hours"/>
+                            <field name="job_retirement"/>
+                            <field name="job_adaptations"/>
+                        </group>
+                        <group name="family_situation" string="Family Situation">
+                            <field name="children"/>
+                            <field name="adult_dependents"/>
+                        </group>
+                    </group>
+                </page>
+
+                <page name="contribution" string="Flat Contribution" groups="hr.group_hr_user">
+                    <group>
+                        <group name="contribution" string="Flat Contribution">
+                            <field name="contribution_date_start"/>
+<!-- todo                            s_fixed_contribution_advance = modalité d'apport-->
+                            <field name="contribution_exemption_date_start"/>
+                            <field name="contribution_exemption_date_end"/>
+                            <field name="contribution_exemption_reason"/>
+                        </group>
+                    </group>
+                </page>
+                <page name="documents" string="Documents">
+                    <group name="passport" string="Passport">
+                        <field name="passport_id"/>
+                    </group>
+                    <group string="Work Permit" name="cae_work_permit">
+                        <field name="visa_no"/>
+                        <field name="permit_no"/>
+                        <field name="visa_expire"/>
+                    </group>
+                </page>
+                <page name="administrative" string="Administrative" groups="hr.group_hr_user">
+                    <group>
+                        <group name="identification" string="Identification">
+<!-- todo                           insee -->
+<!-- todo                            code métier apee-->
+                            <field name="sector_ids"/>
+                        </group>
+                        <group name="insurances" string="Insurances">
+<!--                            RC pro-->
+                            <field name="professional_liability_insurance_policy_ref"/>
+                            <field name="office"/>
+                            <field name="equipment"/>
+                            <field name="vehicle_insurance"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
         </field>
     </record>
 </odoo>
