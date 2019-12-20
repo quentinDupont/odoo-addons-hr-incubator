@@ -5,13 +5,13 @@
 -->
 <odoo>
 
-    <record id="hr_certificate_bachelor" model="hr.certificate">
+    <record id="hr_certificate_bachelor" model="hr.recruitment.degree">
         <field name="name">Bachelor</field>
     </record>
-    <record id="hr_certificate_master" model="hr.certificate">
+    <record id="hr_certificate_master" model="hr.recruitment.degree">
         <field name="name">Master</field>
     </record>
-    <record id="hr_certificate_other" model="hr.certificate">
+    <record id="hr_certificate_other" model="hr.recruitment.degree">
         <field name="name">Other</field>
     </record>
     <record id="hr_mutual_insurance_level_support_1" model="hr.mutual.insurance.level">
