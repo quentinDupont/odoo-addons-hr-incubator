@@ -52,7 +52,9 @@ class Employee(models.Model):
         "hr.mutual.insurance", string="Mutual Insurance", required=False
     )
     mutual_insurance_level_id = fields.Many2one(
-        "hr.mutual.insurance.level", string="Mutual Insurance Level", required=False
+        "hr.mutual.insurance.level",
+        string="Mutual Insurance Level",
+        required=False,
     )
     mutual_insurance_date_start = fields.Date(
         string="Start Date of Mutual Insurance", required=False
@@ -63,7 +65,9 @@ class Employee(models.Model):
     mutual_insurance_date_exemption = fields.Date(
         string="Exemption Date Mutual Insurance", required=False
     )
-    medic_dispense_date = fields.Date(string="Date of Medical Dispense", required=False)
+    medic_dispense_date = fields.Date(
+        string="Date of Medical Dispense", required=False
+    )
     transport_mode_id = fields.Many2one(
         "hr.transport.mode", string="Transport Mode", required=False
     )
@@ -84,7 +88,8 @@ class Employee(models.Model):
         required=False,
     )
     professional_liability_insurance_policy_ref = fields.Text(
-        string="Professional Liability Insurance Policy Reference", required=False
+        string="Professional Liability Insurance Policy Reference",
+        required=False,
     )
     vehicle_insurance = fields.Text(string="Vehicle Insurance", required=False)
     # fixme office insurance?
@@ -94,7 +99,9 @@ class Employee(models.Model):
     sector_ids = fields.Many2many(
         comodel_name="hr.sector", string="Sector", required=False
     )
-    adult_dependents = fields.Integer(string="Adult Dependents", required=False)
+    adult_dependents = fields.Integer(
+        string="Adult Dependents", required=False
+    )
     social_worker = fields.Text(string="Social Worker", required=False)
     contribution_date_start = fields.Date(
         string="Start Date of Contributions", required=False
@@ -135,9 +142,9 @@ class Employee(models.Model):
     def _constrain_date(self):
         for employee in self:
             if (
-                employee.date_start,
-                employee.date_end,
-                employee.date_start > employee.date_end,
+                employee.date_start
+                and employee.date_end
+                and employee.date_start > employee.date_end
             ):
                 raise ValidationError(
                     _("The entry date must be before obsolescence date")
@@ -147,13 +154,15 @@ class Employee(models.Model):
     def _constrain_mutual_insurance_date(self):
         for employee in self:
             if (
-                employee.mutual_insurance_date_start,
-                employee.mutual_insurance_date_end,
                 employee.mutual_insurance_date_start
-                > employee.mutual_insurance_date_end,
+                and employee.mutual_insurance_date_end
+                and employee.mutual_insurance_date_start
+                > employee.mutual_insurance_date_end
             ):
                 raise ValidationError(
-                    _("The start date of mutual insurance must be before the end date")
+                    _(
+                        "The start date of mutual insurance must be before the end date"
+                    )
                 )
 
     @api.constrains(
@@ -162,11 +171,13 @@ class Employee(models.Model):
     def _constrain_exemption_date(self):
         for employee in self:
             if (
-                employee.contribution_exemption_date_start,
-                employee.contribution_exemption_date_end,
                 employee.contribution_exemption_date_start
-                > employee.contribution_exemption_date_end,
+                and employee.contribution_exemption_date_end
+                and employee.contribution_exemption_date_start
+                > employee.contribution_exemption_date_end
             ):
                 raise ValidationError(
-                    _("The start date of exemption must be before the end date")
+                    _(
+                        "The start date of exemption must be before the end date"
+                    )
                 )
