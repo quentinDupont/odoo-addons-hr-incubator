@@ -10,8 +10,10 @@ from odoo.exceptions import ValidationError
 class Employee(models.Model):
     _inherit = "hr.employee"
 
-    country_department_id = fields.Many2one(
-        "res.country.department", string="Department (France)", required=False
+    country_department_of_birth_id = fields.Many2one(
+        "res.country.department",
+        string="Department (France) of Birth",
+        required=False,
     )
     country_other_ids = fields.Many2many(
         "res.country", string="Other Nationalities", required=False
@@ -31,8 +33,7 @@ class Employee(models.Model):
     )
     certificate_id = fields.Many2one(
         "hr.recruitment.degree", string="Certificate Level", required=False
-    )  # TODO: remove standard certificate field from view
-    # TODO: copy from applicant_id.type_id on creation
+    )  # TODO: copy from applicant_id.type_id on creation
     bank_account_payment_id = fields.Many2one(
         "res.partner.bank",
         string="Bank Account Number for Payment",
@@ -110,14 +111,11 @@ class Employee(models.Model):
     #     related="partner_id.contribution_arrangements"
     # ) # Todo: field will be available from Scopa in partner_id
     # fixme should be Many2One
-    contribution_exemption_reason = fields.Text(
-        string="Reason for Exemption", required=False
-    )
-    contribution_exemption_date_start = fields.Date(
-        string="Start Date of Exemption", required=False
-    )
-    contribution_exemption_date_end = fields.Date(
-        string="End Date of Exemption", required=False
+    contribution_exemption_ids = fields.One2many(
+        comodel_name="hr.contribution.exemption",
+        inverse_name="employee_id",
+        string="Contribution Exemptions",
+        required=False,
     )
 
     _sql_constraints = [

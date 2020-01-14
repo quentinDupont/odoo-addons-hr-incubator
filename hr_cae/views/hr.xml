@@ -4,7 +4,16 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-    <record id="open_view_origin_status_form" model="ir.actions.act_window">
+    <!-- Open Recruitment Degree from HR module.-->
+    <menuitem
+            id="menu_view_hr_recruitment_degree_tree"
+            action="hr_recruitment.hr_recruitment_degree_action"
+            name="Certificate levels"
+            parent="hr.menu_human_resources_configuration"
+            groups="hr.group_hr_user"
+            sequence="1"/>
+
+    <record id="open_view_origin_status_tree" model="ir.actions.act_window">
         <field name="name">Origin Status</field>
         <field name="res_model">hr.origin.status</field>
         <field name="view_type">form</field>
@@ -12,8 +21,8 @@
     </record>
 
     <menuitem
-        id="menu_view_origin_status_form"
-        action="open_view_origin_status_form"
+        id="menu_view_origin_status_tree"
+        action="open_view_origin_status_tree"
         parent="hr.menu_human_resources_configuration"
         groups="hr.group_hr_user"
         sequence="1"/>
@@ -29,7 +38,7 @@
             </field>
         </record>
 
-    <record id="open_view_origin_status_details_form" model="ir.actions.act_window">
+    <record id="open_view_origin_status_details_tree" model="ir.actions.act_window">
         <field name="name">Origin Status Details</field>
         <field name="res_model">hr.origin.status.details</field>
         <field name="view_type">form</field>
@@ -37,13 +46,13 @@
     </record>
 
     <menuitem
-        id="menu_view_origin_status_details_form"
-        action="open_view_origin_status_details_form"
+        id="menu_view_origin_status_details_tree"
+        action="open_view_origin_status_details_tree"
         parent="hr.menu_human_resources_configuration"
         groups="hr.group_hr_user"
         sequence="1"/>
 
-    <record id="open_view_coop_role_form" model="ir.actions.act_window">
+    <record id="open_view_coop_role_tree" model="ir.actions.act_window">
         <field name="name">Roles in Cooperative</field>
         <field name="res_model">hr.coop.role</field>
         <field name="view_type">form</field>
@@ -51,13 +60,13 @@
     </record>
 
     <menuitem
-        id="menu_view_coop_role_form"
-        action="open_view_coop_role_form"
+        id="menu_view_coop_role_tree"
+        action="open_view_coop_role_tree"
         parent="hr.menu_human_resources_configuration"
         groups="hr.group_hr_user"
         sequence="1"/>
 
-    <record id="open_view_social_insurance_form" model="ir.actions.act_window">
+    <record id="open_view_social_insurance_tree" model="ir.actions.act_window">
         <field name="name">Social Insurances</field>
         <field name="res_model">hr.social.insurance</field>
         <field name="view_type">form</field>
@@ -65,13 +74,13 @@
     </record>
 
     <menuitem
-        id="menu_view_social_insurance_form"
-        action="open_view_social_insurance_form"
+        id="menu_view_social_insurance_tree"
+        action="open_view_social_insurance_tree"
         parent="hr.menu_human_resources_configuration"
         groups="hr.group_hr_user"
         sequence="1"/>
 
-    <record id="open_view_mutual_insurance_form" model="ir.actions.act_window">
+    <record id="open_view_mutual_insurance_tree" model="ir.actions.act_window">
         <field name="name">Mutual Insurances</field>
         <field name="res_model">hr.mutual.insurance</field>
         <field name="view_type">form</field>
@@ -79,13 +88,13 @@
     </record>
 
     <menuitem
-        id="menu_view_mutual_insurance_form"
-        action="open_view_mutual_insurance_form"
+        id="menu_view_mutual_insurance_tree"
+        action="open_view_mutual_insurance_tree"
         parent="hr.menu_human_resources_configuration"
         groups="hr.group_hr_user"
         sequence="1"/>
 
-    <record id="open_view_mutual_insurance_level_form" model="ir.actions.act_window">
+    <record id="open_view_mutual_insurance_level_tree" model="ir.actions.act_window">
         <field name="name">Mutual Insurance Levels</field>
         <field name="res_model">hr.mutual.insurance.level</field>
         <field name="view_type">form</field>
@@ -93,13 +102,13 @@
     </record>
 
     <menuitem
-        id="menu_view_mutual_insurance_level_form"
-        action="open_view_mutual_insurance_level_form"
+        id="menu_view_mutual_insurance_level_tree"
+        action="open_view_mutual_insurance_level_tree"
         parent="hr.menu_human_resources_configuration"
         groups="hr.group_hr_user"
         sequence="1"/>
 
-    <record id="open_view_transport_mode_form" model="ir.actions.act_window">
+    <record id="open_view_transport_mode_tree" model="ir.actions.act_window">
         <field name="name">Transport Modes</field>
         <field name="res_model">hr.transport.mode</field>
         <field name="view_type">form</field>
@@ -107,13 +116,13 @@
     </record>
 
     <menuitem
-        id="menu_view_transport_mode_form"
-        action="open_view_transport_mode_form"
+        id="menu_view_transport_mode_tree"
+        action="open_view_transport_mode_tree"
         parent="hr.menu_human_resources_configuration"
         groups="hr.group_hr_user"
         sequence="1"/>
 
-    <record id="open_view_professional_liability_form" model="ir.actions.act_window">
+    <record id="open_view_professional_liability_tree" model="ir.actions.act_window">
         <field name="name">Professional Liabilities</field>
         <field name="res_model">hr.professional.liability</field>
         <field name="view_type">form</field>
@@ -121,13 +130,13 @@
     </record>
 
     <menuitem
-        id="menu_view_professional_liability_form"
-        action="open_view_professional_liability_form"
+        id="menu_view_professional_liability_tree"
+        action="open_view_professional_liability_tree"
         parent="hr.menu_human_resources_configuration"
         groups="hr.group_hr_user"
         sequence="1"/>
 
-    <record id="open_view_sector_form" model="ir.actions.act_window">
+    <record id="open_view_sector_tree" model="ir.actions.act_window">
         <field name="name">Sectors</field>
         <field name="res_model">hr.sector</field>
         <field name="view_type">form</field>
@@ -135,8 +144,8 @@
     </record>
 
     <menuitem
-        id="menu_view_sector_form"
-        action="open_view_sector_form"
+        id="menu_view_sector_tree"
+        action="open_view_sector_tree"
         parent="hr.menu_human_resources_configuration"
         groups="hr.group_hr_user"
         sequence="1"/>

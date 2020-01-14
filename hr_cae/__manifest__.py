@@ -14,6 +14,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/hr.xml",
+        "views/hr_exemption.xml",
         "views/hr_employee.xml",
         "data/data.xml",
     ],

@@ -12,10 +12,6 @@
         <field name="arch" type="xml">
 
             <!-- page work information -->
-            <field name="address_id" position="after">
-                <field name="country_department_id"/>
-            </field>
-
             <field name="tz" position="after">
                 <field name="date_start"/>
                 <field name="date_end"/>
@@ -23,20 +19,29 @@
 
             <!-- page personal information -->
 
-            <xpath expr="//page[@name='personal_information']//field[@name='passport_id']" position="attributes">
+            <!-- hide Citizenship & Other Information group -->
+            <xpath expr="//page[@name='personal_information']//field[@name='country_id']/.." position="attributes">
                 <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//page[@name='personal_information']//field[@name='identification_id']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//page[@name='personal_information']//field[@name='identification_id']" position="after">
-                <field name="marital"/>
             </xpath>
 
-            <xpath expr="//page[@name='personal_information']//field[@name='bank_account_id']" position="after">
-                <field name="bank_account_payment_id"/>
-<!-- todo                mandat sepa rum-->
+            <!-- add Civil Status group and Bank group -->
+            <xpath expr="//page[@name='personal_information']//field[@name='country_id']/.." position="after">
+                <group string="Civil Status">
+                    <field name="country_id"/>
+                    <!-- todo: Mandat SEPA RUM-->
+                    <field name="marital"/>
+                    <field name="place_of_birth"/>
+                    <field name="country_department_of_birth_id"/>
+                    <field name="country_of_birth"/>
+                    <!-- todo: <field name="social_security_no"/>-->
+                </group>
+
+                <group string="Bank">
+                    <field name="bank_account_id"/>
+                    <field name="bank_account_payment_id"/>
+                </group>
             </xpath>
+
             <!-- hide status group -->
             <xpath expr="//page[@name='personal_information']//field[@name='spouse_complete_name']/.." position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -47,10 +52,12 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
+            <!-- hide extra documents group -->
             <xpath expr="//page[@name='personal_information']//field[@name='google_drive_link']/.." position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
 
+            <!-- edit contact information group -->
             <xpath expr="//page[@name='personal_information']//field[@name='address_home_id']" position="before">
                 <field name="identification_id"/>
             </xpath>
@@ -61,11 +68,9 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <xpath expr="//page[@name='personal_information']//field[@name='place_of_birth']" position="after">
-<!-- todo               <field name="birth_department"/>-->
-            </xpath>
-            <xpath expr="//page[@name='personal_information']//field[@name='country_of_birth']" position="after">
-<!-- todo               <field name="social_security_no"/>-->
+            <!-- hide birth group -->
+            <xpath expr="//page[@name='personal_information']//field[@name='birthday']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
             </xpath>
 
             <!-- hide education group -->
@@ -73,9 +78,10 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
+            <!-- add origin group -->
             <xpath expr="//page[@name='personal_information']//field[@name='certificate']/.." position="after">
                 <group name="origin" string="Origin">
-                    <field name="certificate"/>
+                    <field name="certificate_id"/>
                     <field name="origin_status_id"/>
                     <field name="origin_status_details_id"/>
                 </group>
@@ -107,19 +113,16 @@
                         <group name="family_situation" string="Family Situation">
                             <field name="children"/>
                             <field name="adult_dependents"/>
+                            <field name="social_worker"/>
                         </group>
                     </group>
                 </page>
 
                 <page name="contribution" string="Flat Contribution" groups="hr.group_hr_user">
-                    <group>
-                        <group name="contribution" string="Flat Contribution">
-                            <field name="contribution_date_start"/>
+                    <group name="contribution" string="Flat Contribution">
+                        <field name="contribution_date_start"/>
 <!-- todo                            s_fixed_contribution_advance = modalité d'apport-->
-                            <field name="contribution_exemption_date_start"/>
-                            <field name="contribution_exemption_date_end"/>
-                            <field name="contribution_exemption_reason"/>
-                        </group>
+                        <field name="contribution_exemption_ids"/>
                     </group>
                 </page>
                 <page name="documents" string="Documents">
@@ -135,12 +138,12 @@
                 <page name="administrative" string="Administrative" groups="hr.group_hr_user">
                     <group>
                         <group name="identification" string="Identification">
-<!-- todo                           insee -->
-<!-- todo                            code métier apee-->
+<!--                            todo: insee: a reprendre depuis partenaire-->
+<!--                            todo: code métier APE: a reprendre depuis partenaire-->
                             <field name="sector_ids"/>
                         </group>
                         <group name="insurances" string="Insurances">
-<!--                            RC pro-->
+                            <field name="professional_liability_ids"/>
                             <field name="professional_liability_insurance_policy_ref"/>
                             <field name="office"/>
                             <field name="equipment"/>
@@ -148,6 +151,22 @@
                         </group>
                     </group>
                 </page>
+            </xpath>
+
+<!--            page HR Settings -->
+            <xpath expr="//page[@name='public']//field[@name='resource_calendar_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='public']//field[@name='tz']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='hr_settings']//group[@name='active_group']" position="after">
+                <group>
+                    <group string='Time' name="time">
+                        <field name="resource_calendar_id"/>
+                        <field name="tz"/>
+                    </group>
+                </group>
             </xpath>
 
         </field>
