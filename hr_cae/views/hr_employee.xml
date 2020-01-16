@@ -29,6 +29,7 @@
                 <group string="Civil Status">
                     <field name="country_id"/>
                     <field name="marital"/>
+                    <field name="birthday"/>
                     <field name="place_of_birth"/>
                     <field name="country_department_of_birth_id"/>
                     <field name="country_of_birth"/>
@@ -69,7 +70,7 @@
             </xpath>
 
             <!-- hide birth group -->
-            <xpath expr="//page[@name='personal_information']//field[@name='birthday']/.." position="attributes">
+            <xpath expr="(//page[@name='personal_information']//field[@name='birthday']/..)[2]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
 

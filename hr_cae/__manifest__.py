@@ -12,8 +12,11 @@
     "license": "AGPL-3",
     "depends": [
         "account_banking_sepa_direct_debit",
+        "base_location_geonames_import",
         "hr",
         "hr_recruitment",
+        "hr_employee_age",
+        "hr_employee_emergency_contact",
         "l10n_fr_department",
     ],
     "data": [
