@@ -47,8 +47,6 @@ class Employee(models.Model):
     social_insurance_id = fields.Many2one(
         "hr.social.insurance", string="Social Insurance", required=False
     )
-    # fixme I don't think mutual is the translation for "mutuelle"
-    # -> health insurance?
     mutual_insurance_id = fields.Many2one(
         "hr.mutual.insurance", string="Mutual Insurance", required=False
     )
@@ -77,12 +75,21 @@ class Employee(models.Model):
     )  # use percentage widget
     job_other_companies = fields.Text(string="Other Employers", required=False)
     job_other_hours = fields.Float(
-        string="Cumulative Other Working Hours", required=False
-    )  # Todo: in xml, style as 'per month'
+        string="Cumulative Other Monthly Working Hours", required=False
+    )
     job_retirement = fields.Boolean(
         string="Combining Job and Retirement", required=False
     )
     job_adaptations = fields.Text(string="Job Adaptations", required=False)
+    children = fields.Integer(string="Number of Children", required=False)
+    valid_mandate_id = fields.Many2one(
+        related="user_id.partner_id.valid_mandate_id"
+    )
+    siren = fields.Char(
+        "SIREN Company Code", required=False
+    )  # todo: link from partner
+    ape = fields.Char("APE Profession Code")  # todo: link from partner
+    # todo: install l10n_fr_naf_ape when migrated module for easy lookup
     professional_liability_ids = fields.Many2many(
         comodel_name="hr.professional.liability",
         string="Professional Liability",
@@ -93,15 +100,13 @@ class Employee(models.Model):
         required=False,
     )
     vehicle_insurance = fields.Text(string="Vehicle Insurance", required=False)
-    # fixme office insurance?
     office = fields.Text(string="Office", required=False)
-    # fixme equipment insurance?
     equipment = fields.Text(string="Equipment", required=False)
     sector_ids = fields.Many2many(
         comodel_name="hr.sector", string="Sector", required=False
     )
     adult_dependents = fields.Integer(
-        string="Adult Dependents", required=False
+        string="Number of Adult Dependents", required=False
     )
     social_worker = fields.Text(string="Social Worker", required=False)
     contribution_date_start = fields.Date(

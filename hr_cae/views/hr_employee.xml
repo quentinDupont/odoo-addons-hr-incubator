@@ -28,17 +28,17 @@
             <xpath expr="//page[@name='personal_information']//field[@name='country_id']/.." position="after">
                 <group string="Civil Status">
                     <field name="country_id"/>
-                    <!-- todo: Mandat SEPA RUM-->
                     <field name="marital"/>
                     <field name="place_of_birth"/>
                     <field name="country_department_of_birth_id"/>
                     <field name="country_of_birth"/>
-                    <!-- todo: <field name="social_security_no"/>-->
+                    <field name="ssnid"/>
                 </group>
 
                 <group string="Bank">
                     <field name="bank_account_id"/>
                     <field name="bank_account_payment_id"/>
+                    <field name="valid_mandate_id"/>
                 </group>
             </xpath>
 
@@ -138,8 +138,8 @@
                 <page name="administrative" string="Administrative" groups="hr.group_hr_user">
                     <group>
                         <group name="identification" string="Identification">
-<!--                            todo: insee: a reprendre depuis partenaire-->
-<!--                            todo: code métier APE: a reprendre depuis partenaire-->
+                            <field name="siren"/>
+                            <field name="ape"/>
                             <field name="sector_ids"/>
                         </group>
                         <group name="insurances" string="Insurances">

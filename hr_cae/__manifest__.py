@@ -10,7 +10,12 @@
     "category": "Human Resources",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
-    "depends": ["hr", "hr_recruitment", "l10n_fr_department"],
+    "depends": [
+        "account_banking_sepa_direct_debit",
+        "hr",
+        "hr_recruitment",
+        "l10n_fr_department",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/hr.xml",
