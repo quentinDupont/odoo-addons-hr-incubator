@@ -1,0 +1,4 @@
+bank-payment
+partner-contact
+hr
+l10n-france
