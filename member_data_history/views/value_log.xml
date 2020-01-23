@@ -12,6 +12,7 @@
                 <field name="model"/>
                 <field name="field"/>
                 <field name="user_id"/>
+                <field name="record_id"/>
                 <field name="date"/>
                 <field name="previous_value"/>
                 <field name="new_value"/>

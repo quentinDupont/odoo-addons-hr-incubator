@@ -36,6 +36,7 @@ class TestValueLog(tests.common.TransactionCase):
             [
                 ("model", "=", "hr.contract"),
                 ("field", "=", "date_end"),
+                ("record_id", "=", contract.id),
                 ("previous_value", "=", False),
                 ("new_value", "=", "2021-11-23"),
             ]
@@ -48,6 +49,7 @@ class TestValueLog(tests.common.TransactionCase):
             [
                 ("model", "=", "hr.contract"),
                 ("field", "=", "type_id"),
+                ("record_id", "=", contract.id),
                 ("previous_value", "=", old_type.name),
                 ("new_value", "=", new_type.name),
             ]
@@ -63,26 +65,29 @@ class TestValueLog(tests.common.TransactionCase):
             [
                 ("model", "=", "res.partner"),
                 ("field", "=", "zip"),
+                ("record_id", "=", partner.id),
                 ("previous_value", "=", str(old_zip)),
                 ("new_value", "=", "4100"),
             ]
         )
         self.assertTrue(log)
 
-    def test_log_employee_adresses(self):
+    def test_log_employee_addresses(self):
         employee = self.browse_ref("hr.employee_hne")
         partner = self.browse_ref("base.res_partner_1")
+
+        previous_home_zip = employee.address_home_id.zip
+        previous_work_zip = employee.address_id.zip
         employee.address_home_id = partner
         employee.address_id = partner
-
-        new_partner = "({}, {})".format(partner.id, partner.name)
 
         log = self.env["value.log"].search(
             [
                 ("model", "=", "hr.employee"),
-                ("field", "=", "address_home_id"),
-                ("previous_value", "=", False),
-                ("new_value", "=", new_partner),
+                ("field", "=", "address_home_id.zip"),
+                ("record_id", "=", employee.id),
+                ("previous_value", "=", previous_home_zip),
+                ("new_value", "=", partner.zip),
             ]
         )
         self.assertTrue(log)
@@ -90,9 +95,10 @@ class TestValueLog(tests.common.TransactionCase):
         log = self.env["value.log"].search(
             [
                 ("model", "=", "hr.employee"),
-                ("field", "=", "address_id"),
-                ("previous_value", "=", False),
-                ("new_value", "=", new_partner),
+                ("field", "=", "address_id.zip"),
+                ("record_id", "=", employee.id),
+                ("previous_value", "=", previous_work_zip),
+                ("new_value", "=", partner.zip),
             ]
         )
         self.assertTrue(log)

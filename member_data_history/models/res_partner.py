@@ -15,6 +15,7 @@ class ResPartner(models.Model):
                 {
                     "model": "res.partner",
                     "field": "zip",
+                    "record_id": self.id,
                     "previous_value": str(self.zip),
                     "new_value": str(vals.get("zip")),
                 }

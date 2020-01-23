@@ -51,6 +51,7 @@ Data is stored in the model `value.log` and its matching table:
     | create_uid     | integer                     |                                                         |
     | create_date    | timestamp without time zone |                                                         |
     | write_uid      | integer                     |                                                         |
+    | record_id      | integer                     |                                                         |
     | write_date     | timestamp without time zone |                                                         |
     +----------------+-----------------------------+---------------------------------------------------------+g
 
@@ -70,6 +71,7 @@ To log a value change, overload `write` like this
                     {
                         "model": "res.partner",
                         "field": "zip",
+                        "record_id", self.id,
                         "previous_value": str(self.zip),
                         "new_value": str(vals.get("zip")),
                     }

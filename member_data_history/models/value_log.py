@@ -22,5 +22,6 @@ class ValueLog(models.Model):
         default=lambda self: fields.Date.context_today(self),
         required=True,
     )
+    record_id = fields.Integer(string="Record Id")
     previous_value = fields.Char(string="Previous Value")
     new_value = fields.Char(string="New Value")

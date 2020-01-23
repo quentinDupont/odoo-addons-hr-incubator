@@ -401,6 +401,7 @@ Logged values are accessible under the configuration tab of the human resources 
 | create_uid     | integer                     |                                                         |
 | create_date    | timestamp without time zone |                                                         |
 | write_uid      | integer                     |                                                         |
+| record_id      | integer                     |                                                         |
 | write_date     | timestamp without time zone |                                                         |
 +----------------+-----------------------------+---------------------------------------------------------+g</span>
 </pre>
@@ -417,6 +418,7 @@ Logged values are accessible under the configuration tab of the human resources 
                 <span class="p">{</span>
                     <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;res.partner&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;zip&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;record_id&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
                     <span class="s2">&quot;previous_value&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zip</span><span class="p">),</span>
                     <span class="s2">&quot;new_value&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">vals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;zip&quot;</span><span class="p">)),</span>
                 <span class="p">}</span>

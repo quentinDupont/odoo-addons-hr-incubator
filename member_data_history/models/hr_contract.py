@@ -18,6 +18,7 @@ class HRContract(models.Model):
                 {
                     "model": "hr.contract",
                     "field": "type_id",
+                    "record_id": self.id,
                     "previous_value": old_type,
                     "new_value": new_type,
                 }
@@ -27,6 +28,7 @@ class HRContract(models.Model):
                 {
                     "model": "hr.contract",
                     "field": "date_start",
+                    "record_id": self.id,
                     "previous_value": self.date_start,
                     "new_value": vals.get("date_start"),
                 }
@@ -36,6 +38,7 @@ class HRContract(models.Model):
                 {
                     "model": "hr.contract",
                     "field": "date_end",
+                    "record_id": self.id,
                     "previous_value": self.date_end,
                     "new_value": vals.get("date_end"),
                 }
