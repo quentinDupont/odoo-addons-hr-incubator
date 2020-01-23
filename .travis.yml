@@ -27,6 +27,7 @@ install:
   - sed '/manifest-required-author,/d' ${HOME}/maintainer-quality-tools/travis/cfg/travis_run_pylint_pr.cfg -i
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
+  - pip install unidecode
 
 script:
   - travis_run_tests
