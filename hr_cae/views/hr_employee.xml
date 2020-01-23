@@ -30,6 +30,7 @@
                     <field name="country_id"/>
                     <field name="marital"/>
                     <field name="birthday"/>
+                    <field name="age"/>
                     <field name="place_of_birth"/>
                     <field name="country_department_of_birth_id"/>
                     <field name="country_of_birth"/>
