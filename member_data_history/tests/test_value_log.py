@@ -14,6 +14,8 @@ class TestValueLog(tests.common.TransactionCase):
                 "name": "test contract",
                 "type_id": self.ref("hr_contract.hr_contract_type_emp"),
                 "date_start": "2019-10-12",
+                "hours": 7,
+                "hourly_wage": 70,
                 "wage": 2000,
             }
         )
