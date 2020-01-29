@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+ <odoo>
+
+    <record id="coopaname_partner_form" model="ir.ui.view">
+        <field name="name">coopanam.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">90</field>
+        <field type="xml" name="arch">
+        <xpath expr="//field[@name='function']" position="after">
+                <field name="initiate_date"/>
+            </xpath>
