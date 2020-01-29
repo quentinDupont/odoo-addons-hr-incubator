@@ -1,3 +1,6 @@
+# Copyright 2019 Coop IT Easy SCRL fs
+#   Robin Keunen <robin@coopiteasy.be>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "coopaname_custom",
     "summary": """
@@ -16,5 +19,6 @@
     ],
     "data": ["views/hr_applicant.xml", "views/hr_employee.xml", "data/data.xml"],
     "demo": [],
+    "external_dependencies": {"python": ["phonenumbers"]},
     "installable": True,
 }

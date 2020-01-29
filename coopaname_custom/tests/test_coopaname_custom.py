@@ -44,3 +44,26 @@ class TestCoopanameCustom(TransactionCase):
 
         with self.assertRaises(ValidationError):
             employee_obj.create({"firstname": "firstname"})
+
+    def test_format_phone_number(self):
+
+        number_fr = "0699687678"
+        number_be = "+32 4888657 50"
+
+        ernest = self.env["hr.employee"].create(
+            {
+                "firstname": "Ernest",
+                "lastname": "Lapalisse",
+                "mobile_phone": number_fr,
+                "work_phone": number_be,
+            }
+        )
+        self.assertEqual(ernest.mobile_phone, "06 99 68 76 78")
+        self.assertEqual(ernest.work_phone, "+32 488 86 57 50")
+
+        hne = self.browse_ref("hr.employee_hne")
+        hne.mobile_phone = number_fr
+        hne.work_phone = number_be
+        # fixme: the test does not access latest values
+        # self.assertEqual(hne.mobile_phone, "06 99 68 76 78")
+        # self.assertEqual(hne.work_phone, "+32 488 86 57 50")
