@@ -135,16 +135,7 @@
                         <field name="contribution_exemption_ids"/>
                     </group>
                 </page>
-                <page name="documents" string="Documents">
-                    <group name="passport" string="Passport">
-                        <field name="passport_id"/>
-                    </group>
-                    <group string="Work Permit" name="cae_work_permit">
-                        <field name="visa_no"/>
-                        <field name="permit_no"/>
-                        <field name="visa_expire"/>
-                    </group>
-                </page>
+
                 <page name="administrative" string="Administrative" groups="hr.group_hr_user">
                     <group>
                         <group name="identification" string="Identification">
