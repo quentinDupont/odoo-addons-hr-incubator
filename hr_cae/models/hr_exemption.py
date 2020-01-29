@@ -12,16 +12,8 @@ class Exemption(models.Model):
     _description = "Contribution Exemption"
 
     name = fields.Char()
-    employee_id = fields.Many2one(
-        comodel_name="hr.employee", string="Employee"
-    )
+    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
 
-    contribution_exemption_reason = fields.Text(
-        string="Reason for Exemption", required=False
-    )
-    contribution_exemption_date_start = fields.Date(
-        string="Start Date of Exemption", required=False
-    )
-    contribution_exemption_date_end = fields.Date(
-        string="End Date of Exemption", required=False
-    )
+    reason = fields.Text(string="Reason for Exemption", required=False)
+    date_start = fields.Date(string="Start Date of Exemption", required=False)
+    date_end = fields.Date(string="End Date of Exemption", required=False)
