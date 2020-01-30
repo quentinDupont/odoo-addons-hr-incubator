@@ -10,7 +10,21 @@
         <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
         <field name="arch" type="xml">
 
-            <field name="reported_to_secretariat" position="after">
+            <field name="state" position="before">
+                <button name="create_amendment"
+                        string="Create Amendment"
+                        type="object"
+                        class="oe_read_only"/>
+            </field>
+
+            <field name="type_id" position="before">
+                <div style="width:35%"/> <!--Managing label width-->
+                <field name="type_echelon"/>
+            </field>
+
+            <field name="type_id" position="after">
+                <field name="count_type"/>
+                <field name="state_admin"/>
                 <field name="reason"/>
             </field>
 
@@ -20,6 +34,11 @@
                     <field name="duration" nolabel="1"/>
                     <span>month(s)</span>
                 </div>
+            </field>
+
+            <field name="trial_date_end" position="after">
+                <field name="date_signature"/>
+                <field name="date_mailing"/>
             </field>
 
             <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
@@ -51,6 +70,52 @@
                 </div>
             </field>
 
+            <xpath expr="//page[@name='information']" position="after">
+                <page string="Amendments" name="tree">
+                    <group>
+                        <field name="index_amendment"/>
+                        <field name="initial_contract_id"/>
+                        <field name="parent_contract_id"/>
+                        <field name="child_contract_id"/>
+                        <field name="latest_contract_id"/>
+                    </group>
+                </page>
+            </xpath>
+
         </field>
     </record>
+
+    <record id="hr_contract_type_view_form" model="ir.ui.view">
+            <field name="name">hr.contract.type.form</field>
+            <field name="model">hr.contract.type</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_type_view_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field colspan="4" name="echelon"/>
+                    <field colspan="4" name="max_usage" attrs="{'invisible': [('echelon', '!=', 'amendment')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_contract_type_view_tree" model="ir.ui.view">
+            <field name="name">hr.contract.type.tree</field>
+            <field name="model">hr.contract.type</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_type_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field colspan="4" name="echelon"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_contract_type_view_search" model="ir.ui.view">
+            <field name="name">hr.contract.type.search</field>
+            <field name="model">hr.contract.type</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_type_view_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="echelon"/>
+                </field>
+            </field>
+        </record>
 </odoo>
