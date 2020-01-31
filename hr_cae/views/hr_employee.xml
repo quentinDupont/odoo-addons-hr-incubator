@@ -46,9 +46,9 @@
                     <field name="marital"/>
                     <field name="birthday"/>
                     <field name="age"/>
-                    <field name="place_of_birth"/>
-                    <field name="country_department_of_birth_id"/>
                     <field name="country_of_birth"/>
+                    <field name="country_department_of_birth_id" attrs="{'invisible': [('country_of_birth', '!=', 75)]}"/>
+                    <field name="place_of_birth"/>
                     <field name="ssnid"/>
                 </group>
 
@@ -95,7 +95,7 @@
 
             <!-- add origin group -->
             <xpath expr="//page[@name='personal_information']//field[@name='certificate']/.." position="after">
-                <group name="origin" string="Origin">
+                <group name="origin" string="Status origin">
                     <field name="certificate_id" options="{'no_create': True, 'no_edit': True}"/>
                     <field name="certificate_date"/>
                     <field name="origin_status_id" options="{'no_create': True, 'no_edit': True}"/>
