@@ -13,9 +13,7 @@ class ContractType(models.Model):
         string="Payment Mode",
         default="main",
     )
-    max_usage = fields.Integer(
-        string="Maximum Usage", default=1, required=True
-    )
+    max_usage = fields.Integer(string="Maximum Usage", default=False)
 
 
 class Contract(models.Model):
@@ -37,11 +35,11 @@ class Contract(models.Model):
         copy=False,
         compute="_compute_type_echelon",
     )  # Todo: add translation "Echelone du Type de Contrat"
-    count_type = fields.Integer(
+    contract_type_count = fields.Integer(
         string="Contract Type Count", compute="_inital_to_latest"
     )
-    index_amendment = fields.Integer(
-        string="Amendment Index",
+    contract_amendment_index = fields.Integer(
+        string="Contract Amendment Index",
         help="'O' for main contract, '1' for it's first amendment, etc.",
         default=0,
         readonly=True,
@@ -65,7 +63,6 @@ class Contract(models.Model):
     latest_contract_id = fields.Many2one(
         comodel_name="hr.contract",
         string="Latest Contract",
-        readonly=True,
         compute="_inital_to_latest",
     )
 
@@ -77,7 +74,7 @@ class Contract(models.Model):
     date_mailing = fields.Date(
         string="Mailing Date", help="Mailing date of the contract.", copy=False
     )
-    reason = fields.Char(string="Reason for recourse to contract")
+    reason = fields.Char(string="Reason for recourse to contract", copy=False)
     duration = fields.Integer(string="Duration", default=6)
     hours = fields.Float(string="Working Hours", required=True)
     hourly_wage = fields.Monetary(string="Hourly Wage", required=True)
@@ -89,22 +86,21 @@ class Contract(models.Model):
         track_visibility="onchange",
         help="Employee's monthly gross wage.",
         compute="_compute_wage",
-        copy=False,
     )
     notes = fields.Text(copy=False)
 
     @api.model
     def create(self, vals):
-        # #  Todo: fix error when accessing self.count_type here: "Expected singleton". Maybe because the copy function is accessed both from current and initial contract?
-        # if self.count_type > self.type_id.max_usage:
+        # #  Todo: fix error when accessing self.contract_type_count here: "Expected singleton". Maybe because the copy function is accessed both from current and initial contract?
+        # if self.type_id.max_usage and self.contract_type_count > self.type_id.max_usage:
         #     raise ValidationError(
         #         _(
         #             "The maximum amount of %s contracts of type '%s' has been reached"
-        #             % (self.count_type, self.type_id)
+        #             % (self.contract_type_count, self.type_id)
         #         )
         #     )
         res = super().create(vals)
-        if res.index_amendment == 0:
+        if res.contract_amendment_index == 0:
             res.initial_contract_id = res.id
         return res
 
@@ -120,7 +116,7 @@ class Contract(models.Model):
                         (
                             contract.initial_contract_id.type_id.name
                             if contract.initial_contract_id.type_id.name
-                            and contract.index_amendment > 0
+                            and contract.contract_amendment_index > 0
                             else ""
                         ),
                         (contract.type_id.name or ""),
@@ -129,11 +125,13 @@ class Contract(models.Model):
             )
 
     @api.multi
-    @api.depends("index_amendment")
+    @api.depends("contract_amendment_index")
     def _compute_type_echelon(self):
         for contract in self:
             contract.type_echelon = (
-                "main" if contract.index_amendment == 0 else "amendment"
+                "main"
+                if contract.contract_amendment_index == 0
+                else "amendment"
             )
 
     @api.multi
@@ -167,7 +165,8 @@ class Contract(models.Model):
                 .id,
                 "initial_contract_id": latest_contract_id.initial_contract_id.id,
                 "parent_contract_id": latest_contract_id.id,
-                "index_amendment": latest_contract_id.index_amendment + 1,
+                "contract_amendment_index": latest_contract_id.contract_amendment_index
+                + 1,
             }
         )
         latest_contract_id.child_contract_id = contract
@@ -186,11 +185,11 @@ class Contract(models.Model):
     def _inital_to_latest(self):
         self.ensure_one()
         current_contract_id = self.initial_contract_id
-        count_type = current_contract_id.type_id == self.type_id
+        contract_type_count = current_contract_id.type_id == self.type_id
         while current_contract_id.child_contract_id:
-            count_type += (
+            contract_type_count += (
                 current_contract_id.child_contract_id.type_id == self.type_id
             )
             current_contract_id = current_contract_id.child_contract_id
         self.latest_contract_id = current_contract_id
-        self.count_type = count_type
+        self.contract_type_count = contract_type_count

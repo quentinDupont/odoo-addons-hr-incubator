@@ -23,7 +23,7 @@
             </field>
 
             <field name="type_id" position="after">
-                <field name="count_type"/>
+                <field name="contract_type_count"/>
                 <field name="state_admin"/>
                 <field name="reason"/>
             </field>
@@ -73,7 +73,7 @@
             <xpath expr="//page[@name='information']" position="after">
                 <page string="Amendments" name="tree">
                     <group>
-                        <field name="index_amendment"/>
+                        <field name="contract_amendment_index"/>
                         <field name="initial_contract_id"/>
                         <field name="parent_contract_id"/>
                         <field name="child_contract_id"/>
