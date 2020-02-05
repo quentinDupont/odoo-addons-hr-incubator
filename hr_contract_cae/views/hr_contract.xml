@@ -17,6 +17,12 @@
                         class="oe_read_only"/>
             </field>
 
+            <button name="toggle_active" position="after">
+                <button name="action_get_attachment_tree_view" class="oe_stat_button" icon="fa-book" type="object">
+                    <field name="attachment_number" widget="statinfo" string="Documents"/>
+                </button>
+            </button>
+
             <field name="type_id" position="before">
                 <div style="width:35%"/> <!--Managing label width-->
                 <field name="type_echelon"/>
@@ -85,14 +91,27 @@
         </field>
     </record>
 
+    <record id="hr_contract_view_tree" model="ir.ui.view">
+        <field name="name">hr_contract_view_tree</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
     <record id="hr_contract_type_view_form" model="ir.ui.view">
             <field name="name">hr.contract.type.form</field>
             <field name="model">hr.contract.type</field>
             <field name="inherit_id" ref="hr_contract.hr_contract_type_view_form"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field colspan="4" name="echelon"/>
-                    <field colspan="4" name="max_usage" attrs="{'invisible': [('echelon', '!=', 'amendment')]}"/>
+                    <field name="echelon"/>
+                    <field name="max_usage" attrs="{'invisible': [('echelon', '!=', 'amendment')]}"/>
                 </field>
             </field>
         </record>
@@ -103,19 +122,10 @@
             <field name="inherit_id" ref="hr_contract.hr_contract_type_view_tree"/>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field colspan="4" name="echelon"/>
+                    <field name="echelon"/>
+                    <field name="max_usage"/>
                 </field>
             </field>
         </record>
 
-        <record id="hr_contract_type_view_search" model="ir.ui.view">
-            <field name="name">hr.contract.type.search</field>
-            <field name="model">hr.contract.type</field>
-            <field name="inherit_id" ref="hr_contract.hr_contract_type_view_search"/>
-            <field name="arch" type="xml">
-                <field name="name" position="after">
-                    <field name="echelon"/>
-                </field>
-            </field>
-        </record>
 </odoo>
