@@ -5,10 +5,24 @@
 
 import logging
 
+import phonenumbers
+
 from odoo import _, api, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
+
+
+def _format_phone_number(number):
+    number = phonenumbers.parse(number, "FR")
+    if number.country_code == 33:
+        return phonenumbers.format_number(
+            number, phonenumbers.PhoneNumberFormat.NATIONAL
+        )
+    else:
+        return phonenumbers.format_number(
+            number, phonenumbers.PhoneNumberFormat.INTERNATIONAL
+        )
 
 
 class Employee(models.Model):
@@ -53,9 +67,23 @@ class Employee(models.Model):
 
     @api.model
     def create(self, values):
+
+        if "mobile_phone" in values:
+            values["mobile_phone"] = _format_phone_number(values["mobile_phone"])
+        if "work_phone" in values:
+            values["work_phone"] = _format_phone_number(values["work_phone"])
+
         employee = super().create(values)
         if not employee.identification_id:
             employee.identification_id = self._generate_identification_id(
                 employee.firstname, employee.lastname
             )
         return employee
+
+    @api.multi
+    def write(self, values):
+        if "mobile_phone" in values:
+            values["mobile_phone"] = _format_phone_number(values["mobile_phone"])
+        if "work_phone" in values:
+            values["work_phone"] = _format_phone_number(values["work_phone"])
+        return super().write(values)

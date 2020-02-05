@@ -154,18 +154,3 @@ class Employee(models.Model):
                 raise ValidationError(
                     _("The start date of mutual insurance must be before the end date")
                 )
-
-    @api.constrains(
-        "contribution_exemption_date_start", "contribution_exemption_date_end"
-    )
-    def _constrain_exemption_date(self):
-        for employee in self:
-            if (
-                employee.contribution_exemption_date_start
-                and employee.contribution_exemption_date_end
-                and employee.contribution_exemption_date_start
-                > employee.contribution_exemption_date_end
-            ):
-                raise ValidationError(
-                    _("The start date of exemption must be before the end date")
-                )

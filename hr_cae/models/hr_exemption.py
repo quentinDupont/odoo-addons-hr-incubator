@@ -4,7 +4,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class Exemption(models.Model):
@@ -12,16 +13,23 @@ class Exemption(models.Model):
     _description = "Contribution Exemption"
 
     name = fields.Char()
-    employee_id = fields.Many2one(
-        comodel_name="hr.employee", string="Employee"
-    )
+    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
 
-    contribution_exemption_reason = fields.Text(
-        string="Reason for Exemption", required=False
-    )
-    contribution_exemption_date_start = fields.Date(
-        string="Start Date of Exemption", required=False
-    )
-    contribution_exemption_date_end = fields.Date(
-        string="End Date of Exemption", required=False
-    )
+    reason = fields.Text(string="Reason for Exemption", required=False)
+    date_start = fields.Date(string="Start Date of Exemption", required=False)
+    date_end = fields.Date(string="End Date of Exemption", required=False)
+
+    @api.constrains("date_start", "date_end")
+    def _constrain_mutual_insurance_date(self):
+        for exemption in self:
+            if (
+                exemption.date_start
+                and exemption.date_end
+                and exemption.date_start > exemption.date_end
+            ):
+                raise ValidationError(
+                    _(
+                        "The start date of mutual insurance must be before the "
+                        "end date"
+                    )
+                )

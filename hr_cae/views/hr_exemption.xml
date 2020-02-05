@@ -11,9 +11,9 @@
             <form>
                 <group>
                     <group>
-                        <field name="contribution_exemption_date_start"/>
-                        <field name="contribution_exemption_date_end"/>
-                        <field name="contribution_exemption_reason"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="reason"/>
                     </group>
                 </group>
             </form>
@@ -25,9 +25,9 @@
         <field name="model">hr.contribution.exemption</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="contribution_exemption_date_start"/>
-                <field name="contribution_exemption_date_end"/>
-                <field name="contribution_exemption_reason"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="reason"/>
             </tree>
         </field>
      </record>

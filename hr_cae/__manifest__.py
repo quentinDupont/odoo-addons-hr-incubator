@@ -16,7 +16,6 @@
         "hr",
         "hr_recruitment",
         "hr_employee_age",
-        "hr_employee_emergency_contact",
         "l10n_fr_department",
     ],
     "data": [
