@@ -39,6 +39,11 @@ class Contract(models.Model):
         string="Contract Type Count", compute="_compute_info_inital_to_latest"
     )
 
+    # This entire logic was written starting from the need to know
+    # a contracts previous and next amendment.
+    # This could be refacted by creating a model 'contract.group' containing
+    # all contracts following from the parent contract, and each contract
+    # could then point to that group.
     amendment_index = fields.Integer(
         string="Amendment Index",
         help="'O' for main contract, '1' for it's first amendment, etc.",
@@ -64,6 +69,11 @@ class Contract(models.Model):
     latest_contract_id = fields.Many2one(
         comodel_name="hr.contract",
         string="Latest Contract",
+        compute="_compute_info_inital_to_latest",
+    )
+    all_contract_ids = fields.Many2many(
+        comodel_name="hr.contract",
+        string="Field Name",
         compute="_compute_info_inital_to_latest",
     )
 
@@ -195,16 +205,21 @@ class Contract(models.Model):
     def _compute_info_inital_to_latest(self):
         for contract in self:
             current_contract_id = contract.initial_contract_id
+            all_contract_ids = [current_contract_id.id]
             contract_type_count = (
                 current_contract_id.type_id == contract.type_id
             )
             while current_contract_id.child_contract_id:
+                all_contract_ids.append(
+                    current_contract_id.child_contract_id.id
+                )
                 contract_type_count += (
                     current_contract_id.child_contract_id.type_id
                     == contract.type_id
                 )
                 current_contract_id = current_contract_id.child_contract_id
             contract.latest_contract_id = current_contract_id
+            contract.all_contract_ids = [(6, 0, all_contract_ids)]
             contract.contract_type_count = contract_type_count
 
     @api.multi
