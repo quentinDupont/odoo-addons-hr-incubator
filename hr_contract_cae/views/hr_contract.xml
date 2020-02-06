@@ -79,7 +79,7 @@
             <xpath expr="//page[@name='information']" position="after">
                 <page string="Amendments" name="tree">
                     <group>
-                        <field name="contract_amendment_index"/>
+                        <field name="amendment_index"/>
                         <field name="initial_contract_id"/>
                         <field name="parent_contract_id"/>
                         <field name="child_contract_id"/>
@@ -97,9 +97,15 @@
         <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
+            <field name="type_id" position="before">
+                <field name="type_echelon"/>
+                <field name="amendment_index"/>
+            </field>
+
+            <field name="resource_calendar_id" position="attributes">
                 <attribute name="invisible">1</attribute>
-            </xpath>
+            </field>
+
 
         </field>
     </record>

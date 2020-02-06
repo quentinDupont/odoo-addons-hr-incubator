@@ -1,9 +1,7 @@
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
-
-# _
-# from odoo.exceptions import ValidationError
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class ContractType(models.Model):
@@ -41,8 +39,8 @@ class Contract(models.Model):
         string="Contract Type Count", compute="_compute_info_inital_to_latest"
     )
 
-    contract_amendment_index = fields.Integer(
-        string="Contract Amendment Index",
+    amendment_index = fields.Integer(
+        string="Amendment Index",
         help="'O' for main contract, '1' for it's first amendment, etc.",
         default=0,
         readonly=True,
@@ -104,23 +102,8 @@ class Contract(models.Model):
 
     @api.model
     def create(self, vals):
-        # #  Todo: fix error when accessing self.contract_type_count
-        # #  "Expected singleton".
-        # #  Maybe because the copy function is accessed both
-        # #  from current and initial contract?
-        # if (
-        #     self.type_id.max_usage
-        #     and self.contract_type_count > self.type_id.max_usage
-        # ):
-        #     raise ValidationError(
-        #         _(
-        #             "The maximum amount of %s contracts "
-        #             "of type '%s' has been reached"
-        #             % (self.contract_type_count, self.type_id)
-        #         )
-        #     )
         res = super().create(vals)
-        if res.contract_amendment_index == 0:
+        if res.amendment_index == 0:
             res.initial_contract_id = res.id
         return res
 
@@ -135,8 +118,12 @@ class Contract(models.Model):
                         (contract.employee_id.name or ""),
                         (
                             contract.initial_contract_id.type_id.name
-                            if contract.initial_contract_id.type_id.name
-                            and contract.contract_amendment_index > 0
+                            if contract.amendment_index > 0
+                            else ""
+                        ),
+                        (
+                            str(contract.amendment_index)
+                            if contract.amendment_index > 0
                             else ""
                         ),
                         (contract.type_id.name or ""),
@@ -145,13 +132,11 @@ class Contract(models.Model):
             )
 
     @api.multi
-    @api.depends("contract_amendment_index")
+    @api.depends("amendment_index")
     def _compute_type_echelon(self):
         for contract in self:
             contract.type_echelon = (
-                "main"
-                if contract.contract_amendment_index == 0
-                else "amendment"
+                "main" if contract.amendment_index == 0 else "amendment"
             )
 
     @api.multi
@@ -162,6 +147,8 @@ class Contract(models.Model):
 
     @api.onchange("date_start", "duration")
     def onchange_date_start_duration(self):
+        if not self.duration:
+            self.date_end = False
         if self.date_start and self.duration:
             self.date_end = self.date_start + relativedelta(
                 months=self.duration
@@ -169,6 +156,8 @@ class Contract(models.Model):
 
     @api.onchange("date_end")
     def onchange_date_end(self):
+        if not self.date_end:
+            self.duration = False
         if self.date_start and self.date_end:
             rd = relativedelta(self.date_end, self.date_start)
             self.duration = rd.months + rd.years * 12
@@ -183,10 +172,11 @@ class Contract(models.Model):
                 "type_id": self.env["hr.contract.type"]
                 .search([("echelon", "=", "amendment")], limit=1)
                 .id,
+                "duration": False,
+                "date_end": False,
                 "initial_contract_id": latest_contract_id.initial_contract_id.id,
                 "parent_contract_id": latest_contract_id.id,
-                "contract_amendment_index": latest_contract_id.contract_amendment_index  # noqa
-                + 1,
+                "amendment_index": latest_contract_id.amendment_index + 1,
             }
         )
         latest_contract_id.child_contract_id = contract
@@ -201,18 +191,21 @@ class Contract(models.Model):
         }
 
     @api.multi
-    @api.onchange("initial_contract_id", "type_id")
+    @api.depends("initial_contract_id", "type_id")
     def _compute_info_inital_to_latest(self):
-        self.ensure_one()
-        current_contract_id = self.initial_contract_id
-        contract_type_count = current_contract_id.type_id == self.type_id
-        while current_contract_id.child_contract_id:
-            contract_type_count += (
-                current_contract_id.child_contract_id.type_id == self.type_id
+        for contract in self:
+            current_contract_id = contract.initial_contract_id
+            contract_type_count = (
+                current_contract_id.type_id == contract.type_id
             )
-            current_contract_id = current_contract_id.child_contract_id
-        self.latest_contract_id = current_contract_id
-        self.contract_type_count = contract_type_count
+            while current_contract_id.child_contract_id:
+                contract_type_count += (
+                    current_contract_id.child_contract_id.type_id
+                    == contract.type_id
+                )
+                current_contract_id = current_contract_id.child_contract_id
+            contract.latest_contract_id = current_contract_id
+            contract.contract_type_count = contract_type_count
 
     @api.multi
     def _compute_attachment_number(self):
@@ -240,3 +233,19 @@ class Contract(models.Model):
             ["&", ("res_model", "=", self._name), ("res_id", "in", self.ids)]
         )
         return action
+
+    @api.multi
+    @api.constrains("contract_type_count", "type_id")
+    def _check_contract_type_count(self):
+        for contract in self:
+            if (
+                contract.type_id.max_usage
+                and contract.contract_type_count > contract.type_id.max_usage
+            ):
+                raise ValidationError(
+                    _(
+                        "The maximum amount of %s contracts "
+                        "of type '%s' has been reached"
+                        % (contract.type_id.max_usage, contract.type_id.name)
+                    )
+                )
