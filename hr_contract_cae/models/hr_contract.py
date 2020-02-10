@@ -34,6 +34,7 @@ class Contract(models.Model):
         string="Contract Type Echelon",
         copy=False,
         compute="_compute_type_echelon",
+        store=True,
     )  # Todo: add translation "Echelone du Type de Contrat"
     contract_type_count = fields.Integer(
         string="Contract Type Count", compute="_compute_info_inital_to_latest"
@@ -205,21 +206,22 @@ class Contract(models.Model):
     def _compute_info_inital_to_latest(self):
         for contract in self:
             current_contract_id = contract.initial_contract_id
-            all_contract_ids = [current_contract_id.id]
+            # all_contract_ids = [current_contract_id.id]
+            # todo: fix error when computing id's and restore functionnality
             contract_type_count = (
                 current_contract_id.type_id == contract.type_id
-            )
+            )  # todo: cast to integer or use if
             while current_contract_id.child_contract_id:
-                all_contract_ids.append(
-                    current_contract_id.child_contract_id.id
-                )
+                # all_contract_ids.append(
+                #     current_contract_id.child_contract_id.id
+                # )
                 contract_type_count += (
                     current_contract_id.child_contract_id.type_id
                     == contract.type_id
-                )
+                )  # todo: cast to integer or use if
                 current_contract_id = current_contract_id.child_contract_id
             contract.latest_contract_id = current_contract_id
-            contract.all_contract_ids = [(6, 0, all_contract_ids)]
+            # contract.all_contract_ids = [(6, 0, all_contract_ids)]
             contract.contract_type_count = contract_type_count
 
     @api.multi

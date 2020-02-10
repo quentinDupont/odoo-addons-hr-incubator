@@ -129,4 +129,52 @@
             </field>
         </record>
 
+    <record id="action_hr_contract_main" model="ir.actions.act_window">
+            <field name="name">Contracts</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="domain">[('employee_id', '!=', False), ('type_echelon', '=', 'main')]</field>
+            <field name="context">{'search_default_current':1, 'search_default_group_by_state': 1}</field>
+            <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new contract
+              </p>
+            </field>
+        </record>
+
+        <record id="action_hr_contract_amendment" model="ir.actions.act_window">
+            <field name="name">Contracts</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="domain">[('employee_id', '!=', False), ('type_echelon', '=', 'amendment')]</field>
+            <field name="context">{'search_default_current':1, 'search_default_group_by_state': 1}</field>
+            <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new contract
+              </p>
+            </field>
+        </record>
+
+    <menuitem id="menu_hr_contracts" name="Contracts" parent="hr.menu_hr_root" groups="hr_contract.group_hr_contract_manager" sequence="4"/>
+    <menuitem id="menu_hr_contracts_all" name="All contracts" parent="menu_hr_contracts" action="hr_contract.action_hr_contract" sequence="1"/>
+    <menuitem id="menu_hr_contracts_main" name="Main contracts" parent="menu_hr_contracts" action="action_hr_contract_main" sequence="2"/>
+    <menuitem id="menu_hr_contracts_amendment" name="Amendment contracts" parent="menu_hr_contracts" action="action_hr_contract_amendment" sequence="3"/>
+
+    <!-- Overriding menu's of hr_contract to change group of type menu to show it and to hide the main contract menu -->
+    <menuitem
+            id="hr_contract.hr_menu_contract_type"
+            action="hr_contract.action_hr_contract_type"
+            parent="hr.menu_human_resources_configuration"
+            sequence="3"
+            groups="hr_contract.group_hr_contract_manager"/>
+    <menuitem
+        id="hr_contract.hr_menu_contract"
+        name="Contracts"
+        action="hr_contract.action_hr_contract"
+        sequence="4"/>
+
 </odoo>
