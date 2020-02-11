@@ -86,6 +86,11 @@ class Contract(models.Model):
     reason = fields.Char(string="Reason for recourse to contract", copy=False)
 
     duration = fields.Integer(string="Duration", default=6)
+    date_initial_start = fields.Date(
+        string="Initial Starting Date",
+        help="Start date of the initial contract.",
+        related="parent_contract_id.date_start",
+    )
     date_signature = fields.Date(
         string="Signature Date",
         help="Signature date of the contract.",

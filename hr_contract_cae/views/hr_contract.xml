@@ -27,6 +27,10 @@
                 <attribute name="attrs">{'readonly':[('type_echelon', '=', 'amendment')]}</attribute>
             </field>
 
+            <field name="job_id" position="after">
+                <field name="date_initial_start"/>
+            </field>
+
             <field name="type_id" position="before">
                 <div style="width:35%"/> <!--Managing label width-->
                 <field name="type_echelon"/>
