@@ -31,6 +31,7 @@ class Contract(models.Model):
     )  # Todo: rename translation from "Catégorie de l'employé" to "Type de Contrat"
     type_echelon = fields.Selection(
         [("main", "Main"), ("amendment", "Amendment")],
+        default="main",
         string="Contract Type Echelon",
         copy=False,
         compute="_compute_type_echelon",
