@@ -15,7 +15,7 @@ class CreateAmendmentWizard(models.TransientModel):
     _description = "Create Contract Amendment"
 
     contract_id = fields.Many2one(
-        comodel_name="hr.contract", string="Amendment of", readonly=True
+        comodel_name="hr.contract", string="Amendment of"
     )
     latest_contract_id = fields.Many2one(
         comodel_name="hr.contract",
