@@ -63,15 +63,8 @@ class Contract(models.Model):
     _inherit = "hr.contract"
 
     name = fields.Char(compute="_compute_name")
-    employee_id = fields.Many2one(required=True)
     state = fields.Selection(copy=False)
-    state_admin = fields.Text(string="Administrative state", copy=False)
-    type_id = fields.Many2one(
-        string="Contract Type",
-        domain="[('echelon', '=', type_echelon)]",
-        default="",
-        copy=False,
-    )  # Todo: rename translation from "Catégorie de l'employé" to "Type de Contrat"
+    employee_id = fields.Many2one(required=True)
     type_echelon = fields.Selection(
         [("main", "Main"), ("amendment", "Amendment")],
         default="main",
@@ -80,8 +73,38 @@ class Contract(models.Model):
         compute="_compute_type_echelon",
         store=True,
     )  # Todo: add translation "Echelone du Type de Contrat"
+    type_id = fields.Many2one(
+        string="Contract Type",
+        domain="[('echelon', '=', type_echelon)]",
+        default="",
+        copy=False,
+    )  # Todo: rename translation from "Catégorie de l'employé" to "Type de Contrat"
     type_count = fields.Integer(
         string="Contract Type Count", compute="_compute_type_count"
+    )
+    state_admin = fields.Text(string="Administrative state", copy=False)
+    reason = fields.Char(string="Reason for recourse to contract", copy=False)
+
+    duration = fields.Integer(string="Duration", default=6)
+    date_signature = fields.Date(
+        string="Signature Date",
+        help="Signature date of the contract.",
+        copy=False,
+    )
+    date_mailing = fields.Date(
+        string="Mailing Date", help="Mailing date of the contract.", copy=False
+    )
+
+    hours = fields.Float(string="Working Hours", required=True)
+    hourly_wage = fields.Monetary(string="Hourly Wage", required=True)
+    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
+    wage = fields.Monetary(
+        string="Wage",
+        digits=(16, 2),
+        required=True,
+        track_visibility="onchange",
+        help="Employee's monthly gross wage.",
+        compute="_compute_wage",
     )
 
     amendment_index = fields.Integer(
@@ -123,27 +146,6 @@ class Contract(models.Model):
         compute="_compute_latest",
     )
 
-    date_signature = fields.Date(
-        string="Signature Date",
-        help="Signature date of the contract.",
-        copy=False,
-    )
-    date_mailing = fields.Date(
-        string="Mailing Date", help="Mailing date of the contract.", copy=False
-    )
-    reason = fields.Char(string="Reason for recourse to contract", copy=False)
-    duration = fields.Integer(string="Duration", default=6)
-    hours = fields.Float(string="Working Hours", required=True)
-    hourly_wage = fields.Monetary(string="Hourly Wage", required=True)
-    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
-    wage = fields.Monetary(
-        string="Wage",
-        digits=(16, 2),
-        required=True,
-        track_visibility="onchange",
-        help="Employee's monthly gross wage.",
-        compute="_compute_wage",
-    )
     notes = fields.Text(copy=False)
 
     attachment_number = fields.Integer(
@@ -199,29 +201,6 @@ class Contract(models.Model):
             )
 
     @api.multi
-    @api.depends("hours", "hourly_wage")
-    def _compute_wage(self):
-        for contract in self:
-            contract.wage = contract.hours * contract.hourly_wage
-
-    @api.onchange("date_start", "duration")
-    def onchange_date_start_duration(self):
-        if not self.duration:
-            self.date_end = False
-        if self.date_start and self.duration:
-            self.date_end = self.date_start + relativedelta(
-                months=self.duration
-            )
-
-    @api.onchange("date_end")
-    def onchange_date_end(self):
-        if not self.date_end:
-            self.duration = False
-        if self.date_start and self.date_end:
-            rd = relativedelta(self.date_end, self.date_start)
-            self.duration = rd.months + rd.years * 12
-
-    @api.multi
     @api.depends("contract_group_contract_ids", "type_id")
     def _compute_type_count(self):
         for contract in self:
@@ -230,6 +209,28 @@ class Contract(models.Model):
                 if c.type_id == contract.type_id:
                     type_count += 1
             contract.type_count = type_count
+
+    @api.multi
+    @api.depends("hours", "hourly_wage")
+    def _compute_wage(self):
+        for contract in self:
+            contract.wage = contract.hours * contract.hourly_wage
+
+    def _compute_initial(self):
+        for contract in self:
+            contract.initial_contract_id = contract.get_initial()
+
+    def _compute_parent(self):
+        for contract in self:
+            contract.parent_contract_id = contract.get_parent()
+
+    def _compute_child(self):
+        for contract in self:
+            contract.child_contract_id = contract.get_child()
+
+    def _compute_latest(self):
+        for contract in self:
+            contract.latest_contract_id = contract.get_latest()
 
     @api.multi
     def _compute_attachment_number(self):
@@ -258,6 +259,23 @@ class Contract(models.Model):
         )
         return action
 
+    @api.onchange("date_start", "duration")
+    def onchange_date_start_duration(self):
+        if not self.duration:
+            self.date_end = False
+        if self.date_start and self.duration:
+            self.date_end = self.date_start + relativedelta(
+                months=self.duration
+            )
+
+    @api.onchange("date_end")
+    def onchange_date_end(self):
+        if not self.date_end:
+            self.duration = False
+        if self.date_start and self.date_end:
+            rd = relativedelta(self.date_end, self.date_start)
+            self.duration = rd.months + rd.years * 12
+
     #  Note: this check must run both when creating a new amendment
     #  and when changing the type_id of an amendment
     @api.multi
@@ -275,22 +293,6 @@ class Contract(models.Model):
                         % (contract.type_id.max_usage, contract.type_id.name)
                     )
                 )
-
-    def _compute_initial(self):
-        for contract in self:
-            contract.initial_contract_id = contract.get_initial()
-
-    def _compute_parent(self):
-        for contract in self:
-            contract.parent_contract_id = contract.get_parent()
-
-    def _compute_child(self):
-        for contract in self:
-            contract.child_contract_id = contract.get_child()
-
-    def _compute_latest(self):
-        for contract in self:
-            contract.latest_contract_id = contract.get_latest()
 
     def get_initial(self):
         return self.contract_group_id.get_initial()
