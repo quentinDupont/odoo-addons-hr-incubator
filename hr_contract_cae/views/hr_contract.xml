@@ -23,6 +23,10 @@
                 </button>
             </button>
 
+            <field name="employee_id" position="attributes">
+                <attribute name="attrs">{'readonly':[('type_echelon', '=', 'amendment')]}</attribute>
+            </field>
+
             <field name="type_id" position="before">
                 <div style="width:35%"/> <!--Managing label width-->
                 <field name="type_echelon"/>
