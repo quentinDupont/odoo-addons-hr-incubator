@@ -83,13 +83,13 @@
             <xpath expr="//page[@name='information']" position="after">
                 <page string="Amendments" name="tree">
                     <group>
-                        <group>
-                            <field name="initial_contract_id"/>
-                            <field name="parent_contract_id"/>
-                            <field name="child_contract_id"/>
-                            <field name="latest_contract_id"/>
-                        </group>
-                        <field name="all_contract_ids" nolabel="1"/>
+<!--                        <group>-->
+<!--                            <field name="initial_contract_id"/>-->
+<!--                            <field name="parent_contract_id"/>-->
+<!--                            <field name="child_contract_id"/>-->
+<!--                            <field name="latest_contract_id"/>-->
+<!--                        </group>-->
+                        <field name="contract_group_contract_ids" nolabel="1"/>
                     </group>
                 </page>
             </xpath>

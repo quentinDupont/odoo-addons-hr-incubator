@@ -17,11 +17,6 @@ class CreateAmendmentWizard(models.TransientModel):
     contract_id = fields.Many2one(
         comodel_name="hr.contract", string="Amendment of"
     )
-    latest_contract_id = fields.Many2one(
-        comodel_name="hr.contract",
-        string="Latests contract",
-        related="contract_id.latest_contract_id",
-    )
     type_id = fields.Many2one(
         comodel_name="hr.contract.type",
         string="Contract Type",
@@ -43,26 +38,23 @@ class CreateAmendmentWizard(models.TransientModel):
         self.ensure_one()
         _logger.info("Creating %s Amendment" % self.type_id.name)
 
-        latest_contract_id = self.latest_contract_id
-        contract = latest_contract_id.copy(
+        latest_contract_id = self.contract_id.latest_contract_id
+        amendment = latest_contract_id.copy(
             {
                 "state": "draft",
                 "type_id": self.type_id.id,
                 "duration": False,
                 "date_end": False,
-                "initial_contract_id": latest_contract_id.initial_contract_id.id,
-                "parent_contract_id": latest_contract_id.id,
                 "amendment_index": latest_contract_id.amendment_index + 1,
             }
         )
-        latest_contract_id.child_contract_id = contract
-        contract._check_contract_type_count()
+        amendment.check_type_count()
 
         return {
             "type": "ir.actions.act_window",
             "res_model": "hr.contract",
             "view_mode": "form",
-            "res_id": contract.id,
+            "res_id": amendment.id,
             "target": "current",
             "context": {"form_view_initial_mode": "edit"},
         }

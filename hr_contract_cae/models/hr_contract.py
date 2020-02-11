@@ -4,6 +4,49 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
+class ContractGroup(models.Model):
+    _name = "hr.contract.group"
+    _description = "Contract Group"
+    _order = "amendment_index"
+
+    contract_ids = fields.One2many(
+        comodel_name="hr.contract",
+        inverse_name="contract_group_id",
+        string="Contracts",
+    )
+
+    def get_initial(self):
+        return self.contract_ids.search(
+            [("contract_group_id", "=", self.id)], limit=1
+        )
+
+    def get_parent(self, amendment_index):
+        return self.contract_ids.search(
+            [
+                ("contract_group_id", "=", self.id),
+                ("amendment_index", "<", amendment_index),
+            ],
+            order="amendment_index desc",
+            limit=1,
+        )
+
+    def get_child(self, amendment_index):
+        return self.contract_ids.search(
+            [
+                ("contract_group_id", "=", self.id),
+                ("amendment_index", ">", amendment_index),
+            ],
+            limit=1,
+        )
+
+    def get_latest(self):
+        return self.contract_ids.search(
+            [("contract_group_id", "=", self.id)],
+            order="amendment_index desc",
+            limit=1,
+        )
+
+
 class ContractType(models.Model):
 
     _inherit = "hr.contract.type"
@@ -37,46 +80,47 @@ class Contract(models.Model):
         compute="_compute_type_echelon",
         store=True,
     )  # Todo: add translation "Echelone du Type de Contrat"
-    contract_type_count = fields.Integer(
-        string="Contract Type Count", compute="_compute_info_inital_to_latest"
+    type_count = fields.Integer(
+        string="Contract Type Count", compute="_compute_type_count"
     )
 
-    # This entire logic was written starting from the need to know
-    # a contracts previous and next amendment.
-    # This could be refacted by creating a model 'contract.group' containing
-    # all contracts following from the parent contract, and each contract
-    # could then point to that group.
     amendment_index = fields.Integer(
         string="Amendment Index",
         help="'O' for main contract, '1' for it's first amendment, etc.",
         default=0,
+        required=True,
         readonly=True,
     )
+    contract_group_id = fields.Many2one(
+        comodel_name="hr.contract.group", string="Contract Group"
+    )
+    contract_group_contract_ids = fields.One2many(
+        comodel_name="hr.contract", related="contract_group_id.contract_ids"
+    )
     initial_contract_id = fields.Many2one(
-        comodel_name="hr.contract", string="Initial Contract", readonly=True
+        comodel_name="hr.contract",
+        string="Initial Contract",
+        readonly=True,
+        compute="_compute_initial",
     )
     parent_contract_id = fields.Many2one(
         comodel_name="hr.contract",
         string="Previous Contract",
         ondelete="cascade",  # Deletion of the parent deletes the amendment
         readonly=True,
-        copy=False,
+        compute="_compute_parent",
     )
     child_contract_id = fields.Many2one(
         comodel_name="hr.contract",
         string="Next Contract",
         readonly=True,
-        copy=False,
+        compute="_compute_child",
     )
     latest_contract_id = fields.Many2one(
         comodel_name="hr.contract",
         string="Latest Contract",
-        compute="_compute_info_inital_to_latest",
-    )
-    all_contract_ids = fields.Many2many(
-        comodel_name="hr.contract",
-        string="Field Name",
-        compute="_compute_info_inital_to_latest",
+        readonly=True,
+        compute="_compute_latest",
     )
 
     date_signature = fields.Date(
@@ -115,8 +159,11 @@ class Contract(models.Model):
     @api.model
     def create(self, vals):
         res = super().create(vals)
+        if not res.contract_group_id:
+            contract_group = self.env["hr.contract.group"].create({})
+            res.contract_group_id = contract_group
         if res.amendment_index == 0:
-            res.initial_contract_id = res.id
+            res.initial_contract_id = res.get_initial()
         return res
 
     @api.multi
@@ -175,33 +222,14 @@ class Contract(models.Model):
             self.duration = rd.months + rd.years * 12
 
     @api.multi
-    @api.depends(
-        "initial_contract_id",
-        "parent_contract_id",
-        "child_contract_id",
-        "latest_contract_id",
-        "type_id",
-    )
-    def _compute_info_inital_to_latest(self):
+    @api.depends("contract_group_contract_ids", "type_id")
+    def _compute_type_count(self):
         for contract in self:
-            current_contract_id = contract.initial_contract_id
-            # all_contract_ids = [current_contract_id.id]
-            # todo: fix error when computing id's and restore functionnality
-            contract_type_count = (
-                current_contract_id.type_id == contract.type_id
-            )  # todo: cast to integer or use if
-            while current_contract_id.child_contract_id:
-                # all_contract_ids.append(
-                #     current_contract_id.child_contract_id.id
-                # )
-                contract_type_count += (
-                    current_contract_id.child_contract_id.type_id
-                    == contract.type_id
-                )  # todo: cast to integer or use if
-                current_contract_id = current_contract_id.child_contract_id
-            contract.latest_contract_id = current_contract_id
-            # contract.all_contract_ids = [(6, 0, all_contract_ids)]
-            contract.contract_type_count = contract_type_count
+            type_count = 0
+            for c in contract.contract_group_contract_ids:
+                if c.type_id == contract.type_id:
+                    type_count += 1
+            contract.type_count = type_count
 
     @api.multi
     def _compute_attachment_number(self):
@@ -233,12 +261,12 @@ class Contract(models.Model):
     #  Note: this check must run both when creating a new amendment
     #  and when changing the type_id of an amendment
     @api.multi
-    @api.constrains("contract_type_count", "type_id")
-    def _check_contract_type_count(self):
+    @api.constrains("type_count", "type_id")
+    def check_type_count(self):
         for contract in self:
             if (
                 contract.type_id.max_usage
-                and contract.contract_type_count > contract.type_id.max_usage
+                and contract.type_count > contract.type_id.max_usage
             ):
                 raise ValidationError(
                     _(
@@ -247,3 +275,31 @@ class Contract(models.Model):
                         % (contract.type_id.max_usage, contract.type_id.name)
                     )
                 )
+
+    def _compute_initial(self):
+        for contract in self:
+            contract.initial_contract_id = contract.get_initial()
+
+    def _compute_parent(self):
+        for contract in self:
+            contract.parent_contract_id = contract.get_parent()
+
+    def _compute_child(self):
+        for contract in self:
+            contract.child_contract_id = contract.get_child()
+
+    def _compute_latest(self):
+        for contract in self:
+            contract.latest_contract_id = contract.get_latest()
+
+    def get_initial(self):
+        return self.contract_group_id.get_initial()
+
+    def get_parent(self):
+        return self.contract_group_id.get_parent(self.amendment_index)
+
+    def get_child(self):
+        return self.contract_group_id.get_child(self.amendment_index)
+
+    def get_latest(self):
+        return self.contract_group_id.get_latest()

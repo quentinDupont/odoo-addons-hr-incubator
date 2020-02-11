@@ -35,7 +35,8 @@ class TestHRContractCAE(TransactionCase):
 
     def test_amendment(self):
 
-        wizard = (
+        # Create first 'CAPE extension' amendment
+        wizard_1 = (
             self.env["hr.contract.amendment.wizard"]
             .with_context({"active_id": self.contract.id})
             .create(
@@ -45,9 +46,7 @@ class TestHRContractCAE(TransactionCase):
                 }
             )
         )
-
-        # Create first 'CAPE extension' amendment
-        amendment_1_id = wizard.create_amendment()["res_id"]
+        amendment_1_id = wizard_1.create_amendment()["res_id"]
         amendment_1 = self.env["hr.contract"].browse(amendment_1_id)
 
         self.assertEquals(amendment_1.type_echelon, "amendment")
@@ -55,7 +54,17 @@ class TestHRContractCAE(TransactionCase):
         self.assertEquals(amendment_1.parent_contract_id, self.contract)
 
         # Create second 'CAPE extension' amendment
-        amendment_2_id = wizard.create_amendment()["res_id"]
+        wizard_2 = (
+            self.env["hr.contract.amendment.wizard"]
+            .with_context({"active_id": amendment_1.id})
+            .create(
+                {
+                    "contract_id": self.contract.id,
+                    "type_id": self.cape_renewal.id,
+                }
+            )
+        )
+        amendment_2_id = wizard_2.create_amendment()["res_id"]
         amendment_2 = self.env["hr.contract"].browse(amendment_2_id)
 
         self.assertEquals(amendment_2.type_echelon, "amendment")
@@ -64,5 +73,16 @@ class TestHRContractCAE(TransactionCase):
 
         # check that no third 'CAPE extension' amendment can be made
         self.assertEquals(self.cape_renewal.max_usage, 2)
+        self.assertEquals(amendment_2.type_count, 2)
         with self.assertRaises(ValidationError):
-            wizard.create_amendment()
+            wizard_3 = (
+                self.env["hr.contract.amendment.wizard"]
+                .with_context({"active_id": amendment_2.id})
+                .create(
+                    {
+                        "contract_id": self.contract.id,
+                        "type_id": self.cape_renewal.id,
+                    }
+                )
+            )
+            wizard_3.create_amendment()
