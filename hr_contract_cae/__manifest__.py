@@ -12,7 +12,11 @@
     "license": "AGPL-3",
     "external_dependencies": {"python": ["dateutil.relativedelta"]},
     "depends": ["hr", "hr_contract"],
-    "data": ["data/hr_contract_data.xml", "views/hr_contract.xml"],
+    "data": [
+        "data/hr_contract_data.xml",
+        "wizard/create_amendment_wizard.xml",
+        "views/hr_contract.xml",
+    ],
     "demo": [],
     "installable": True,
     "application": False,

@@ -11,9 +11,9 @@
         <field name="arch" type="xml">
 
             <field name="state" position="before">
-                <button name="create_amendment"
+                <button name="%(create_amendment_wizard_view_action)d"
                         string="Create Amendment"
-                        type="object"
+                        type="action"
                         class="oe_read_only"/>
             </field>
 
@@ -50,11 +50,12 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <xpath expr="//div[@name='wage']" position="replace">
-                <div class="o_row" name="wage">
-                    <field name="wage" nolabel="1"/>
-                    <span>€ / month</span>
-                </div>
+            <xpath expr="//div[@name='wage']/span" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='wage']/span" position="after">
+                <span>€ / month</span>
             </xpath>
 
             <field name="advantages" position="after">
@@ -78,6 +79,12 @@
             <xpath expr="//page[@name='information']" position="after">
                 <page string="Amendments" name="tree">
                     <group>
+                        <group>
+                            <field name="initial_contract_id"/>
+                            <field name="parent_contract_id"/>
+                            <field name="child_contract_id"/>
+                            <field name="latest_contract_id"/>
+                        </group>
                         <field name="all_contract_ids" nolabel="1"/>
                     </group>
                 </page>

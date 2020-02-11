@@ -174,35 +174,13 @@ class Contract(models.Model):
             self.duration = rd.months + rd.years * 12
 
     @api.multi
-    def create_amendment(self):
-        self.ensure_one()
-        latest_contract_id = self.latest_contract_id
-        contract = latest_contract_id.copy(
-            {
-                "state": "draft",
-                "type_id": self.env["hr.contract.type"]
-                .search([("echelon", "=", "amendment")], limit=1)
-                .id,
-                "duration": False,
-                "date_end": False,
-                "initial_contract_id": latest_contract_id.initial_contract_id.id,
-                "parent_contract_id": latest_contract_id.id,
-                "amendment_index": latest_contract_id.amendment_index + 1,
-            }
-        )
-        latest_contract_id.child_contract_id = contract
-
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "hr.contract",
-            "view_mode": "form",
-            "res_id": contract.id,
-            "target": "current",
-            "context": {"form_view_initial_mode": "edit"},
-        }
-
-    @api.multi
-    @api.depends("initial_contract_id", "type_id")
+    @api.depends(
+        "initial_contract_id",
+        "parent_contract_id",
+        "child_contract_id",
+        "latest_contract_id",
+        "type_id",
+    )
     def _compute_info_inital_to_latest(self):
         for contract in self:
             current_contract_id = contract.initial_contract_id
@@ -251,6 +229,8 @@ class Contract(models.Model):
         )
         return action
 
+    #  Note: this check must run both when creating a new amendment
+    #  and when changing the type_id of an amendment
     @api.multi
     @api.constrains("contract_type_count", "type_id")
     def _check_contract_type_count(self):
