@@ -8,10 +8,17 @@ from odoo import tests
 
 @tests.tagged("access_rights")
 class TestValueLog(tests.common.TransactionCase):
+    def setUp(self):
+
+        super(TestValueLog, self).setUp()
+
+        self.employee = self.browse_ref("hr.employee_al")
+
     def test_log_contract_type_start_end(self):
         contract = self.env["hr.contract"].create(
             {
                 "name": "test contract",
+                "employee_id": self.employee.id,
                 "type_id": self.ref("hr_contract.hr_contract_type_emp"),
                 "date_start": "2019-10-12",
                 "hours": 7,
