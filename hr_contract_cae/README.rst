@@ -13,13 +13,24 @@ HR Contract CAE
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-odoo_cae%2Fodoo--addons--hr--incubator-lightgray.png?logo=github
-    :target: https://github.com/odoo_cae/odoo-addons-hr-incubator/tree/12.0/hr-contract-cae
-    :alt: odoo_cae/odoo-addons-hr-incubator
+.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fodoo--addons--hr--incubator-lightgray.png?logo=github
+    :target: https://github.com/OCA/odoo-addons-hr-incubator/tree/12.0/hr_contract_cae
+    :alt: OCA/odoo-addons-hr-incubator
+.. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
+    :target: https://translation.odoo-community.org/projects/odoo-addons-hr-incubator-12-0/odoo-addons-hr-incubator-12-0-hr_contract_cae
+    :alt: Translate me on Weblate
 
-|badge1| |badge2| |badge3| 
+|badge1| |badge2| |badge3| |badge4| 
 
-Extend `hr.contract` to handle employee contracts in a CAE - Cooperative Activité Emploi
+Extends `hr.contract` to handle employee contracts in a CAE - Cooperative Activité Emploi
+
+* Introduces two echelons of contract types: main contracts (CDI, CDD, ...) and amendments (Bonus, Salary Evolution, ...).
+* A button is added to create an amendment of a contract. It's information, or that of it's latest amendment, is copied into a new amendment.
+* Amendments of a main contract are indexed.
+* Creation of amendments can be limited by type of amendment to a certain number
+* Fields are added to contracts regarding duration and dates (signature, mailing, ...).
+* The monthly wage is computed based on monthly working hours and hourly wage.
+* Contract attachements can be uploaded
 
 **Table of contents**
 
@@ -29,10 +40,10 @@ Extend `hr.contract` to handle employee contracts in a CAE - Cooperative Activit
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/odoo_cae/odoo-addons-hr-incubator/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/odoo-addons-hr-incubator/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/odoo_cae/odoo-addons-hr-incubator/issues/new?body=module:%20hr-contract-cae%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/odoo-addons-hr-incubator/issues/new?body=module:%20hr_contract_cae%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -42,7 +53,7 @@ Credits
 Authors
 ~~~~~~~
 
-* Coop IT Easy SCRL
+* Coop IT Easy SCRLfs
 
 Contributors
 ~~~~~~~~~~~~
@@ -52,6 +63,16 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
-This module is part of the `odoo_cae/odoo-addons-hr-incubator <https://github.com/odoo_cae/odoo-addons-hr-incubator/tree/12.0/hr-contract-cae>`_ project on GitHub.
+This module is maintained by the OCA.
 
-You are welcome to contribute.
+.. image:: https://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: https://odoo-community.org
+
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
+
+This module is part of the `OCA/odoo-addons-hr-incubator <https://github.com/OCA/odoo-addons-hr-incubator/tree/12.0/hr_contract_cae>`_ project on GitHub.
+
+You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
