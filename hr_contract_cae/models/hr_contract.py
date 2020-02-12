@@ -1,7 +1,11 @@
+import logging
+
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class ContractGroup(models.Model):
@@ -310,3 +314,33 @@ class Contract(models.Model):
 
     def get_latest(self):
         return self.contract_group_id.get_latest()
+
+    def create_amendment(self, type_id):
+        self.ensure_one()
+        if not type_id:
+            type_id = self.env["hr.contract.type"].search(
+                [("echelon", "=", "amendment")], limit=1
+            )
+
+        _logger.info("Creating %s Amendment" % type_id.name)
+
+        latest_contract_id = self.latest_contract_id
+        amendment = latest_contract_id.copy(
+            {
+                "state": "draft",
+                "type_id": type_id.id,
+                "duration": False,
+                "date_end": False,
+                "amendment_index": latest_contract_id.amendment_index + 1,
+            }
+        )
+        amendment.check_type_count()
+
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "hr.contract",
+            "view_mode": "form",
+            "res_id": amendment.id,
+            "target": "current",
+            "context": {"form_view_initial_mode": "edit"},
+        }

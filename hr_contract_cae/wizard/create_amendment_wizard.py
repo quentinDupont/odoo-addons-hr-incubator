@@ -3,11 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
-import logging
-
 from odoo import api, fields, models
-
-_logger = logging.getLogger(__name__)
 
 
 class CreateAmendmentWizard(models.TransientModel):
@@ -36,25 +32,4 @@ class CreateAmendmentWizard(models.TransientModel):
     @api.multi
     def create_amendment(self):
         self.ensure_one()
-        _logger.info("Creating %s Amendment" % self.type_id.name)
-
-        latest_contract_id = self.contract_id.latest_contract_id
-        amendment = latest_contract_id.copy(
-            {
-                "state": "draft",
-                "type_id": self.type_id.id,
-                "duration": False,
-                "date_end": False,
-                "amendment_index": latest_contract_id.amendment_index + 1,
-            }
-        )
-        amendment.check_type_count()
-
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "hr.contract",
-            "view_mode": "form",
-            "res_id": amendment.id,
-            "target": "current",
-            "context": {"form_view_initial_mode": "edit"},
-        }
+        return self.contract_id.create_amendment(self.type_id)
