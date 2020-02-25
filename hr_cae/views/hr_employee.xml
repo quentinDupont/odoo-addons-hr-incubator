@@ -63,9 +63,7 @@
             </xpath>
 
             <!-- hide extra documents group -->
-            <xpath expr="//page[@name='personal_information']//field[@name='google_drive_link']/.." position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
+            <!-- replaced in hr_employee_documents -->
 
             <!-- edit contact information group -->
             <xpath expr="//page[@name='personal_information']//field[@name='address_home_id']" position="before">
