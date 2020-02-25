@@ -13,7 +13,7 @@
     "depends": [
         "contacts",
         "hr_cae",
-        "hr_contract_cae",
+        "hr_contract",
         "hr_employee_firstname",
         "hr_recruitment",
     ],
