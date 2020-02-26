@@ -38,6 +38,8 @@
 
             <xpath expr="//field[@name='job_id']/.." position="after">
                 <group string="Job" name="job">
+                    <field name="department_id"/>
+                    <field name="job_id"/>
                     <field name="job"/>
                     <field name="job_description"/>
                     <field name="equipment"/>
@@ -53,6 +55,7 @@
 
             <xpath expr="//field[@name='salary_expected']/../.." position="after">
                 <group string="Job Position" name="job_position">
+                    <field name="turnover_minimum"/>
                     <label for="salary_expected"/>
                     <div>
                         <field name="salary_expected" class="oe_inline"/>

@@ -9,6 +9,9 @@ from odoo import api, fields, models
 class Applicant(models.Model):
     _inherit = "hr.applicant"
 
+    currency_id = fields.Many2one(
+        string="Currency", related="company_id.currency_id", readonly=True
+    )
     title = fields.Many2one("res.partner.title")
     job = fields.Char(string="Job", required=False)
     job_description = fields.Text(string="Job Description", required=False)
@@ -20,6 +23,7 @@ class Applicant(models.Model):
     professional_experience = fields.Text(
         string="Professional Experience", required=False
     )
+    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
@@ -35,10 +39,15 @@ class Applicant(models.Model):
 
         for applicant in self:
             employee = applicant.emp_id
+            employee.work_phone = applicant.partner_phone
+            employee.mobile_phone = applicant.partner_mobile
+            employee.work_email = applicant.email_from
+            employee.department_id = applicant.department_id
             employee.certificate_id = applicant.type_id
             employee.certificate_date = applicant.certificate_date
             employee.professional_experience = applicant.professional_experience
             employee.equipment = applicant.equipment
+            employee.turnover_minimum = applicant.turnover_minimum
             if applicant.partner_id:
                 employee.title = applicant.partner_id.title
             else:

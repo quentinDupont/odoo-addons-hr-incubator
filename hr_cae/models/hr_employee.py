@@ -10,6 +10,9 @@ from odoo.exceptions import ValidationError
 class Employee(models.Model):
     _inherit = "hr.employee"
 
+    currency_id = fields.Many2one(
+        string="Currency", related="company_id.currency_id", readonly=True
+    )
     title = fields.Many2one("res.partner.title")
     country_department_of_birth_id = fields.Many2one(
         "res.country.department", string="Department (France) of Birth", required=False
@@ -46,6 +49,7 @@ class Employee(models.Model):
         domain="[('partner_id', '=', address_home_id)]",
         help="Employee bank salary account",
     )  # TODO: check that this one is actually used in logic
+    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
     coop_role_id = fields.Many2one(
         "hr.coop.role", string="Role in the cooperative", required=False
     )

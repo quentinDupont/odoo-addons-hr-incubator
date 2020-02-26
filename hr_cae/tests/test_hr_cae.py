@@ -14,10 +14,15 @@ class TestHRCAE(TransactionCase):
         applicant.professional_experience = "A lot of experience"
         applicant.equipment = "Pen and paper"
         applicant.title = self.browse_ref("base.res_partner_title_mister")
+        applicant.turnover_minimum = 10000
 
         applicant.create_employee_from_applicant()
         employee = applicant.emp_id
 
+        self.assertEquals(employee.work_phone, applicant.partner_phone)
+        self.assertEquals(employee.mobile_phone, applicant.partner_mobile)
+        self.assertEquals(employee.work_email, applicant.email_from)
+        self.assertEquals(employee.department_id, applicant.department_id)
         self.assertEquals(employee.certificate_id, applicant.type_id)
         self.assertEquals(employee.certificate_date, applicant.certificate_date)
         self.assertEquals(
@@ -25,3 +30,4 @@ class TestHRCAE(TransactionCase):
         )
         self.assertEquals(employee.equipment, applicant.equipment)
         self.assertEquals(employee.title, applicant.title)
+        self.assertEquals(employee.turnover_minimum, applicant.turnover_minimum)
