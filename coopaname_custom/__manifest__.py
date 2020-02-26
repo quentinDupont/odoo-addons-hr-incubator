@@ -13,11 +13,15 @@
     "depends": [
         "contacts",
         "hr_cae",
-        "hr_contract",
+        "hr_contract_cae",
         "hr_employee_firstname",
         "hr_recruitment",
     ],
-    "data": ["views/hr_applicant.xml"],
+    "data": [
+        "views/hr_applicant.xml",
+        "views/hr_employee.xml",
+        "data/data.xml",
+    ],
     "demo": [],
     "external_dependencies": {"python": ["phonenumbers"]},
     "installable": True,
