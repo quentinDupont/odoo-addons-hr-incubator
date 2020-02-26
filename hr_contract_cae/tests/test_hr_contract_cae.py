@@ -8,15 +8,12 @@ from odoo.tests.common import TransactionCase
 
 class TestHRContractCAE(TransactionCase):
     def setUp(self):
-
         super(TestHRContractCAE, self).setUp()
-
         self.employee = self.browse_ref("hr.employee_al")
         self.cdi = self.browse_ref("hr_contract_cae.hr_contract_type_cdi")
         self.cape_renewal = self.browse_ref(
             "hr_contract_cae.hr_contract_type_cape_renewal"
         )
-
         self.contract = self.env["hr.contract"].create(
             {
                 "employee_id": self.employee.id,
@@ -27,14 +24,11 @@ class TestHRContractCAE(TransactionCase):
         )
 
     def test_contract_values(self):
-
         self.assertEquals(self.contract.amendment_index, 0)
         self.assertEquals(self.contract.wage, 40 * 20)
-
         #  Todo: add date manipulation test
 
     def test_amendment(self):
-
         # Create first 'CAPE extension' amendment
         wizard_1 = (
             self.env["hr.contract.amendment.wizard"]
@@ -51,6 +45,7 @@ class TestHRContractCAE(TransactionCase):
 
         self.assertEquals(amendment_1.type_echelon, "amendment")
         self.assertEquals(amendment_1.initial_contract_id, self.contract)
+        self.assertEquals(amendment_1.amendment_index, 1)
         self.assertEquals(amendment_1.parent_contract_id, self.contract)
 
         # Create second 'CAPE extension' amendment
@@ -69,6 +64,7 @@ class TestHRContractCAE(TransactionCase):
 
         self.assertEquals(amendment_2.type_echelon, "amendment")
         self.assertEquals(amendment_2.initial_contract_id, self.contract)
+        self.assertEquals(amendment_2.amendment_index, 2)
         self.assertEquals(amendment_2.parent_contract_id, amendment_1)
 
         # check that no third 'CAPE extension' amendment can be made

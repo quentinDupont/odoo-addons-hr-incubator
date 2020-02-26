@@ -63,6 +63,13 @@ class ContractType(models.Model):
     max_usage = fields.Integer(string="Maximum Usage", default=False)
 
 
+class ContractTag(models.Model):
+
+    _name = "hr.contract.tag"
+
+    name = fields.Char()
+
+
 class Contract(models.Model):
     _inherit = "hr.contract"
 
@@ -76,7 +83,7 @@ class Contract(models.Model):
         copy=False,
         compute="_compute_type_echelon",
         store=True,
-    )  # Todo: add translation "Echelone du Type de Contrat"
+    )  # Todo: add translation "Échelon du Type de Contrat"
     type_id = fields.Many2one(
         string="Contract Type",
         domain="[('echelon', '=', type_echelon)]",
@@ -88,6 +95,7 @@ class Contract(models.Model):
     )
     state_admin = fields.Text(string="Administrative state", copy=False)
     reason = fields.Char(string="Reason for recourse to contract", copy=False)
+    tag_ids = fields.Many2many(comodel_name="hr.contract.tag", string="Tags")
 
     duration = fields.Integer(string="Duration", default=6)
     date_initial_start = fields.Date(
@@ -174,7 +182,7 @@ class Contract(models.Model):
             contract_group = self.env["hr.contract.group"].create({})
             res.contract_group_id = contract_group
         if res.amendment_index == 0:
-            res.initial_contract_id = res.get_initial()
+            res._compute_initial()
         return res
 
     @api.multi
@@ -227,19 +235,27 @@ class Contract(models.Model):
 
     def _compute_initial(self):
         for contract in self:
-            contract.initial_contract_id = contract.get_initial()
+            contract.initial_contract_id = (
+                contract.contract_group_id.get_initial()
+            )
 
     def _compute_parent(self):
         for contract in self:
-            contract.parent_contract_id = contract.get_parent()
+            contract.parent_contract_id = contract.contract_group_id.get_parent(
+                contract.amendment_index
+            )
 
     def _compute_child(self):
         for contract in self:
-            contract.child_contract_id = contract.get_child()
+            contract.child_contract_id = contract.contract_group_id.get_child(
+                self.amendment_index
+            )
 
     def _compute_latest(self):
         for contract in self:
-            contract.latest_contract_id = contract.get_latest()
+            contract.latest_contract_id = (
+                contract.contract_group_id.get_latest()
+            )
 
     @api.multi
     def _compute_attachment_number(self):
@@ -302,18 +318,6 @@ class Contract(models.Model):
                         % (contract.type_id.max_usage, contract.type_id.name)
                     )
                 )
-
-    def get_initial(self):
-        return self.contract_group_id.get_initial()
-
-    def get_parent(self):
-        return self.contract_group_id.get_parent(self.amendment_index)
-
-    def get_child(self):
-        return self.contract_group_id.get_child(self.amendment_index)
-
-    def get_latest(self):
-        return self.contract_group_id.get_latest()
 
     def create_amendment(self, type_id):
         self.ensure_one()

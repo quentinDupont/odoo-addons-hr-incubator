@@ -39,6 +39,7 @@
             <field name="type_id" position="after">
                 <field name="state_admin"/>
                 <field name="reason"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'edit': False}"/>
             </field>
 
             <field name="date_start" position="after">
