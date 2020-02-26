@@ -14,7 +14,7 @@
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["hr_recruitment", "hr_employee_document"],
-    "data": ["views/ir_attachment.xml"],
+    "data": ["security/ir.model.access.csv", "views/ir_attachment.xml"],
     "demo": [],
     "installable": True,
     "application": False,

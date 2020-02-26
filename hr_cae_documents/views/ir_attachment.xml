@@ -11,6 +11,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='type']" position="after">
+                <field name="category_id"/>
                 <field name="create_date"/>
                 <field name="expiration_date"/>
             </xpath>
