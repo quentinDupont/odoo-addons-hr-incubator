@@ -24,6 +24,7 @@
         "views/hr_applicant.xml",
         "views/hr_exemption.xml",
         "views/hr_employee.xml",
+        "views/res_partner.xml",
         "data/data.xml",
     ],
     "demo": [],

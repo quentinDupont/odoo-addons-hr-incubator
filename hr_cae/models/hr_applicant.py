@@ -24,11 +24,16 @@ class Applicant(models.Model):
         string="Professional Experience", required=False
     )
     turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
+    origin_status_id = fields.Many2one(
+        "hr.origin.status", string="Origin Status", required=False
+    )
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
         res = super(Applicant, self).onchange_partner_id()
         self.title = self.partner_id.title
+        if self.partner_id.origin_status_id:
+            self.origin_status_id = self.partner_id.origin_status_id
         return res
 
     @api.multi
@@ -50,7 +55,9 @@ class Applicant(models.Model):
             employee.turnover_minimum = applicant.turnover_minimum
             if applicant.partner_id:
                 employee.title = applicant.partner_id.title
+                employee.origin_status_id = applicant.partner_id.origin_status_id
             else:
                 employee.title = applicant.title
+                employee.origin_status_id = applicant.origin_status_id
 
         return employee_action_window

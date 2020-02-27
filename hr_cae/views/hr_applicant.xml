@@ -64,6 +64,7 @@
                     </div>
                 </group>
                 <group string="Professional Experience" name="professional_experience">
+                    <field name="origin_status_id"/>
                     <field name="professional_experience"/>
                 </group>
             </xpath>

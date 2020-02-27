@@ -30,4 +30,5 @@ class TestHRCAE(TransactionCase):
         )
         self.assertEquals(employee.equipment, applicant.equipment)
         self.assertEquals(employee.title, applicant.title)
+        self.assertEquals(employee.origin_status_id, applicant.origin_status_id)
         self.assertEquals(employee.turnover_minimum, applicant.turnover_minimum)
