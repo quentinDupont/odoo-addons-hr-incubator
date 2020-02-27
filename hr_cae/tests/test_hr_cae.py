@@ -3,12 +3,15 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import fields
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
 class TestHRCAE(TransactionCase):
     def test_create_employee_from_applicant(self):
         applicant = self.browse_ref("hr_recruitment.hr_case_salesman0")
+        promotion = self.browse_ref("hr_cae.hr_promotion_test")
+        applicant.promotion_id = promotion
         applicant.type_id = self.browse_ref("hr_recruitment.degree_graduate")
         applicant.certificate_date = fields.Date.today()
         applicant.professional_experience = "A lot of experience"
@@ -16,12 +19,15 @@ class TestHRCAE(TransactionCase):
         applicant.title = self.browse_ref("base.res_partner_title_mister")
         applicant.turnover_minimum = 10000
 
+        self.assertTrue(applicant in promotion.applicant_ids)
+
         applicant.create_employee_from_applicant()
         employee = applicant.emp_id
 
         self.assertEquals(employee.work_phone, applicant.partner_phone)
         self.assertEquals(employee.mobile_phone, applicant.partner_mobile)
         self.assertEquals(employee.work_email, applicant.email_from)
+        self.assertEquals(employee.promotion_id, applicant.promotion_id)
         self.assertEquals(employee.department_id, applicant.department_id)
         self.assertEquals(employee.certificate_id, applicant.type_id)
         self.assertEquals(employee.certificate_date, applicant.certificate_date)
@@ -32,3 +38,24 @@ class TestHRCAE(TransactionCase):
         self.assertEquals(employee.title, applicant.title)
         self.assertEquals(employee.origin_status_id, applicant.origin_status_id)
         self.assertEquals(employee.turnover_minimum, applicant.turnover_minimum)
+
+        self.assertTrue(employee in promotion.employee_ids)
+        self.assertTrue(applicant not in promotion.applicant_ids)
+
+    def test_promotion_no_of_places_max(self):
+        promotion = self.browse_ref("hr_cae.hr_promotion_test")
+        promotion.no_of_places_max = 1
+
+        employee_1 = self.browse_ref("hr.employee_al")
+        employee_2 = self.browse_ref("hr.employee_mit")
+        applicant_1 = self.browse_ref("hr_recruitment.hr_case_salesman0")
+
+        employee_1.promotion_id = promotion
+
+        with self.assertRaises(ValidationError):
+            employee_2.promotion_id = promotion
+
+        applicant_1.promotion_id = promotion
+        self.assertFalse(applicant_1.emp_id)
+        with self.assertRaises(ValidationError):
+            applicant_1.create_employee_from_applicant()

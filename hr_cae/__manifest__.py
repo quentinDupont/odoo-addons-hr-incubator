@@ -24,10 +24,12 @@
         "views/hr_applicant.xml",
         "views/hr_exemption.xml",
         "views/hr_employee.xml",
+        "views/hr_exemption.xml",
+        "views/hr_promotion.xml",
         "views/res_partner.xml",
         "data/data.xml",
     ],
-    "demo": [],
+    "demo": ["demo/demo.xml"],
     "installable": True,
     "application": False,
 }

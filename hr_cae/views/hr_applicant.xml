@@ -63,6 +63,9 @@
                         <field name="salary_expected_extra" class="oe_inline" placeholder="Extra advantages..."/>
                     </div>
                 </group>
+                <group string="Promotion" name="promotion">
+                    <field name="promotion_id"/>
+                </group>
                 <group string="Professional Experience" name="professional_experience">
                     <field name="origin_status_id"/>
                     <field name="professional_experience"/>

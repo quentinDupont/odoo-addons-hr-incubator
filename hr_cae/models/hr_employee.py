@@ -20,6 +20,9 @@ class Employee(models.Model):
     country_other_ids = fields.Many2many(
         "res.country", string="Other Nationalities", required=False
     )
+    promotion_id = fields.Many2one(
+        comodel_name="hr.promotion", string="Promotion", required=False
+    )
     date_start = fields.Date(
         string="Date of Entry", default=fields.Date.today(), required=False
     )
