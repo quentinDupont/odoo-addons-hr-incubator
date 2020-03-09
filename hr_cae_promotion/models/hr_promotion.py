@@ -87,7 +87,7 @@ class Promotion(models.Model):
     def _compute_no_of_applicants(self):
         for promotion in self:
             applicants = self.env["hr.applicant"].search(
-                [("active", "=", True), ("promotion_id", "=", self.id)]
+                [("active", "=", True), ("promotion_id", "=", promotion.id)]
             )
             promotion.no_of_applicants = len(applicants)
 
