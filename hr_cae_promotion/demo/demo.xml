@@ -7,8 +7,8 @@
     <data noupdate="0">  <!-- fixme -->
         <record id="hr_promotion_test" model="hr.promotion">
             <field name="name">The First Promotion</field>
-            <field name="no_of_places_regime">limited</field>
-            <field name="no_of_places_max">1</field>
+            <field name="spots_regime">limited</field>
+            <field name="spots_max">1</field>
         </record>
     </data>
 </odoo>

@@ -7,42 +7,46 @@ from odoo.tests.common import TransactionCase
 
 
 class TestHRCAE(TransactionCase):
+    def setUp(self):
+        super().setUp()
+        self.employee_1 = self.env.ref("hr.employee_al")
+        self.employee_2 = self.env.ref("hr.employee_mit")
+        self.applicant_1 = self.env.ref("hr_recruitment.hr_case_salesman0")
+        self.promotion = self.env.ref("hr_cae_promotion.hr_promotion_test")
+        self.assertEquals(self.promotion.spots_max, 1)
+
     def test_create_employee_from_applicant(self):
-        applicant = self.browse_ref("hr_recruitment.hr_case_salesman0")
-        promotion = self.browse_ref("hr_cae_promotion.hr_promotion_test")
-        self.assertEquals(promotion.no_of_places_max, 1)
-        applicant.promotion_id = promotion
+        self.applicant_1.promotion_id = self.promotion
 
-        self.assertTrue(applicant in promotion.applicant_ids)
+        self.assertTrue(self.applicant_1 in self.promotion.applicant_ids)
 
-        applicant.create_employee_from_applicant()
-        employee = applicant.emp_id
+        self.applicant_1.create_employee_from_applicant()
+        employee = self.applicant_1.emp_id
 
-        self.assertEquals(employee.promotion_id, applicant.promotion_id)
+        self.assertEquals(employee.promotion_id, self.applicant_1.promotion_id)
 
-        self.assertTrue(employee in promotion.employee_ids)
-        self.assertTrue(applicant not in promotion.applicant_ids)
+        self.assertTrue(employee in self.promotion.employee_ids)
+        self.assertTrue(self.applicant_1 not in self.promotion.applicant_ids)
 
-    def test_promotion_no_of_places_max(self):
-        promotion = self.browse_ref("hr_cae_promotion.hr_promotion_test")
-        self.assertEquals(promotion.no_of_places_max, 1)
-
-        employee_1 = self.browse_ref("hr.employee_al")
-        employee_2 = self.browse_ref("hr.employee_mit")
-        applicant_1 = self.browse_ref("hr_recruitment.hr_case_salesman0")
-
-        employee_1.promotion_id = promotion
+    def test_promotion_spots_max_add_employee(self):
+        self.employee_1.promotion_id = self.promotion
 
         with self.assertRaises(ValidationError):
-            employee_2.promotion_id = promotion
+            self.employee_2.promotion_id = self.promotion
 
-        applicant_1.promotion_id = promotion
-        self.assertFalse(applicant_1.emp_id)
+    def test_promotion_spots_max_create_employee_from_applicant(self):
+        self.employee_1.promotion_id = self.promotion
+
+        self.applicant_1.promotion_id = self.promotion
+        self.assertFalse(self.applicant_1.emp_id)
         with self.assertRaises(ValidationError):
-            applicant_1.create_employee_from_applicant()
+            self.applicant_1.create_employee_from_applicant()
 
-        promotion.no_of_places_regime = "unlimited"
-        employee_2.promotion_id = promotion
+    def test_promotion_spots_max_reset_regime(self):
+        self.employee_1.promotion_id = self.promotion
+
+        self.promotion.spots_regime = "unlimited"
+        self.employee_2.promotion_id = self.promotion
 
         with self.assertRaises(ValidationError):
-            promotion.no_of_places_regime = "limited"
+            self.promotion.spots_regime = "limited"

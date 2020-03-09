@@ -44,21 +44,21 @@ class Promotion(models.Model):
         string="Applicants",
         domain=[("emp_id", "=", False)],
     )
-    no_of_places_regime = fields.Selection(
+    spots_regime = fields.Selection(
         [("limited", "Limited"), ("unlimited", "Unlimited")],
         "Regime",
         required=True,
         default="limited",
     )
-    no_of_places_max = fields.Integer(string="Maximum Number of Places", copy=False)
-    no_of_places_taken = fields.Integer(
-        compute="_compute_no_of_places_taken", string="Places Taken", stre=True
+    spots_max = fields.Integer(string="Maximum Spots", copy=False)
+    spots_taken = fields.Integer(
+        compute="_compute_spots_taken", string="Spots Taken", stre=True
     )
-    no_of_places_available = fields.Integer(
-        compute="_compute_no_of_places_available", string="Places Available", store=True
+    spots_available = fields.Integer(
+        compute="_compute_spots_available", string="Spots Available", store=True
     )
     no_of_applicants = fields.Integer(
-        compute="_compute_no_of_applicants", string="Applicants", store=True
+        compute="_compute_no_of_applicants", string="Number of Applicants", store=True
     )
     attachment_number = fields.Integer(
         compute="_compute_attachment_number", string="Number of Attachments"
@@ -71,19 +71,17 @@ class Promotion(models.Model):
     )
 
     @api.depends("employee_ids.active", "employee_ids.promotion_id")
-    def _compute_no_of_places_taken(self):
+    def _compute_spots_taken(self):
         for promotion in self:
             employees = self.env["hr.employee"].search(
                 [("active", "=", True), ("promotion_id", "=", promotion.id)]
             )
-            promotion.no_of_places_taken = len(employees)
+            promotion.spots_taken = len(employees)
 
-    @api.depends("no_of_places_max", "no_of_places_taken")
-    def _compute_no_of_places_available(self):
+    @api.depends("spots_max", "spots_taken")
+    def _compute_spots_available(self):
         for promotion in self:
-            promotion.no_of_places_available = (
-                promotion.no_of_places_max - promotion.no_of_places_taken
-            )
+            promotion.spots_available = promotion.spots_max - promotion.spots_taken
 
     @api.depends("applicant_ids.active", "applicant_ids.promotion_id")
     def _compute_no_of_applicants(self):
@@ -94,15 +92,12 @@ class Promotion(models.Model):
             promotion.no_of_applicants = len(applicants)
 
     @api.multi
-    @api.constrains("no_of_places_available")
-    def _constrain_no_of_places_available(self):
+    @api.constrains("spots_regime", "spots_available")
+    def _constrain_spots_available(self):
         for promotion in self:
-            if (
-                promotion.no_of_places_regime == "limited"
-                and promotion.no_of_places_available < 0
-            ):
+            if promotion.spots_regime == "limited" and promotion.spots_available < 0:
                 raise ValidationError(
-                    _("Not enough places available in this promotion.")
+                    _("Not enough spots available in this promotion.")
                 )
 
     @api.multi

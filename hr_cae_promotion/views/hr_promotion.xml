@@ -36,10 +36,10 @@
                             <field name="hr_responsible_id"/>
                         </group>
                         <group name="occupation" string="Occupation">
-                            <field name="no_of_places_regime" widget='radio'/>
-                            <field name="no_of_places_max" attrs="{'invisible': [('no_of_places_regime', '=', 'unlimited')], 'required': [('no_of_places_regime', '=', 'limited')]}"/>
-                            <field name="no_of_places_taken"/>
-                            <field name="no_of_places_available" attrs="{'invisible': [('no_of_places_regime', '=', 'unlimited')]}"/>
+                            <field name="spots_regime" widget='radio'/>
+                            <field name="spots_max" attrs="{'invisible': [('spots_regime', '=', 'unlimited')], 'required': [('spots_regime', '=', 'limited')]}"/>
+                            <field name="spots_taken"/>
+                            <field name="spots_available" attrs="{'invisible': [('spots_regime', '=', 'unlimited')]}"/>
                             <field name="no_of_applicants"/>
                         </group>
                     </group>
@@ -75,10 +75,10 @@
                 <field name="name"/>
                 <field name="description"/>
                 <field name="date_start"/>
-                <field name="no_of_places_regime"/>
-                <field name="no_of_places_max" attrs="{'invisible': [('no_of_places_regime', '=', 'unlimited')]}"/>
-                <field name="no_of_places_taken"/>
-                <field name="no_of_places_available" attrs="{'invisible': [('no_of_places_regime', '=', 'unlimited')]}"/>
+                <field name="spots_regime"/>
+                <field name="spots_max" attrs="{'invisible': [('spots_regime', '=', 'unlimited')]}"/>
+                <field name="spots_taken"/>
+                <field name="spots_available" attrs="{'invisible': [('spots_regime', '=', 'unlimited')]}"/>
                 <field name="no_of_applicants"/>
                 <field name="state"/>
             </tree>
