@@ -7,7 +7,7 @@
     "website": "www.coopiteasy.be",
     "category": "Human Resources",
     "version": "12.0.0.0.1",
-    "depends": ["contacts", "hr_contract_cae"],
+    "depends": ["contacts", "hr_cae_contract"],
     "data": ["security/ir.model.access.csv", "views/value_log.xml"],
     "demo": [],
     "installable": True,
