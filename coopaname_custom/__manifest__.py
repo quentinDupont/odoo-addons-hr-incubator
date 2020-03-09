@@ -13,7 +13,9 @@
     "depends": [
         "contacts",
         "hr_cae",
-        "hr_contract",
+        "hr_cae_contract",
+        "hr_cae_documents",
+        "hr_cae_event",
         "hr_employee_firstname",
         "hr_recruitment",
     ],
