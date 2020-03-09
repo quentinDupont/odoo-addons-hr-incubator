@@ -1,1 +1,1 @@
-from . import test_hr_contract_cae
+from . import test_hr_cae_contract

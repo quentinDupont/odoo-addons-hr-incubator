@@ -10,9 +10,9 @@ class TestHRContractCAE(TransactionCase):
     def setUp(self):
         super(TestHRContractCAE, self).setUp()
         self.employee = self.browse_ref("hr.employee_al")
-        self.cdi = self.browse_ref("hr_contract_cae.hr_contract_type_cdi")
+        self.cdi = self.browse_ref("hr_cae_contract.hr_contract_type_cdi")
         self.cape_renewal = self.browse_ref(
-            "hr_contract_cae.hr_contract_type_cape_renewal"
+            "hr_cae_contract.hr_contract_type_cape_renewal"
         )
         self.contract = self.env["hr.contract"].create(
             {
