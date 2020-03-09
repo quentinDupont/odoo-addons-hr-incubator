@@ -44,6 +44,12 @@ class Promotion(models.Model):
         string="Applicants",
         domain=[("emp_id", "=", False)],
     )
+    no_of_places_regime = fields.Selection(
+        [("limited", "Limited"), ("unlimited", "Unlimited")],
+        "Regime",
+        required=True,
+        default="limited",
+    )
     no_of_places_max = fields.Integer(string="Maximum Number of Places", copy=False)
     no_of_places_taken = fields.Integer(
         compute="_compute_no_of_places_taken", string="Places Taken", stre=True
@@ -75,10 +81,9 @@ class Promotion(models.Model):
     @api.depends("no_of_places_max", "no_of_places_taken")
     def _compute_no_of_places_available(self):
         for promotion in self:
-            if promotion.no_of_places_max:
-                promotion.no_of_places_available = (
-                    promotion.no_of_places_max - promotion.no_of_places_taken
-                )
+            promotion.no_of_places_available = (
+                promotion.no_of_places_max - promotion.no_of_places_taken
+            )
 
     @api.depends("applicant_ids.active", "applicant_ids.promotion_id")
     def _compute_no_of_applicants(self):
@@ -92,7 +97,10 @@ class Promotion(models.Model):
     @api.constrains("no_of_places_available")
     def _constrain_no_of_places_available(self):
         for promotion in self:
-            if promotion.no_of_places_available < 0 and promotion.no_of_places_max > 0:
+            if (
+                promotion.no_of_places_regime == "limited"
+                and promotion.no_of_places_available < 0
+            ):
                 raise ValidationError(
                     _("Not enough places available in this promotion.")
                 )
