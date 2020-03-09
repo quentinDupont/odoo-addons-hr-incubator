@@ -13,9 +13,6 @@ class Applicant(models.Model):
         string="Currency", related="company_id.currency_id", readonly=True
     )
     title = fields.Many2one("res.partner.title")
-    promotion_id = fields.Many2one(
-        comodel_name="hr.promotion", string="Promotion", required=False
-    )
     job = fields.Char(string="Job", required=False)
     job_description = fields.Text(string="Job Description", required=False)
     equipment = fields.Text(string="Equipment", required=False)
@@ -50,7 +47,6 @@ class Applicant(models.Model):
             employee.work_phone = applicant.partner_phone
             employee.mobile_phone = applicant.partner_mobile
             employee.work_email = applicant.email_from
-            employee.promotion_id = applicant.promotion_id
             employee.department_id = applicant.department_id
             employee.certificate_id = applicant.type_id
             employee.certificate_date = applicant.certificate_date
