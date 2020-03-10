@@ -4,14 +4,39 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-    <!-- Open Recruitment Degree from HR module.-->
+
+    <!-- Add menu to open Partner Title in HR -->
+    <menuitem
+        id="menu_partner_title_contact_hr"
+        action="base.action_partner_title_contact"
+        name="Contact Titles"
+        parent="hr.menu_human_resources_configuration"
+        sequence="1"/>
+
+    <!-- Add menu to open Partner Title in Recruitment -->
+    <menuitem
+        id="menu_partner_title_contact_recruitment"
+        action="base.action_partner_title_contact"
+        name="Contact Titles"
+        parent="hr_recruitment.menu_hr_recruitment_configuration"
+        sequence="1"/>
+
+    <!-- Add menu to open Certificate Levels / Recruitment Degree in HR -->
     <menuitem
             id="menu_view_hr_recruitment_degree_tree"
             action="hr_recruitment.hr_recruitment_degree_action"
-            name="Certificate levels"
+            name="Certificate Levels"
             parent="hr.menu_human_resources_configuration"
             groups="hr.group_hr_user"
             sequence="1"/>
+
+    <!-- Add menu to open Certificate Levels / Recruitment Degree in Recruitment -->
+    <menuitem
+            id="hr_recruitment.menu_hr_recruitment_degree"
+            name="Certificate Levels"
+            parent="hr_recruitment.menu_hr_recruitment_configuration"
+            action="hr_recruitment.hr_recruitment_degree_action"
+            sequence="1" groups="hr.group_hr_user"/>
 
     <record id="open_view_origin_status_tree" model="ir.actions.act_window">
         <field name="name">Origin Status</field>
