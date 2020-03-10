@@ -3,5 +3,4 @@
 
 hr
 event
-module_hr_emergency_contact https://github.com/coopiteasy/hr 12.0-mig-hr_emergency_contact
 l10n-france
