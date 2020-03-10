@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2020 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="res_view_partner_form" model="ir.ui.view">
+        <field name="name">res_partner_view_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet" position="before">
+                <header>
+                    <button string="Give expense report access"
+                            type="object"
+                            name="create_user_expense_report_access"
+                            class="oe_highlight"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

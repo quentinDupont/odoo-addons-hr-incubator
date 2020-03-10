@@ -39,3 +39,7 @@ class TestCoopanameCustom(TransactionCase):
         # fixme: the test does not access latest values
         # self.assertEqual(hne.mobile_phone, "06 99 68 76 78")
         # self.assertEqual(hne.work_phone, "+32 488 86 57 50")
+
+    def test_create_expense_report_user_from_contact(self):
+        partner = self.browse_ref("base.res_partner_address_15")
+        self.assertTrue(bool(partner))
