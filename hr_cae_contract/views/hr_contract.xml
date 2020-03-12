@@ -12,8 +12,14 @@
 
             <field name="state" position="before">
                 <button name="%(create_amendment_wizard_view_action)d"
-                        string="Create Amendment"
+                        string="Create Amendment Contract"
                         type="action"
+                        attrs="{'invisible': [('has_termination_contract', '=', True)]}"
+                        class="oe_read_only"/>
+                <button name="create_termination"
+                        string="Create Termination Contract"
+                        type="object"
+                        attrs="{'invisible': [('has_termination_contract', '=', True)]}"
                         class="oe_read_only"/>
             </field>
 
@@ -24,16 +30,20 @@
             </button>
 
             <field name="employee_id" position="attributes">
-                <attribute name="attrs">{'readonly':[('type_echelon', '=', 'amendment')]}</attribute>
+                <attribute name="attrs">{'readonly':[('echelon', '!=', 'main')]}</attribute>
             </field>
 
             <field name="job_id" position="after">
                 <field name="date_initial_start"/>
             </field>
 
+            <field name="type_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+
             <field name="type_id" position="before">
                 <div style="width:35%"/> <!--Managing label width-->
-                <field name="type_echelon"/>
+                <field name="echelon"/>
             </field>
 
             <field name="type_id" position="after">
@@ -88,13 +98,14 @@
             <xpath expr="//page[@name='information']" position="after">
                 <page string="Amendments" name="tree">
                     <group>
-<!--                        <group>-->
-<!--                            <field name="initial_contract_id"/>-->
-<!--                            <field name="parent_contract_id"/>-->
-<!--                            <field name="child_contract_id"/>-->
-<!--                            <field name="latest_contract_id"/>-->
-<!--                        </group>-->
-                        <field name="contract_group_contract_ids" nolabel="1"/>
+                                                <group>
+                            <field name="initial_contract_id"/>
+                            <field name="parent_contract_id"/>
+                            <field name="child_contract_id"/>
+                            <field name="latest_contract_id"/>
+                        </group>
+                        <field name="has_termination_contract" invisible="1"/>
+                        <field name="contract_ids" nolabel="1" context="{'tree_view_ref': 'hr_cae_contract.hr_contract_details_view_tree'}"/>
                     </group>
                 </page>
             </xpath>
@@ -109,15 +120,38 @@
         <field name="arch" type="xml">
 
             <field name="type_id" position="before">
-                <field name="type_echelon"/>
                 <field name="amendment_index"/>
+                <field name="echelon"/>
             </field>
 
             <field name="resource_calendar_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
 
+            <field name="date_end" position="after">
+                <field name="state"/>
+            </field>
 
+
+        </field>
+    </record>
+
+    <record id="hr_contract_details_view_tree" model="ir.ui.view">
+        <field name="name">hr_contract_details_view_tree</field>
+        <field name="model">hr.contract</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state=='termination'" default_order="amendment_index desc">
+                <field name="amendment_index"/>
+                <field name="echelon"/>
+                <field name="type_id"/>
+                <field name="wage"/>
+                <field name="hours"/>
+                <field name="hourly_wage"/>
+                <field name="turnover_minimum"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state"/>
+            </tree>
         </field>
     </record>
 
@@ -150,7 +184,7 @@
             <field name="res_model">hr.contract</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form,activity</field>
-            <field name="domain">[('employee_id', '!=', False), ('type_echelon', '=', 'main')]</field>
+            <field name="domain">[('employee_id', '!=', False), ('echelon', '=', 'main')]</field>
             <field name="context">{'search_default_current':1, 'search_default_group_by_state': 1}</field>
             <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
             <field name="help" type="html">
@@ -165,7 +199,22 @@
             <field name="res_model">hr.contract</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form,activity</field>
-            <field name="domain">[('employee_id', '!=', False), ('type_echelon', '=', 'amendment')]</field>
+            <field name="domain">[('employee_id', '!=', False), ('echelon', '=', 'amendment')]</field>
+            <field name="context">{'search_default_current':1, 'search_default_group_by_state': 1}</field>
+            <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new contract
+              </p>
+            </field>
+        </record>
+
+    <record id="action_hr_contract_termination" model="ir.actions.act_window">
+            <field name="name">Contracts</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="domain">[('employee_id', '!=', False), ('echelon', '=', 'termination')]</field>
             <field name="context">{'search_default_current':1, 'search_default_group_by_state': 1}</field>
             <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
             <field name="help" type="html">
@@ -176,17 +225,20 @@
         </record>
 
     <menuitem id="menu_hr_contracts" name="Contracts" parent="hr.menu_hr_root" groups="hr_contract.group_hr_contract_manager" sequence="4"/>
-    <menuitem id="menu_hr_contracts_all" name="All contracts" parent="menu_hr_contracts" action="hr_contract.action_hr_contract" sequence="1"/>
-    <menuitem id="menu_hr_contracts_main" name="Main contracts" parent="menu_hr_contracts" action="action_hr_contract_main" sequence="2"/>
-    <menuitem id="menu_hr_contracts_amendment" name="Amendment contracts" parent="menu_hr_contracts" action="action_hr_contract_amendment" sequence="3"/>
+    <menuitem id="menu_hr_contracts_all" name="All Contracts" parent="menu_hr_contracts" action="hr_contract.action_hr_contract" sequence="1"/>
+    <menuitem id="menu_hr_contracts_main" name="Main Contracts" parent="menu_hr_contracts" action="action_hr_contract_main" sequence="2"/>
+    <menuitem id="menu_hr_contracts_amendment" name="Amendment Contracts" parent="menu_hr_contracts" action="action_hr_contract_amendment" sequence="3"/>
+    <menuitem id="menu_hr_contracts_termination" name="Termination Contracts" parent="menu_hr_contracts" action="action_hr_contract_termination" sequence="4"/>
 
-    <!-- Overriding menu's of hr_contract to change group of type menu to show it and to hide the main contract menu -->
+    <!-- Overriding menu's of hr_contract to -->
+    <!-- Change group of the type menuitem to have it appear -->
     <menuitem
             id="hr_contract.hr_menu_contract_type"
             action="hr_contract.action_hr_contract_type"
             parent="hr.menu_human_resources_configuration"
             sequence="3"
             groups="hr_contract.group_hr_contract_manager"/>
+    <!-- Remove the groups from the normal Contracts menuitem to have it disappear (replaced by menu_hr_contracts) -->
     <menuitem
         id="hr_contract.hr_menu_contract"
         name="Contracts"

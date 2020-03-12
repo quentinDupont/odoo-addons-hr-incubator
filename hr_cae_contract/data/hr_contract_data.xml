@@ -22,8 +22,8 @@
         </record>
 
         <!--Accompagnement-->
-        <record id="hr_contract_type_coaching" model="hr.contract.type">
-            <field name="name">Coaching</field>
+        <record id="hr_contract_type_accompaniment" model="hr.contract.type">
+            <field name="name">Accompaniment</field>
             <field name="echelon">main</field>
             <field name="sequence">103</field>
         </record>
@@ -91,6 +91,14 @@
             <field name="name">CAPE Remuneration</field>
             <field name="echelon">amendment</field>
             <field name="sequence">208</field>
+        </record>
+
+        <!-- # Termination contract types -->
+        <!--Termination-->
+        <record id="hr_contract_type_termination" model="hr.contract.type">
+            <field name="name">Termination</field>
+            <field name="echelon">termination</field>
+            <field name="sequence">301</field>
         </record>
 
     </data>
