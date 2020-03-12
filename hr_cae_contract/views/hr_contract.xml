@@ -98,12 +98,6 @@
             <xpath expr="//page[@name='information']" position="after">
                 <page string="Amendments" name="tree">
                     <group>
-                                                <group>
-                            <field name="initial_contract_id"/>
-                            <field name="parent_contract_id"/>
-                            <field name="child_contract_id"/>
-                            <field name="latest_contract_id"/>
-                        </group>
                         <field name="has_termination_contract" invisible="1"/>
                         <field name="contract_ids" nolabel="1" context="{'tree_view_ref': 'hr_cae_contract.hr_contract_details_view_tree'}"/>
                     </group>
