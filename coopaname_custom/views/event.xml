@@ -11,6 +11,7 @@
         <field name="arch" type="xml">
             <field name="state" position="before">
                 <button string="Create User For All Participants" name="button_create_user_for_all_participants" type="object" groups="base.group_user" attrs="{'invisible': [('show_button_create_user_for_all_participants', '=', False)]}"/>
+                <field name="show_button_create_user_for_all_participants" invisible="1"/>
             </field>
         </field>
     </record>

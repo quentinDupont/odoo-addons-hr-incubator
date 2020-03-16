@@ -29,12 +29,10 @@ class Event(models.Model):
     def button_create_user_for_all_participants(self):
         self.ensure_one()
         for registration in self.registration_ids:
+            if (
+                registration.employee_id
+                and registration.employee_id.work_email
+            ):
+                registration.employee_id.create_user_expense_report_access()
             if registration.partner_id and registration.partner_id.email:
                 registration.partner_id.create_user_expense_report_access()
-            # if (
-            #     registration.employee_id
-            #     and registration.employee_id.work_email
-            # ):
-            #     registration.employee_id.create_user_expense_report_access()
-            # if registration.email:
-            #     registration.partner_id.create_user_expense_report_access()

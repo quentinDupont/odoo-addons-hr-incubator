@@ -10,25 +10,24 @@
         <field name="res_model">res.users</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('partner_id', '=', active_id)]</field>
+<!--        <field name="domain">[('employee_id', '=', active_id)]</field>-->
         <field name="context">{'create': False, 'edit': False}</field>
     </record>
 
-    <record id="res_view_partner_form" model="ir.ui.view">
-        <field name="name">res_partner_view_form</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form//sheet" position="before">
                 <header>
                     <button string="Give Expense Report Access"
                             type="object"
-                            attrs="{'invisible': [('is_company', '=', True)]}"
                             name="create_user_expense_report_access"/>
                 </header>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="%(action_show_users)d" type="action" class="oe_stat_button" icon="fa-users" attrs="{'invisible': [('is_company', '=', True)]}" >
+                <button name="%(action_show_users)d" type="action" class="oe_stat_button" icon="fa-users">
                     <div class="o_field_widget o_stat_info">
                         <span class="o_stat_value">
                             <field name="users_count" widget="statinfo" nolabel="1"/>
