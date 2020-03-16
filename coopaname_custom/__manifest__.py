@@ -24,6 +24,7 @@
     ],
     "data": [
         "data/data.xml",
+        "views/event.xml",
         "views/hr_applicant.xml",
         "views/res_partner.xml",
     ],

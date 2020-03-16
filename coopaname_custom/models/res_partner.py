@@ -2,11 +2,24 @@
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
+
+    users_count = fields.Integer(
+        string="Users Count", compute="_compute_users_count"
+    )
+
+    @api.multi
+    @api.depends("email")
+    def _compute_users_count(self):
+        for partner in self:
+            partner.users_count = len(
+                self.env["res.users"].search([("login", "=", partner.email)])
+            )
 
     @api.multi
     def create_user_expense_report_access(self):
@@ -16,8 +29,10 @@ class ResPartner(models.Model):
         )
 
         for partner in self:
+            if not partner.email:
+                raise ValidationError(_("An email address is required."))
             user = self.env["res.users"].search(
-                [("login", "=", partner.email)]
+                [("login", "=", partner.email)], limit=1
             )
             if user:
                 user.write({"active": True, "groups_id": [(4, group_id)]})
@@ -33,6 +48,7 @@ class ResPartner(models.Model):
 
                 user = (
                     self.env["res.users"]
+                    .sudo()
                     .with_context(no_reset_password=True)
                     ._create_user_from_template(user_values)
                 )

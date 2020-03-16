@@ -4,6 +4,16 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
+    <record id="action_show_users" model="ir.actions.act_window">
+        <field name="name">Show Users</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.users</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('partner_id', '=', active_id)]</field>
+        <field name="context">{'create': False, 'edit': False}</field>
+    </record>
+
     <record id="res_view_partner_form" model="ir.ui.view">
         <field name="name">res_partner_view_form</field>
         <field name="model">res.partner</field>
@@ -11,11 +21,21 @@
         <field name="arch" type="xml">
             <xpath expr="//form//sheet" position="before">
                 <header>
-                    <button string="Give expense report access"
+                    <button string="Give Expense Report Access"
                             type="object"
                             name="create_user_expense_report_access"
                             class="oe_highlight"/>
                 </header>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="%(action_show_users)d" type="action" class="oe_stat_button" icon="fa-users">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="users_count" widget="statinfo" nolabel="1"/>
+                        </span>
+                        <span class="o_stat_text">Users</span>
+                    </div>
+                </button>
             </xpath>
         </field>
     </record>
