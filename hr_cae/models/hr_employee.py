@@ -15,7 +15,9 @@ class Employee(models.Model):
     )
     title = fields.Many2one("res.partner.title")
     country_department_of_birth_id = fields.Many2one(
-        "res.country.department", string="Department (France) of Birth", required=False
+        "res.country.department",
+        string="Department (France) of Birth",
+        required=False,
     )
     country_other_ids = fields.Many2many(
         "res.country", string="Other Nationalities", required=False
@@ -37,7 +39,9 @@ class Employee(models.Model):
         "hr.recruitment.degree", string="Certificate", required=False
     )
     certificate_date = fields.Date(
-        string="Certificate Date", help="Certificate Delivery Date", required=False
+        string="Certificate Date",
+        help="Certificate Delivery Date",
+        required=False,
     )
     professional_experience = fields.Text(
         string="Professional Experience", required=False
@@ -60,7 +64,9 @@ class Employee(models.Model):
         "hr.mutual.insurance", string="Mutual Insurance", required=False
     )
     mutual_insurance_level_id = fields.Many2one(
-        "hr.mutual.insurance.level", string="Mutual Insurance Level", required=False
+        "hr.mutual.insurance.level",
+        string="Mutual Insurance Level",
+        required=False,
     )
     mutual_insurance_date_start = fields.Date(
         string="Start Date of Mutual Insurance", required=False
@@ -71,7 +77,9 @@ class Employee(models.Model):
     mutual_insurance_date_exemption = fields.Date(
         string="Exemption Date Mutual Insurance", required=False
     )
-    medic_dispense_date = fields.Date(string="Date of Medical Dispense", required=False)
+    medic_dispense_date = fields.Date(
+        string="Date of Medical Dispense", required=False
+    )
     transport_mode_id = fields.Many2one(
         "hr.transport.mode", string="Transport Mode", required=False
     )
@@ -87,8 +95,12 @@ class Employee(models.Model):
     )
     job_adaptations = fields.Text(string="Job Adaptations", required=False)
     children = fields.Integer(string="Number of Children", required=False)
-    valid_mandate_id = fields.Many2one(related="user_id.partner_id.valid_mandate_id")
-    siren = fields.Char("SIREN Company Code", required=False)  # todo: link from partner
+    valid_mandate_id = fields.Many2one(
+        related="user_id.partner_id.valid_mandate_id"
+    )
+    siren = fields.Char(
+        "SIREN Company Code", required=False
+    )  # todo: link from partner
     ape = fields.Char("APE Profession Code")  # todo: link from partner
     # todo: install l10n_fr_naf_ape when migrated module for easy lookup
     professional_liability_ids = fields.Many2many(
@@ -97,7 +109,8 @@ class Employee(models.Model):
         required=False,
     )
     professional_liability_insurance_policy_ref = fields.Text(
-        string="Professional Liability Insurance Policy Reference", required=False
+        string="Professional Liability Insurance Policy Reference",
+        required=False,
     )
     vehicle_insurance = fields.Text(string="Vehicle Insurance", required=False)
     office = fields.Text(string="Office", required=False)
@@ -163,5 +176,8 @@ class Employee(models.Model):
                 > employee.mutual_insurance_date_end
             ):
                 raise ValidationError(
-                    _("The start date of mutual insurance must be before the end date")
+                    _(
+                        "The start date of mutual insurance must be before"
+                        " the end date"
+                    )
                 )

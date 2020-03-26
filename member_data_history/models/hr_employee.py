@@ -21,7 +21,9 @@ class Employee(models.Model):
             else:
                 old_home_address = False
 
-            partner = self.env["res.partner"].browse(vals.get("address_home_id"))
+            partner = self.env["res.partner"].browse(
+                vals.get("address_home_id")
+            )
 
             self.env["value.log"].create(
                 {

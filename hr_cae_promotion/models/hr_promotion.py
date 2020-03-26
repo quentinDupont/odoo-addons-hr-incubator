@@ -36,7 +36,9 @@ class Promotion(models.Model):
         comodel_name="res.users", string="HR Responsible"
     )
     employee_ids = fields.One2many(
-        comodel_name="hr.employee", inverse_name="promotion_id", string="Employees"
+        comodel_name="hr.employee",
+        inverse_name="promotion_id",
+        string="Employees",
     )
     applicant_ids = fields.One2many(
         comodel_name="hr.applicant",
@@ -55,10 +57,14 @@ class Promotion(models.Model):
         compute="_compute_spots_taken", string="Spots Taken", stre=True
     )
     spots_available = fields.Integer(
-        compute="_compute_spots_available", string="Spots Available", store=True
+        compute="_compute_spots_available",
+        string="Spots Available",
+        store=True,
     )
     no_of_applicants = fields.Integer(
-        compute="_compute_no_of_applicants", string="Number of Applicants", store=True
+        compute="_compute_no_of_applicants",
+        string="Number of Applicants",
+        store=True,
     )
     attachment_number = fields.Integer(
         compute="_compute_attachment_number", string="Number of Attachments"
@@ -81,7 +87,9 @@ class Promotion(models.Model):
     @api.depends("spots_max", "spots_taken")
     def _compute_spots_available(self):
         for promotion in self:
-            promotion.spots_available = promotion.spots_max - promotion.spots_taken
+            promotion.spots_available = (
+                promotion.spots_max - promotion.spots_taken
+            )
 
     @api.depends("applicant_ids.active", "applicant_ids.promotion_id")
     def _compute_no_of_applicants(self):
@@ -95,7 +103,10 @@ class Promotion(models.Model):
     @api.constrains("spots_regime", "spots_available")
     def _constrain_spots_available(self):
         for promotion in self:
-            if promotion.spots_regime == "limited" and promotion.spots_available < 0:
+            if (
+                promotion.spots_regime == "limited"
+                and promotion.spots_available < 0
+            ):
                 raise ValidationError(
                     _("Not enough spots available in this promotion.")
                 )
@@ -107,7 +118,9 @@ class Promotion(models.Model):
             ["res_id"],
             ["res_id"],
         )
-        attach_data = {res["res_id"]: res["res_id_count"] for res in read_group_res}
+        attach_data = {
+            res["res_id"]: res["res_id_count"] for res in read_group_res
+        }
         for promotion in self:
             promotion.attachment_number = attach_data.get(promotion.id, 0)
 

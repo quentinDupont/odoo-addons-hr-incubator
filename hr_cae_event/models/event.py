@@ -31,7 +31,9 @@ class Event(models.Model):
     def _compute_duration(self):
         for event in self:
             if event.date_begin and event.date_end:
-                duration = (event.date_end - event.date_begin).total_seconds() / 3600
+                duration = (
+                    event.date_end - event.date_begin
+                ).total_seconds() / 3600
             else:
                 duration = False
             event.duration = duration

@@ -12,7 +12,9 @@ class HRContract(models.Model):
     def write(self, vals):
         if "type_id" in vals:
             old_type = self.type_id.name if self.type_id else False
-            new_type = self.env["hr.contract.type"].browse(vals["type_id"]).name
+            new_type = (
+                self.env["hr.contract.type"].browse(vals["type_id"]).name
+            )
 
             self.env["value.log"].create(
                 {

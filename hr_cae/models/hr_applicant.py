@@ -18,7 +18,9 @@ class Applicant(models.Model):
     equipment = fields.Text(string="Equipment", required=False)
     type_id = fields.Many2one("hr.recruitment.degree", string="Certificate")
     certificate_date = fields.Date(
-        string="Certificate Date", help="Certificate Delivery Date", required=False
+        string="Certificate Date",
+        help="Certificate Delivery Date",
+        required=False,
     )
     professional_experience = fields.Text(
         string="Professional Experience", required=False
@@ -50,12 +52,16 @@ class Applicant(models.Model):
             employee.department_id = applicant.department_id
             employee.certificate_id = applicant.type_id
             employee.certificate_date = applicant.certificate_date
-            employee.professional_experience = applicant.professional_experience
+            employee.professional_experience = (
+                applicant.professional_experience
+            )
             employee.equipment = applicant.equipment
             employee.turnover_minimum = applicant.turnover_minimum
             if applicant.partner_id:
                 employee.title = applicant.partner_id.title
-                employee.origin_status_id = applicant.partner_id.origin_status_id
+                employee.origin_status_id = (
+                    applicant.partner_id.origin_status_id
+                )
             else:
                 employee.title = applicant.title
                 employee.origin_status_id = applicant.origin_status_id
