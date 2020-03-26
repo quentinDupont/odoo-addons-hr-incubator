@@ -13,7 +13,9 @@ class Exemption(models.Model):
     _description = "Contribution Exemption"
 
     name = fields.Char()
-    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
+    employee_id = fields.Many2one(
+        comodel_name="hr.employee", string="Employee"
+    )
 
     reason = fields.Text(string="Reason for Exemption", required=False)
     date_start = fields.Date(string="Start Date of Exemption", required=False)

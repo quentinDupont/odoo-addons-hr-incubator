@@ -24,11 +24,17 @@ class TestHRCAE(TransactionCase):
         self.assertEquals(employee.work_email, applicant.email_from)
         self.assertEquals(employee.department_id, applicant.department_id)
         self.assertEquals(employee.certificate_id, applicant.type_id)
-        self.assertEquals(employee.certificate_date, applicant.certificate_date)
+        self.assertEquals(
+            employee.certificate_date, applicant.certificate_date
+        )
         self.assertEquals(
             employee.professional_experience, applicant.professional_experience
         )
         self.assertEquals(employee.equipment, applicant.equipment)
         self.assertEquals(employee.title, applicant.title)
-        self.assertEquals(employee.origin_status_id, applicant.origin_status_id)
-        self.assertEquals(employee.turnover_minimum, applicant.turnover_minimum)
+        self.assertEquals(
+            employee.origin_status_id, applicant.origin_status_id
+        )
+        self.assertEquals(
+            employee.turnover_minimum, applicant.turnover_minimum
+        )

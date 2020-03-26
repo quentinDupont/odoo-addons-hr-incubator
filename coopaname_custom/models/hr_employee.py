@@ -31,7 +31,9 @@ class Employee(models.Model):
     def create(self, values):
 
         if "mobile_phone" in values and values["mobile_phone"]:
-            values["mobile_phone"] = _format_phone_number(values["mobile_phone"])
+            values["mobile_phone"] = _format_phone_number(
+                values["mobile_phone"]
+            )
         if "work_phone" in values and values["work_phone"]:
             values["work_phone"] = _format_phone_number(values["work_phone"])
 
@@ -41,7 +43,9 @@ class Employee(models.Model):
     @api.multi
     def write(self, values):
         if "mobile_phone" in values and values["mobile_phone"]:
-            values["mobile_phone"] = _format_phone_number(values["mobile_phone"])
+            values["mobile_phone"] = _format_phone_number(
+                values["mobile_phone"]
+            )
         if "work_phone" in values and values["work_phone"]:
             values["work_phone"] = _format_phone_number(values["work_phone"])
         return super().write(values)
