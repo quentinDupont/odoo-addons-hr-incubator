@@ -8,7 +8,7 @@
     "author": "Coop IT Easy SCRL",
     "website": "https://coopiteasy.be",
     "category": "Human Resources",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "license": "AGPL-3",
     "depends": ["event", "partner_event"],
     "data": ["views/event.xml"],
