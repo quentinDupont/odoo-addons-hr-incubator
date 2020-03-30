@@ -18,6 +18,12 @@ class EventRegistration(models.Model):
         related="employee_id.promotion_id",
     )
 
+    @api.onchange("employee_id")
+    def onchange_employee_id(self):
+        self.name = self.employee_id.name
+        self.phone = self.employee_id.work_phone
+        self.email = self.employee_id.work_email
+
 
 class Event(models.Model):
     _inherit = "event.event"
