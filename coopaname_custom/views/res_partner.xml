@@ -4,7 +4,7 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-    <record id="action_show_users" model="ir.actions.act_window">
+    <record id="action_show_users_of_partner" model="ir.actions.act_window">
         <field name="name">Show Users</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.users</field>
@@ -28,7 +28,7 @@
                 </header>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="%(action_show_users)d" type="action" class="oe_stat_button" icon="fa-users" attrs="{'invisible': [('is_company', '=', True)]}" >
+                <button name="%(action_show_users_of_partner)d" type="action" class="oe_stat_button" icon="fa-users" attrs="{'invisible': [('is_company', '=', True)]}" >
                     <div class="o_field_widget o_stat_info">
                         <span class="o_stat_value">
                             <field name="users_count" widget="statinfo" nolabel="1"/>

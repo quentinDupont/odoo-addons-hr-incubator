@@ -90,6 +90,7 @@ class Employee(models.Model):
                 )
                 user_values = {
                     "partner_id": new_partner_id.id,
+                    "employee_ids": [(6, 0, [employee.id])],
                     "email": employee.work_email,
                     "login": employee.work_email,
                     "groups_id": [(6, 0, [group_id])],
