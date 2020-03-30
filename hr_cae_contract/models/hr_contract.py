@@ -66,6 +66,7 @@ class ContractType(models.Model):
 class ContractTag(models.Model):
 
     _name = "hr.contract.tag"
+    _description = "Contract Tag"
 
     name = fields.Char()
 
