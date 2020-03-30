@@ -87,16 +87,14 @@ class Contract(models.Model):
     _inherit = "hr.contract"
 
     @api.model
-    def _default_type_id(self):
-        return self.env["hr.contract.type"].search(
-            [("name", "=", "Accompaniment")]
-        )
+    def _get_default_type_id(self):
+        return self.env["hr.contract.type"].search([("name", "=", "Support")])
 
     name = fields.Char(compute="_compute_name")
     state = fields.Selection(
         [
             ("draft", "Reception"),
-            ("accompaniment", "Accompaniment"),
+            ("support", "Support"),
             ("social_affairs", "Social Affairs"),
             ("open", "Running"),
             ("pending", "To Renew"),
@@ -121,7 +119,7 @@ class Contract(models.Model):
     type_id = fields.Many2one(
         string="Contract Type",
         domain="[('echelon', '=', echelon)]",
-        default=_default_type_id,
+        default=_get_default_type_id,
         copy=False,
     )  # Todo: rename translation from "Catégorie de l'employé" to "Type de Contrat"
     type_count = fields.Integer(

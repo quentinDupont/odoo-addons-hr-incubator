@@ -22,8 +22,8 @@
         </record>
 
         <!--Accompagnement-->
-        <record id="hr_contract_type_accompaniment" model="hr.contract.type">
-            <field name="name">Accompaniment</field>
+        <record id="hr_contract_type_support" model="hr.contract.type">
+            <field name="name">Support</field>
             <field name="echelon">main</field>
             <field name="sequence">103</field>
         </record>
