@@ -18,9 +18,11 @@
         "hr_cae_documents",
         "hr_cae_event",
         "hr_cae_event_promotion",
+        "hr_cae_promotion",
         "hr_employee_firstname",
         "hr_expense",
         "hr_recruitment",
+        "member_data_history",
         "l10n_fr",
     ],
     "data": [
