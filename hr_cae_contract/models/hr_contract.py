@@ -50,15 +50,28 @@ class ContractGroup(models.Model):
             limit=1,
         )
 
+    def has_termination_contract(self):
+        return bool(
+            self.contract_ids.search(
+                [
+                    ("contract_group_id", "=", self.id),
+                    ("echelon", "=", "termination"),
+                ]
+            )
+        )
+
 
 class ContractType(models.Model):
 
     _inherit = "hr.contract.type"
 
     echelon = fields.Selection(
-        [("main", "Main"), ("amendment", "Amendment")],
+        [
+            ("main", "Main"),
+            ("amendment", "Amendment"),
+            ("termination", "Termination"),
+        ],
         string="Echelon",
-        default="main",
     )
     max_usage = fields.Integer(string="Maximum Usage", default=False)
 
@@ -74,21 +87,40 @@ class ContractTag(models.Model):
 class Contract(models.Model):
     _inherit = "hr.contract"
 
+    @api.model
+    def _get_default_type_id(self):
+        return self.env["hr.contract.type"].search([("name", "=", "Support")])
+
     name = fields.Char(compute="_compute_name")
-    state = fields.Selection(copy=False)
+    state = fields.Selection(
+        [
+            ("draft", "Reception"),
+            ("support", "Support"),
+            ("social_affairs", "Social Affairs"),
+            ("open", "Running"),
+            ("pending", "To Renew"),
+            ("close", "Expired"),
+            ("termination", "Terminated"),
+            ("cancel", "Cancelled"),
+        ],
+        copy=False,
+    )
     employee_id = fields.Many2one(required=True)
-    type_echelon = fields.Selection(
-        [("main", "Main"), ("amendment", "Amendment")],
+    echelon = fields.Selection(
+        [
+            ("main", "Main"),
+            ("amendment", "Amendment"),
+            ("termination", "Termination"),
+        ],
         default="main",
         string="Contract Type Echelon",
+        readonly=True,
         copy=False,
-        compute="_compute_type_echelon",
-        store=True,
     )  # Todo: add translation "Échelon du Type de Contrat"
     type_id = fields.Many2one(
         string="Contract Type",
-        domain="[('echelon', '=', type_echelon)]",
-        default="",
+        domain="[('echelon', '=', echelon)]",
+        default=_get_default_type_id,
         copy=False,
     )  # Todo: rename translation from "Catégorie de l'employé" to "Type de Contrat"
     type_count = fields.Integer(
@@ -113,9 +145,6 @@ class Contract(models.Model):
         string="Mailing Date", help="Mailing date of the contract.", copy=False
     )
 
-    hours = fields.Float(string="Working Hours", required=True)
-    hourly_wage = fields.Monetary(string="Hourly Wage", required=True)
-    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
     wage = fields.Monetary(
         string="Wage",
         digits=(16, 2),
@@ -124,6 +153,9 @@ class Contract(models.Model):
         help="Employee's monthly gross wage.",
         compute="_compute_wage",
     )
+    hours = fields.Float(string="Working Hours", required=True)
+    hourly_wage = fields.Monetary(string="Hourly Wage", required=True)
+    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
 
     amendment_index = fields.Integer(
         string="Amendment Index",
@@ -135,7 +167,7 @@ class Contract(models.Model):
     contract_group_id = fields.Many2one(
         comodel_name="hr.contract.group", string="Contract Group"
     )
-    contract_group_contract_ids = fields.One2many(
+    contract_ids = fields.One2many(
         comodel_name="hr.contract", related="contract_group_id.contract_ids"
     )
     initial_contract_id = fields.Many2one(
@@ -163,6 +195,11 @@ class Contract(models.Model):
         readonly=True,
         compute="_compute_latest",
     )
+    has_termination_contract = fields.Boolean(
+        string="Has Termination Contract",
+        readonly=True,
+        compute="_compute_has_termination_contract",
+    )
 
     notes = fields.Text(copy=False)
 
@@ -185,6 +222,26 @@ class Contract(models.Model):
         if res.amendment_index == 0:
             res._compute_initial()
         return res
+
+    # Alternative for onchange (see below) such that it works on every write
+    @api.multi
+    def write(self, vals):
+        res = super(Contract, self).write(vals)
+        for contract in self:
+            if (
+                bool(vals.get("state"))
+                and contract.echelon == "termination"
+                and contract.state == "open"
+            ):
+                other_contracts = contract.contract_ids - contract
+                other_contracts.write({"state": "termination"})
+        return res
+
+    # @api.onchange("state")
+    # def onchange_state(self):
+    #     if self.echelon == "termination" and self.state == "open":
+    #         other_contracts = self.contract_ids - self._origin
+    #         other_contracts.write({"state": "termination"})
 
     @api.multi
     @api.depends("employee_id", "initial_contract_id", "type_id")
@@ -211,19 +268,11 @@ class Contract(models.Model):
             )
 
     @api.multi
-    @api.depends("amendment_index")
-    def _compute_type_echelon(self):
-        for contract in self:
-            contract.type_echelon = (
-                "main" if contract.amendment_index == 0 else "amendment"
-            )
-
-    @api.multi
-    @api.depends("contract_group_contract_ids", "type_id")
+    @api.depends("contract_ids", "type_id")
     def _compute_type_count(self):
         for contract in self:
             type_count = 0
-            for c in contract.contract_group_contract_ids:
+            for c in contract.contract_ids:
                 if c.type_id == contract.type_id:
                     type_count += 1
             contract.type_count = type_count
@@ -256,6 +305,12 @@ class Contract(models.Model):
         for contract in self:
             contract.latest_contract_id = (
                 contract.contract_group_id.get_latest()
+            )
+
+    def _compute_has_termination_contract(self):
+        for contract in self:
+            contract.has_termination_contract = (
+                contract.contract_group_id.has_termination_contract()
             )
 
     @api.multi
@@ -302,6 +357,13 @@ class Contract(models.Model):
             rd = relativedelta(self.date_end, self.date_start)
             self.duration = rd.months + rd.years * 12
 
+    @api.onchange("employee_id")
+    def onchange_employee_id(self):
+        if self.employee_id.turnover_minimum:
+            self.turnover_minimum = self.employee_id.turnover_minimum
+        if self.employee_id.date_start:
+            self.date_start = self.employee_id.date_start
+
     #  Note: this check must run both when creating a new amendment
     #  and when changing the type_id of an amendment
     @api.multi
@@ -322,30 +384,47 @@ class Contract(models.Model):
 
     def create_amendment(self, type_id):
         self.ensure_one()
+        return self._create_contract("amendment", type_id)
+
+    def create_termination(self):
+        self.ensure_one()
+        type_id = self.env.ref("hr_cae_contract.hr_contract_type_termination")
+        return self._create_contract("termination", type_id)
+
+    def _create_contract(self, echelon, type_id):
+        self.ensure_one()
+        if self.has_termination_contract:
+            raise ValidationError(
+                _("This contract group already has a termination contract ")
+            )
         if not type_id:
             type_id = self.env["hr.contract.type"].search(
-                [("echelon", "=", "amendment")], limit=1
+                [("echelon", "=", echelon)], limit=1
             )
 
-        _logger.info("Creating %s Amendment" % type_id.name)
+        _logger.info(
+            "Creating Contract of echelon %s and type %s."
+            % (echelon, type_id.name)
+        )
 
         latest_contract_id = self.latest_contract_id
-        amendment = latest_contract_id.copy(
+        contract = latest_contract_id.copy(
             {
                 "state": "draft",
+                "echelon": echelon,
                 "type_id": type_id.id,
                 "duration": False,
                 "date_end": False,
                 "amendment_index": latest_contract_id.amendment_index + 1,
             }
         )
-        amendment.check_type_count()
+        contract.check_type_count()
 
         return {
             "type": "ir.actions.act_window",
             "res_model": "hr.contract",
             "view_mode": "form",
-            "res_id": amendment.id,
+            "res_id": contract.id,
             "target": "current",
             "context": {"form_view_initial_mode": "edit"},
         }

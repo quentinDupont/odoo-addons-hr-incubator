@@ -14,6 +14,9 @@ class TestHRContractCAE(TransactionCase):
         self.cape_renewal = self.browse_ref(
             "hr_cae_contract.hr_contract_type_cape_renewal"
         )
+        self.termination = self.browse_ref(
+            "hr_cae_contract.hr_contract_type_termination"
+        )
         self.contract = self.env["hr.contract"].create(
             {
                 "employee_id": self.employee.id,
@@ -43,7 +46,7 @@ class TestHRContractCAE(TransactionCase):
         amendment_1_id = wizard_1.create_amendment()["res_id"]
         amendment_1 = self.env["hr.contract"].browse(amendment_1_id)
 
-        self.assertEquals(amendment_1.type_echelon, "amendment")
+        self.assertEquals(amendment_1.echelon, "amendment")
         self.assertEquals(amendment_1.initial_contract_id, self.contract)
         self.assertEquals(amendment_1.amendment_index, 1)
         self.assertEquals(amendment_1.parent_contract_id, self.contract)
@@ -62,7 +65,7 @@ class TestHRContractCAE(TransactionCase):
         amendment_2_id = wizard_2.create_amendment()["res_id"]
         amendment_2 = self.env["hr.contract"].browse(amendment_2_id)
 
-        self.assertEquals(amendment_2.type_echelon, "amendment")
+        self.assertEquals(amendment_2.echelon, "amendment")
         self.assertEquals(amendment_2.initial_contract_id, self.contract)
         self.assertEquals(amendment_2.amendment_index, 2)
         self.assertEquals(amendment_2.parent_contract_id, amendment_1)
@@ -82,3 +85,23 @@ class TestHRContractCAE(TransactionCase):
                 )
             )
             wizard_3.create_amendment()
+
+    def test_termination(self):
+        wizard_1 = (
+            self.env["hr.contract.amendment.wizard"]
+            .with_context({"active_id": self.contract.id})
+            .create(
+                {
+                    "contract_id": self.contract.id,
+                    "type_id": self.cape_renewal.id,
+                }
+            )
+        )
+        amendment_1_id = wizard_1.create_amendment()["res_id"]
+        amendment_1 = self.env["hr.contract"].browse(amendment_1_id)
+
+        termination_1_id = self.contract.create_termination()["res_id"]
+        termination_1 = self.env["hr.contract"].browse(termination_1_id)
+
+        termination_1.state = "open"
+        self.assertEquals(amendment_1.state, "termination")
