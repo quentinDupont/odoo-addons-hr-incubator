@@ -15,8 +15,9 @@ class Employee(models.Model):
     )
     ongoing_contract_type_ids = fields.Many2many(
         comodel_name="hr.contract.type",
-        string="Contract Types",
+        string="Ongoing Contract Types",
         compute="_compute_ongoing_contract_type_ids",
+        store=True,
     )
 
     @api.multi
