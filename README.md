@@ -21,6 +21,7 @@ addon | version | summary
 [hr_cae_event](hr_cae_event/) | 12.0.1.0.1 | Adds fields to events to organize information session.
 [hr_cae_event_promotion](hr_cae_event_promotion/) | 12.0.1.0.0 | Adds field and button to standard events to link an event to a promotion and invite all it's employees at once.
 [hr_cae_promotion](hr_cae_promotion/) | 12.0.1.0.1 | Add promotions as groups of employees.
+[hr_grap_custom](hr_grap_custom/) | 12.0.0.0.1 | Lists all dependencies for GRAP's deployement
 [member_data_history](member_data_history/) | 12.0.0.0.2 | Logs value change on selected fields.
 
 [//]: # (end addons)
