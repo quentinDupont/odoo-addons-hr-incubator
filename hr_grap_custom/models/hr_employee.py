@@ -10,13 +10,16 @@ class Employee(models.Model):
 
     # Columns Section
     mutual_insurance_state = fields.Selection(
-        [('affiliated', 'Affiliated'),
-         ('exempted', 'Exempted'),
-         ('dontknowyet', 'Don\'t know yet')],
-        string='State for Mutual Insurance',
-        default='dontknowyet',
+        [
+            ("affiliated", "Affiliated"),
+            ("exempted", "Exempted"),
+            ("dontknowyet", "Don't know yet"),
+        ],
+        string="State for Mutual Insurance",
+        default="dontknowyet",
         required=True,
-        help='Help to know if this employee should have Mutual')
+        help="Help to know if this employee should have Mutual",
+    )
 
     mutual_insurance_proof_received = fields.Boolean(
         string="Proof received", default=False
