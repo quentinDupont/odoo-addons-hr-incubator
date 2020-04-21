@@ -11,7 +11,7 @@
     "version": "12.0.1.1.0",
     "license": "AGPL-3",
     "external_dependencies": {"python": ["dateutil.relativedelta"]},
-    "depends": ["hr", "hr_contract"],
+    "depends": ["hr_cae", "hr_contract"],
     "data": [
         "security/ir.model.access.csv",
         "data/hr_contract_data.xml",
