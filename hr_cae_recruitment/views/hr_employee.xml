@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2019 Coop IT Easy
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+
+            <!-- add origin group -->
+            <xpath expr="//page[@name='personal_information']//field[@name='certificate']/.." position="after">
+                <group name="origin" string="Status origin">
+                    <field name="certificate_id" options="{'no_create': True, 'no_edit': True}"/>
+                    <field name="certificate_date"/>
+                    <field name="origin_status_id" options="{'no_create': True, 'no_edit': True}"/>
+                    <field name="origin_status_details_id" options="{'no_create': True, 'no_edit': True}"/>
+                    <field name="professional_experience"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

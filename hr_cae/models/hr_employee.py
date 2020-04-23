@@ -21,26 +21,6 @@ class Employee(models.Model):
         string="Date of Entry", default=fields.Date.today(), required=False
     )
     date_end = fields.Date(string="Date of Obsolescence")
-    origin_status_id = fields.Many2one(
-        "hr.origin.status", string="Origin Status", required=False
-    )
-    origin_status_details_id = fields.Many2one(
-        "hr.origin.status.details",
-        string="Origin Status Details",
-        domain="[('origin_status_id', '=', origin_status_id)]",
-        required=False,
-    )
-    certificate_id = fields.Many2one(
-        "hr.recruitment.degree", string="Certificate", required=False
-    )
-    certificate_date = fields.Date(
-        string="Certificate Date",
-        help="Certificate Delivery Date",
-        required=False,
-    )
-    professional_experience = fields.Text(
-        string="Professional Experience", required=False
-    )
     bank_account_payment_id = fields.Many2one(
         "res.partner.bank",
         string="Bank Account Number for Payment",

@@ -92,17 +92,6 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <!-- add origin group -->
-            <xpath expr="//page[@name='personal_information']//field[@name='certificate']/.." position="after">
-                <group name="origin" string="Status origin">
-                    <field name="certificate_id" options="{'no_create': True, 'no_edit': True}"/>
-                    <field name="certificate_date"/>
-                    <field name="origin_status_id" options="{'no_create': True, 'no_edit': True}"/>
-                    <field name="origin_status_details_id" options="{'no_create': True, 'no_edit': True}"/>
-                    <field name="professional_experience"/>
-                </group>
-            </xpath>
-
             <!-- new pages -->
             <xpath expr="//page[@name='personal_information']" position="after">
                 <page name="social_status" string="Social Status" groups="hr.group_hr_user">
