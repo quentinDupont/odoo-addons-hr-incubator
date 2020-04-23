@@ -47,7 +47,6 @@
                     <field name="birthday"/>
                     <field name="age"/>
                     <field name="country_of_birth"/>
-                    <field name="country_department_of_birth_id" attrs="{'invisible': [('country_of_birth', '!=', 75)]}"/>
                     <field name="place_of_birth"/>
                     <field name="ssnid"/>
                 </group>

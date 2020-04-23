@@ -16,7 +16,6 @@
         "hr",
         "hr_recruitment",
         "hr_employee_age",
-        "l10n_fr_department",
     ],
     "data": [
         "security/ir.model.access.csv",

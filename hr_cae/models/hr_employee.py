@@ -14,11 +14,6 @@ class Employee(models.Model):
         string="Currency", related="company_id.currency_id", readonly=True
     )
     title = fields.Many2one("res.partner.title")
-    country_department_of_birth_id = fields.Many2one(
-        "res.country.department",
-        string="Department (France) of Birth",
-        required=False,
-    )
     country_other_ids = fields.Many2many(
         "res.country", string="Other Nationalities", required=False
     )
