@@ -10,7 +10,7 @@
     "category": "Human Resources",
     "version": "12.0.1.0.1",
     "license": "AGPL-3",
-    "depends": ["hr_cae"],
+    "depends": ["hr_cae", "hr_cae_recruitment"],
     "data": [
         "security/ir.model.access.csv",
         "views/hr_applicant.xml",
