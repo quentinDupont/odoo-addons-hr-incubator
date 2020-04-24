@@ -13,7 +13,11 @@
     "version": "12.0.1.0.1",
     "license": "AGPL-3",
     "depends": ["hr_cae"],
-    "data": ["security/ir.model.access.csv", "views/hr_employee.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/hr_employee.xml",
+        "views/hr_exemption.xml",
+    ],
     "installable": True,
     "application": False,
 }
