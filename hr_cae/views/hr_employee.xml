@@ -38,9 +38,9 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <!-- add Civil Status group and Bank group -->
+            <!-- add Civil Status group -->
             <xpath expr="//page[@name='personal_information']//field[@name='country_id']/.." position="after">
-                <group string="Civil Status">
+                <group name="civil_status" string="Civil Status">
                     <field name="title"/>
                     <field name="country_id"/>
                     <field name="marital"/>
@@ -49,12 +49,6 @@
                     <field name="country_of_birth"/>
                     <field name="place_of_birth"/>
                     <field name="ssnid"/>
-                </group>
-
-                <group string="Bank">
-                    <field name="bank_account_id"/>
-                    <field name="bank_account_payment_id"/>
-                    <field name="valid_mandate_id"/>
                 </group>
             </xpath>
 

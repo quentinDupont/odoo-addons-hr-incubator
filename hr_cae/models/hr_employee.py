@@ -21,13 +21,7 @@ class Employee(models.Model):
         string="Date of Entry", default=fields.Date.today(), required=False
     )
     date_end = fields.Date(string="Date of Obsolescence")
-    bank_account_payment_id = fields.Many2one(
-        "res.partner.bank",
-        string="Bank Account Number for Payment",
-        required=False,
-        domain="[('partner_id', '=', address_home_id)]",
-        help="Employee bank salary account",
-    )  # TODO: check that this one is actually used in logic
+    # TODO: check that this one is actually used in logic
     turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
     coop_role_id = fields.Many2one(
         "hr.coop.role", string="Role in the cooperative", required=False
@@ -70,9 +64,6 @@ class Employee(models.Model):
     )
     job_adaptations = fields.Text(string="Job Adaptations", required=False)
     children = fields.Integer(string="Number of Children", required=False)
-    valid_mandate_id = fields.Many2one(
-        related="user_id.partner_id.valid_mandate_id"
-    )
     siren = fields.Char(
         "SIREN Company Code", required=False
     )  # todo: link from partner
