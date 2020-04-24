@@ -21,8 +21,6 @@ class Employee(models.Model):
         string="Date of Entry", default=fields.Date.today(), required=False
     )
     date_end = fields.Date(string="Date of Obsolescence")
-    # TODO: check that this one is actually used in logic
-    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
     coop_role_id = fields.Many2one(
         "hr.coop.role", string="Role in the cooperative", required=False
     )

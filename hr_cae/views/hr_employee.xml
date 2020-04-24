@@ -25,12 +25,6 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <xpath expr="//page[@name='public']//field[@name='job_id']/.." position="after">
-                <group name="Earnings">
-                    <field name="turnover_minimum"/>
-                </group>
-            </xpath>
-
             <!-- page personal information -->
 
             <!-- hide Citizenship & Other Information group -->
