@@ -10,12 +10,7 @@
     "category": "Human Resources",
     "version": "12.0.1.0.1",
     "license": "AGPL-3",
-    "depends": [
-        "account_banking_sepa_direct_debit",
-        "base_location_geonames_import",
-        "hr",
-        "hr_employee_age",
-    ],
+    "depends": ["account_banking_sepa_direct_debit", "hr", "hr_employee_age"],
     "data": [
         "security/ir.model.access.csv",
         "views/hr.xml",
