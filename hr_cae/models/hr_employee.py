@@ -88,19 +88,6 @@ class Employee(models.Model):
         string="Number of Adult Dependents", required=False
     )
     social_worker = fields.Text(string="Social Worker", required=False)
-    contribution_date_start = fields.Date(
-        string="Start Date of Contributions", required=False
-    )
-    # contribution_arrangements = fields.Selection(
-    #     related="partner_id.contribution_arrangements"
-    # ) # Todo: field will be available from Scopa in partner_id
-    # fixme should be Many2One
-    contribution_exemption_ids = fields.One2many(
-        comodel_name="hr.contribution.exemption",
-        inverse_name="employee_id",
-        string="Contribution Exemptions",
-        required=False,
-    )
 
     _sql_constraints = [
         (
