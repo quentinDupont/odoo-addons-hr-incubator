@@ -9,7 +9,7 @@
     "category": "French Localization",
     "author": "GRAP,Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "depends": ["hr_employee", "l10n_fr_department"],
+    "depends": ["hr", "l10n_fr_department"],
     "data": ["views/hr_employee.xml"],
     "installable": True,
 }
