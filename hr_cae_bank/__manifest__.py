@@ -15,6 +15,5 @@
     "depends": ["account_banking_sepa_direct_debit", "hr_cae"],
     "data": ["views/hr_employee.xml"],
     "installable": True,
-    "auto_install": True,
     "application": False,
 }

@@ -1,4 +1,4 @@
-This module is a glue module installed if the following modules are installed:
+This module depends on this two modules :
 
 * ``hr_cae`` (same repository)
 * ``hr_recruitment`` (OCA repository)

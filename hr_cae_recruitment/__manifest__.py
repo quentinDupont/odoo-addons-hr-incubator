@@ -21,6 +21,5 @@
         "data/data.xml",
     ],
     "installable": True,
-    "auto_install": True,
     "application": False,
 }

@@ -11,6 +11,7 @@
     "category": "Human Resources",
     "version": "12.0.0.0.2",
     "depends": [
+        "base_location_geonames_import",
         "contacts",
         "hr_cae",
         "hr_cae_contract",
