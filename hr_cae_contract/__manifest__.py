@@ -17,6 +17,7 @@
         "data/hr_contract_data.xml",
         "wizard/create_amendment_wizard.xml",
         "views/hr_contract.xml",
+        "views/hr_employee.xml",
     ],
     "demo": [],
     "installable": True,

@@ -74,6 +74,20 @@ class ContractType(models.Model):
         string="Echelon",
     )
     max_usage = fields.Integer(string="Maximum Usage", default=False)
+    color = fields.Integer(string="Color Index", compute="_compute_color")
+
+    @api.multi
+    @api.depends("echelon")
+    def _compute_color(self):
+        for type in self:
+            if type.echelon == "main":
+                type.color = 7  # Dark blue
+            elif type.echelon == "amendment":
+                type.color = 4  # Light blue
+            elif type.echelon == "termination":
+                type.color = 1  # Orange
+            else:
+                type.color = 0  # White
 
 
 class ContractTag(models.Model):
