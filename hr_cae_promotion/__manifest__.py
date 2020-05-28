@@ -8,7 +8,7 @@
     "author": "Coop IT Easy SCRL",
     "website": "https://coopiteasy.be",
     "category": "Human Resources",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.1.0",
     "license": "AGPL-3",
     "depends": ["hr_cae", "hr_cae_recruitment"],
     "data": [
