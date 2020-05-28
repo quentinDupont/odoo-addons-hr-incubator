@@ -5,7 +5,7 @@
 {
     "name": "French Localization for HR in CAE",
     "summary": "French Localization for HR in CAE",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "category": "French Localization",
     "author": "GRAP,Odoo Community Association (OCA)",
     "license": "AGPL-3",
