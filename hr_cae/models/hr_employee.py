@@ -14,11 +14,6 @@ class Employee(models.Model):
         string="Currency", related="company_id.currency_id", readonly=True
     )
     title = fields.Many2one("res.partner.title")
-    country_department_of_birth_id = fields.Many2one(
-        "res.country.department",
-        string="Department (France) of Birth",
-        required=False,
-    )
     country_other_ids = fields.Many2many(
         "res.country", string="Other Nationalities", required=False
     )
@@ -26,34 +21,6 @@ class Employee(models.Model):
         string="Date of Entry", default=fields.Date.today(), required=False
     )
     date_end = fields.Date(string="Date of Obsolescence")
-    origin_status_id = fields.Many2one(
-        "hr.origin.status", string="Origin Status", required=False
-    )
-    origin_status_details_id = fields.Many2one(
-        "hr.origin.status.details",
-        string="Origin Status Details",
-        domain="[('origin_status_id', '=', origin_status_id)]",
-        required=False,
-    )
-    certificate_id = fields.Many2one(
-        "hr.recruitment.degree", string="Certificate", required=False
-    )
-    certificate_date = fields.Date(
-        string="Certificate Date",
-        help="Certificate Delivery Date",
-        required=False,
-    )
-    professional_experience = fields.Text(
-        string="Professional Experience", required=False
-    )
-    bank_account_payment_id = fields.Many2one(
-        "res.partner.bank",
-        string="Bank Account Number for Payment",
-        required=False,
-        domain="[('partner_id', '=', address_home_id)]",
-        help="Employee bank salary account",
-    )  # TODO: check that this one is actually used in logic
-    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
     coop_role_id = fields.Many2one(
         "hr.coop.role", string="Role in the cooperative", required=False
     )
@@ -95,9 +62,6 @@ class Employee(models.Model):
     )
     job_adaptations = fields.Text(string="Job Adaptations", required=False)
     children = fields.Integer(string="Number of Children", required=False)
-    valid_mandate_id = fields.Many2one(
-        related="user_id.partner_id.valid_mandate_id"
-    )
     siren = fields.Char(
         "SIREN Company Code", required=False
     )  # todo: link from partner
@@ -122,19 +86,6 @@ class Employee(models.Model):
         string="Number of Adult Dependents", required=False
     )
     social_worker = fields.Text(string="Social Worker", required=False)
-    contribution_date_start = fields.Date(
-        string="Start Date of Contributions", required=False
-    )
-    # contribution_arrangements = fields.Selection(
-    #     related="partner_id.contribution_arrangements"
-    # ) # Todo: field will be available from Scopa in partner_id
-    # fixme should be Many2One
-    contribution_exemption_ids = fields.One2many(
-        comodel_name="hr.contribution.exemption",
-        inverse_name="employee_id",
-        string="Contribution Exemptions",
-        required=False,
-    )
 
     _sql_constraints = [
         (
