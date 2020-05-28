@@ -10,7 +10,7 @@
     "author": "Coop IT Easy SCRL, GRAP",
     "website": "https://coopiteasy.be",
     "category": "Human Resources",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.1.0",
     "license": "AGPL-3",
     "depends": ["account_banking_sepa_direct_debit", "hr_cae"],
     "data": ["views/hr_employee.xml"],
