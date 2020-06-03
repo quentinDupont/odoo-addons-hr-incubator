@@ -22,8 +22,8 @@ class ResPartner(models.Model):
             )
 
     @api.multi
-    def create_user_expense_report_access(self):
-        group_id = self.env.ref("hr_expense.group_hr_expense_user").id
+    def create_user_portal_access(self):
+        group_id = self.env.ref("base.group_portal").id
         company_id = (
             self.env["res.company"]._company_default_get("res.users").id
         )
@@ -41,6 +41,8 @@ class ResPartner(models.Model):
                     "partner_id": partner.id,
                     "email": partner.email,
                     "login": partner.email,
+                    "phone": partner.phone,
+                    "mobile": partner.mobile,
                     "groups_id": [(6, 0, [group_id])],
                     "company_id": company_id,
                     "company_ids": [(6, 0, [company_id])],

@@ -33,6 +33,6 @@ class Event(models.Model):
                 registration.employee_id
                 and registration.employee_id.work_email
             ):
-                registration.employee_id.create_user_expense_report_access()
-            if registration.partner_id and registration.partner_id.email:
-                registration.partner_id.create_user_expense_report_access()
+                registration.employee_id.create_user_portal_access()
+            elif registration.partner_id and registration.partner_id.email:
+                registration.partner_id.create_user_portal_access()

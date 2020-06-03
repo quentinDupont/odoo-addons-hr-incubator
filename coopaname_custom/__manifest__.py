@@ -26,6 +26,7 @@
         "l10n_fr",
     ],
     "data": [
+        "wizard/create_user_portal_access.xml",
         "data/data.xml",
         "views/event.xml",
         "views/hr_applicant.xml",

@@ -21,9 +21,9 @@
         <field name="arch" type="xml">
             <xpath expr="//form//sheet" position="before">
                 <header>
-                    <button string="Give Expense Report Access"
+                    <button string="Give Portal Access"
                             type="object"
-                            name="create_user_expense_report_access"/>
+                            name="create_user_portal_access"/>
                 </header>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">

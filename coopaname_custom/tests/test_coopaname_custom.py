@@ -40,11 +40,11 @@ class TestCoopanameCustom(TransactionCase):
         # self.assertEqual(hne.mobile_phone, "06 99 68 76 78")
         # self.assertEqual(hne.work_phone, "+32 488 86 57 50")
 
-    def test_create_expense_report_user_from_contact(self):
+    def test_create_portal_user_from_contact(self):
         event = self.browse_ref("event.event_0")
         partner = self.browse_ref("base.res_partner_1")
         employee = self.browse_ref("hr.employee_al")
-        group_id = self.browse_ref("hr_expense.group_hr_expense_user")
+        group_id = self.browse_ref("base.group_portal")
         company_id = self.env["res.company"]._company_default_get("res.users")
         self.assertTrue(bool(partner.email))
         self.assertTrue(bool(employee.work_email))
