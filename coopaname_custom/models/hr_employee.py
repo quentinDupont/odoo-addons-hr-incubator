@@ -43,6 +43,26 @@ class Employee(models.Model):
             values["work_phone"] = _format_phone_number(values["work_phone"])
 
         employee = super().create(values)
+        if not employee.address_home_id:
+            partner = self.env["res.partner"].search(
+                [
+                    ("email", "=", employee.work_email),
+                    ("is_company", "=", False),
+                ],
+                limit=1,
+            )
+            if len(partner) == 1:
+                employee.address_home_id = partner
+            else:
+                employee.address_home_id = self.env["res.partner"].create(
+                    {
+                        "is_company": False,
+                        "name": employee.name,
+                        "email": employee.work_email,
+                        "phone": employee.work_phone,
+                        "mobile": employee.mobile_phone,
+                    }
+                )
         return employee
 
     @api.multi
@@ -81,15 +101,19 @@ class Employee(models.Model):
             if user:
                 user.write({"active": True, "groups_id": [(4, group_id)]})
             else:
-                new_partner_id = self.env["res.partner"].create(
+                partner_id = employee.address_home_id or self.env[
+                    "res.partner"
+                ].create(
                     {
                         "is_company": False,
                         "name": employee.name,
                         "email": employee.work_email,
+                        "phone": employee.work_phone,
+                        "mobile": employee.mobile_phone,
                     }
                 )
                 user_values = {
-                    "partner_id": new_partner_id.id,
+                    "partner_id": partner_id.id,
                     "employee_ids": [(6, 0, [employee.id])],
                     "email": employee.work_email,
                     "login": employee.work_email,
