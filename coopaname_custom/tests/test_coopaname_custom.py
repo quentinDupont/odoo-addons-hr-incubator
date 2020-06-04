@@ -85,3 +85,26 @@ class TestCoopanameCustom(TransactionCase):
         )
         self.assertTrue(group_id in employee_user.groups_id)
         self.assertEqual(employee_user.company_id, company_id)
+
+    def test_create_employee_finds_partner(self):
+        partner = self.env["res.partner"].create(
+            {"name": "Test man", "email": "test_create_employee@example.com"}
+        )
+        employee = self.env["hr.employee"].create(
+            {
+                "name": "Test man",
+                "work_email": "test_create_employee@example.com",
+            }
+        )
+        self.assertTrue(employee.address_home_id)
+        self.assertEqual(employee.address_home_id, partner)
+
+    def test_create_employee_has_address_home_id(self):
+        employee = self.env["hr.employee"].create(
+            {
+                "name": "Test man",
+                "work_email": "test_create_employee@example.com",
+            }
+        )
+        self.assertTrue(employee.address_home_id)
+        self.assertEqual(employee.address_home_id.email, employee.work_email)

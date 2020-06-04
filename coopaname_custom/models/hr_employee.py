@@ -46,12 +46,13 @@ class Employee(models.Model):
         if not employee.address_home_id:
             partner = self.env["res.partner"].search(
                 [
+                    ("email", "!=", False),
                     ("email", "=", employee.work_email),
                     ("is_company", "=", False),
                 ],
                 limit=1,
             )
-            if len(partner) == 1:
+            if partner:
                 employee.address_home_id = partner
             else:
                 employee.address_home_id = self.env["res.partner"].create(
@@ -94,24 +95,28 @@ class Employee(models.Model):
 
         for employee in self:
             if not employee.work_email:
-                raise ValidationError(_("An email address is required."))
+                raise ValidationError(
+                    _("An email address is required for employee %s.")
+                    % employee.name
+                )
             user = self.env["res.users"].search(
                 [("login", "=", employee.work_email)], limit=1
             )
             if user:
                 user.write({"active": True, "groups_id": [(4, group_id)]})
             else:
-                partner_id = employee.address_home_id or self.env[
-                    "res.partner"
-                ].create(
-                    {
-                        "is_company": False,
-                        "name": employee.name,
-                        "email": employee.work_email,
-                        "phone": employee.work_phone,
-                        "mobile": employee.mobile_phone,
-                    }
-                )
+                if employee.address_home_id:
+                    partner_id = employee.address_home_id
+                else:
+                    partner_id = self.env["res.partner"].create(
+                        {
+                            "is_company": False,
+                            "name": employee.name,
+                            "email": employee.work_email,
+                            "phone": employee.work_phone,
+                            "mobile": employee.mobile_phone,
+                        }
+                    )
                 user_values = {
                     "partner_id": partner_id.id,
                     "employee_ids": [(6, 0, [employee.id])],
