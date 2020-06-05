@@ -13,21 +13,20 @@ HR CAE - Bank informations
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-odoo-cae%2Fodoo--addons--hr--incubator-lightgray.png?logo=github
-    :target: https://github.com/odoo-cae/odoo-addons-hr-incubator/tree/12.0/hr_employee_bank
-    :alt: odoo-cae/odoo-addons-hr-incubator
+.. |badge3| image:: https://img.shields.io/badge/github-odoo_cae%2Fodoo--addons--hr--incubator-lightgray.png?logo=github
+    :target: https://github.com/odoo_cae/odoo-addons-hr-incubator/tree/12.0/hr_employee_bank
+    :alt: odoo_cae/odoo-addons-hr-incubator
 
 |badge1| |badge2| |badge3| 
 
-Extend `hr.applicant` to handle applicants in a CAE - Cooperative Activité Emploi
+Manage bank information for HR in a CAE.
+
+* Adds bank information to employees.
 
 This module is a glue module installed if the following modules are installed:
 
 * ``hr_cae`` (same repository)
 * ``account_banking_sepa_direct_debit`` (OCA repository in bank-payment)
-
-Extend `hr.employee` from `hr_cae` to handle bank informations for a
-CAE - Cooperative Activité Emploi
 
 **Table of contents**
 
@@ -37,10 +36,10 @@ CAE - Cooperative Activité Emploi
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/odoo-cae/odoo-addons-hr-incubator/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/odoo_cae/odoo-addons-hr-incubator/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/odoo-cae/odoo-addons-hr-incubator/issues/new?body=module:%20hr_employee_bank%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/odoo_cae/odoo-addons-hr-incubator/issues/new?body=module:%20hr_employee_bank%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -50,7 +49,7 @@ Credits
 Authors
 ~~~~~~~
 
-* Coop IT Easy SCRL
+* Coop IT Easy SCRLfs
 * GRAP
 
 Contributors
@@ -63,6 +62,6 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
-This module is part of the `odoo-cae/odoo-addons-hr-incubator <https://github.com/odoo-cae/odoo-addons-hr-incubator/tree/12.0/hr_employee_bank>`_ project on GitHub.
+This module is part of the `odoo_cae/odoo-addons-hr-incubator <https://github.com/odoo_cae/odoo-addons-hr-incubator/tree/12.0/hr_employee_bank>`_ project on GitHub.
 
 You are welcome to contribute.

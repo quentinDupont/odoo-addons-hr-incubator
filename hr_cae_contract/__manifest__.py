@@ -4,9 +4,9 @@
 
 {
     "name": "HR CAE Contract",
-    "summary": "Employee contracts in a CAE - Cooperative Activité Emploi",
+    "summary": "Manage employee contracts in a CAE.",
     "author": "Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://www.coopiteasy.be",
     "category": "Human Resources",
     "version": "12.0.1.3.0",
     "license": "AGPL-3",

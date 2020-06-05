@@ -4,9 +4,9 @@
 
 {
     "name": "HR CAE",
-    "summary": "Employee HR in a CAE - Cooperative Activité Emploi",
-    "author": "Coop IT Easy SCRL",
-    "website": "https://coopiteasy.be",
+    "summary": "Manage employee HR in a CAE.",
+    "author": "Coop IT Easy SCRLfs",
+    "website": "https://www.coopiteasy.be",
     "category": "Human Resources",
     "version": "12.0.1.2.0",
     "license": "AGPL-3",

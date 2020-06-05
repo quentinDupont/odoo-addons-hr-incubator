@@ -3,13 +3,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "HR CAE Documents",
+    "name": "HR CAE Document",
     "summary": """
-        * Copies documents from hr_applicant and hr_employee.
-        * Adds fields to documents.
+        Manage HR documents in a CAE.
     """,
     "author": "Coop IT Easy SCRLfs",
-    "website": "https://coopiteasy.be",
+    "website": "https://www.coopiteasy.be",
     "category": "Human Resources",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",

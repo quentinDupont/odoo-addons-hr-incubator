@@ -1,1 +1,3 @@
-Add `hr.promotion` to handle groups of applicants in a CAE - Cooperative Activité Emploi
+Manage promotions in a CAE.
+
+* Adds promotions as groups of employees.

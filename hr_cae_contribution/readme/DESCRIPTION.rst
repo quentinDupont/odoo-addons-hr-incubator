@@ -1,1 +1,3 @@
-Handling employee contributions in a CAE - Cooperative Activité Emploi
+Manage employee contributions and exeptions in a CAE.
+
+* Adds contributions and contribution exeptions to employees.

@@ -1,9 +1,11 @@
 {
-    "name": "hr_grap_custom",
+    "name": "HR Grap Custom",
     "summary": """
-        Lists all dependencies for GRAP's deployement""",
+        Customization specific to GRAP use case.
+    """,
     "license": "AGPL-3",
     "author": "GRAP",
+    "website": "http://www.grap.coop",
     "category": "Human Resources",
     "version": "12.0.0.0.1",
     "depends": ["hr_cae", "hr_contract"],

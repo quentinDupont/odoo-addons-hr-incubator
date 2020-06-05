@@ -1,1 +1,3 @@
-Extend `hr.applicant` to handle applicants in a CAE - Cooperative Activité Emploi
+Manage employee HR in a CAE.
+
+* Adds a variaty of fields to employees.
