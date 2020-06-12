@@ -9,6 +9,5 @@ class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
     employee_ids = fields.Many2many(
-        comodel_name="hr.employee",
-        string="Entrepreneurs assisted during this timeslot",
+        comodel_name="hr.employee", string="Employees assisted"
     )
