@@ -44,11 +44,15 @@ class Employee(models.Model):
 
         employee = super().create(values)
         if not employee.address_home_id:
+            address_home_ids = (
+                self.env["hr.employee"].search([]).mapped("address_home_id.id")
+            )
             partner = self.env["res.partner"].search(
                 [
                     ("email", "!=", False),
                     ("email", "=", employee.work_email),
                     ("is_company", "=", False),
+                    ("id", "not in", address_home_ids),
                 ],
                 limit=1,
             )
