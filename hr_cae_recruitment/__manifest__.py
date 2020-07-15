@@ -18,6 +18,7 @@
         "views/hr.xml",
         "views/hr_applicant.xml",
         "views/hr_employee.xml",
+        "views/hr_job.xml",
         "data/data.xml",
     ],
     "installable": True,
