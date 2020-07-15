@@ -23,7 +23,7 @@ addon | version | summary
 [hr_cae_event_promotion](hr_cae_event_promotion/) | 12.0.1.0.0 | Adds field and button to standard events to link an event to a promotion and invite all it's employees at once.
 [hr_cae_fr](hr_cae_fr/) | 12.0.1.1.0 | French Localization for HR in CAE
 [hr_cae_promotion](hr_cae_promotion/) | 12.0.1.1.0 | Add promotions as groups of employees.
-[hr_cae_recruitment](hr_cae_recruitment/) | 12.0.1.1.0 | Recruitment in a CAE - Cooperative Activité Emploi
+[hr_cae_recruitment](hr_cae_recruitment/) | 12.0.1.2.0 | Recruitment in a CAE - Cooperative Activité Emploi
 [hr_employee_bank](hr_employee_bank/) | 12.0.1.1.0 | Bank informations for HR in a CAE - Cooperative Activité Emploi
 [hr_grap_custom](hr_grap_custom/) | 12.0.0.0.1 | Lists all dependencies for GRAP's deployement
 [member_data_history](member_data_history/) | 12.0.0.0.2 | Logs value change on selected fields.
