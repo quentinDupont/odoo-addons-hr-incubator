@@ -14,7 +14,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[coopaname_custom](coopaname_custom/) | 12.0.0.1.0 | Customization specific to Coopaname use case.
+[coopaname_custom](coopaname_custom/) | 12.0.0.2.0 | Customization specific to Coopaname use case.
 [hr_cae](hr_cae/) | 12.0.1.2.0 | Manage employee HR in a CAE.
 [hr_cae_contract](hr_cae_contract/) | 12.0.1.3.0 | Manage employee contracts in a CAE.
 [hr_cae_contribution](hr_cae_contribution/) | 12.0.1.1.0 | Manage employee contributions and exeptions in a CAE.
@@ -23,7 +23,8 @@ addon | version | summary
 [hr_cae_event_promotion](hr_cae_event_promotion/) | 12.0.1.0.0 | Manage HR events for promotions in a CAE.
 [hr_cae_fr](hr_cae_fr/) | 12.0.1.1.0 | French Localization for HR in a CAE.
 [hr_cae_promotion](hr_cae_promotion/) | 12.0.1.1.0 | Manage promotions in a CAE.
-[hr_cae_recruitment](hr_cae_recruitment/) | 12.0.1.1.0 | Manage recruitment in a CAE.
+[hr_cae_recruitment](hr_cae_recruitment/) | 12.0.1.2.0 | Manage recruitment in a CAE.
+[hr_cae_timesheet_sheet](hr_cae_timesheet_sheet/) | 12.0.1.1.0 | Manage timesheets in a CAE.
 [hr_employee_bank](hr_employee_bank/) | 12.0.1.1.0 | Manage bank information for HR in a CAE.
 [hr_grap_custom](hr_grap_custom/) | 12.0.0.0.1 | Customization specific to GRAP use case.
 [member_data_history](member_data_history/) | 12.0.0.0.2 | Logs value change on selected fields.
