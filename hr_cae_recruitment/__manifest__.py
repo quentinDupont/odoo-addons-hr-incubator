@@ -10,7 +10,7 @@
     "author": "Coop IT Easy SCRLfs, GRAP",
     "website": "https://www.coopiteasy.be, http://www.grap.coop",
     "category": "Human Resources",
-    "version": "12.0.1.2.0",
+    "version": "12.0.1.3.0",
     "license": "AGPL-3",
     "depends": ["hr_cae", "hr_recruitment"],
     "data": [
