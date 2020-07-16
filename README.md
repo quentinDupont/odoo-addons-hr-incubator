@@ -14,7 +14,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[coopaname_custom](coopaname_custom/) | 12.0.0.1.0 | Lists all dependencies for Coopaname's deployement
+[coopaname_custom](coopaname_custom/) | 12.0.0.2.0 | Lists all dependencies for Coopaname's deployement
 [hr_cae](hr_cae/) | 12.0.1.2.0 | Employee HR in a CAE - Cooperative Activité Emploi
 [hr_cae_contract](hr_cae_contract/) | 12.0.1.3.0 | Employee contracts in a CAE - Cooperative Activité Emploi
 [hr_cae_contribution](hr_cae_contribution/) | 12.0.1.1.0 | Employee HR in a CAE - Cooperative Activité Emploi
