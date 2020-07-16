@@ -8,7 +8,7 @@
     "author": "Coop IT Easy SCRLfs",
     "website": "https://www.coopiteasy.be",
     "category": "Human Resources",
-    "version": "12.0.1.3.0",
+    "version": "12.0.1.4.0",
     "license": "AGPL-3",
     "external_dependencies": {"python": ["dateutil.relativedelta"]},
     "depends": ["hr_cae", "hr_contract"],
