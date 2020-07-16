@@ -10,7 +10,7 @@
     "author": "Coop IT Easy SCRLfs",
     "website": "https://www.coopiteasy.be",
     "category": "Human Resources",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "license": "AGPL-3",
     "depends": ["hr_recruitment", "hr_employee_document"],
     "data": ["security/ir.model.access.csv", "views/ir_attachment.xml"],
