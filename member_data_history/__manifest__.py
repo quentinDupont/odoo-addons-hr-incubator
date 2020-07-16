@@ -6,7 +6,7 @@
     "author": "Coop IT Easy SCRLfs",
     "website": "https://www.coopiteasy.be",
     "category": "Human Resources",
-    "version": "12.0.0.0.2",
+    "version": "12.0.0.1.0",
     "depends": ["contacts", "hr_cae_contract"],
     "data": ["security/ir.model.access.csv", "views/value_log.xml"],
     "demo": [],
