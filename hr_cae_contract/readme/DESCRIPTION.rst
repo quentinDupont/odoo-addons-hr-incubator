@@ -1,4 +1,4 @@
-Extends `hr.contract` to handle employee contracts in a CAE - Cooperative Activité Emploi
+Manage employee contracts in a CAE.
 
 * Introduces two echelons of contract types: main contracts (CDI, CDD, ...) and amendments (Bonus, Salary Evolution, ...).
 * A button is added to create an amendment of a contract. It's information, or that of it's latest amendment, is copied into a new amendment.

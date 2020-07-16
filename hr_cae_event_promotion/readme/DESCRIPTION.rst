@@ -1,1 +1,3 @@
-Adds field and button to standard events to link an event to a promotion and invite all it's employees at once.
+Manage HR events for promotions in a CAE.
+
+* Adds field and button to standard events to link an event to a promotion and invite all it's employees at once.

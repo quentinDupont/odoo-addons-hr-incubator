@@ -5,10 +5,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "HR CAE - Contributions",
-    "summary": "Employee HR in a CAE - Cooperative Activité Emploi",
-    "author": "Coop IT Easy SCRL, GRAP",
-    "website": "https://coopiteasy.be, http://www.grap.coop",
+    "name": "HR CAE Contribution",
+    "summary": "Manage employee contributions and exeptions in a CAE.",
+    "author": "Coop IT Easy SCRLfs, GRAP",
+    "website": "https://www.coopiteasy.be, http://www.grap.coop",
     "category": "Human Resources",
     "version": "12.0.1.1.0",
     "license": "AGPL-3",

@@ -1,7 +1,8 @@
-This module depends on this two modules :
+Manage recruitment in a CAE.
+
+* Adds fields to applicant and employees, and pass them when employees are created from applicants.
+
+This module depends on these two modules :
 
 * ``hr_cae`` (same repository)
 * ``hr_recruitment`` (OCA repository)
-
-Extend `hr.applicant` from `hr_recruitment` to handle applicants in a
- CAE - Cooperative Activité Emploi

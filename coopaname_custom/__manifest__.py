@@ -2,12 +2,13 @@
 #   Robin Keunen <robin@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": "coopaname_custom",
+    "name": "Coopaname Custom",
     "summary": """
-        Lists all dependencies for Coopaname's deployement""",
+        Customization specific to Coopaname use case.
+    """,
     "license": "AGPL-3",
     "author": "Coop IT Easy SCRLfs",
-    "website": "www.coopiteasy.be",
+    "website": "https://www.coopiteasy.be",
     "category": "Human Resources",
     "version": "12.0.0.2.0",
     "depends": [

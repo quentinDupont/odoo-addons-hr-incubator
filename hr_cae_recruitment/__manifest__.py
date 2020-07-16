@@ -6,9 +6,9 @@
 
 {
     "name": "HR CAE Recruitment",
-    "summary": "Recruitment in a CAE - Cooperative Activité Emploi",
-    "author": "Coop IT Easy SCRL, GRAP",
-    "website": "https://coopiteasy.be, http://www.grap.coop",
+    "summary": "Manage recruitment in a CAE.",
+    "author": "Coop IT Easy SCRLfs, GRAP",
+    "website": "https://www.coopiteasy.be, http://www.grap.coop",
     "category": "Human Resources",
     "version": "12.0.1.2.0",
     "license": "AGPL-3",
