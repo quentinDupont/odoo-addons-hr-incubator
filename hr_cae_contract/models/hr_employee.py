@@ -13,6 +13,7 @@ class Employee(models.Model):
         inverse_name="employee_id",
         string="Contracts",
     )
+
     ongoing_contract_type_ids = fields.Many2many(
         comodel_name="hr.contract.type",
         string="Ongoing Contract Types",

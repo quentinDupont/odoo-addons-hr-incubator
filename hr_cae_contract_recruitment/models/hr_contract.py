@@ -15,7 +15,5 @@ class Contract(models.Model):
 
     @api.onchange("employee_id")
     def onchange_employee_id(self):
-        # import pdb; pdb.set_trace();
         super().onchange_employee_id()
-        # if self.employee_id.turnover_minimum:
         self.turnover_minimum = self.employee_id.turnover_minimum

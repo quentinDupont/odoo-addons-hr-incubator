@@ -19,11 +19,8 @@ class TestHRCAE(TransactionCase):
         applicant.turnover_minimum = 10000
 
         applicant.create_employee_from_applicant()
-        
         employee = applicant.emp_id
 
-
-        import pdb; pdb.set_trace();
         self.assertEquals(employee.work_phone, applicant.partner_phone)
         self.assertEquals(employee.mobile_phone, applicant.partner_mobile)
         self.assertEquals(employee.work_email, applicant.email_from)

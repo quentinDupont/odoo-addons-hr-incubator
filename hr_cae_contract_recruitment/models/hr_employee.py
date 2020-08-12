@@ -12,4 +12,3 @@ class Employee(models.Model):
     _inherit = "hr.employee"
 
     turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
-
