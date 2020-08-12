@@ -74,24 +74,19 @@
             </xpath>
 
             <xpath expr="//div[@name='wage']/span" position="after">
-                <span>€ / month</span>
+                <span>/ month</span>
             </xpath>
 
             <field name="advantages" position="after">
                 <label for="hours"/>
                 <div class="o_row" name="hours">
                     <field name="hours" nolabel="1"/>
-                    <span>/ month</span>
+                    <span>h / month</span>
                 </div>
                 <label for="hourly_wage"/>
                 <div class="o_row" name="hourly_wage">
                     <field name="hourly_wage" nolabel="1"/>
-                    <span>€ / hour</span>
-                </div>
-                <label for="turnover_minimum"/>
-                <div class="o_row" name="turnover_minimum">
-                    <field name="turnover_minimum" nolabel="1"/>
-                    <span>€ / month</span>
+                    <span>/ hour</span>
                 </div>
             </field>
 
@@ -141,7 +136,6 @@
                 <field name="wage"/>
                 <field name="hours"/>
                 <field name="hourly_wage"/>
-                <field name="turnover_minimum"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="state"/>

@@ -169,7 +169,6 @@ class Contract(models.Model):
     )
     hours = fields.Float(string="Working Hours", required=True)
     hourly_wage = fields.Monetary(string="Hourly Wage", required=True)
-    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
 
     amendment_index = fields.Integer(
         string="Amendment Index",
@@ -373,8 +372,6 @@ class Contract(models.Model):
 
     @api.onchange("employee_id")
     def onchange_employee_id(self):
-        if self.employee_id.turnover_minimum:
-            self.turnover_minimum = self.employee_id.turnover_minimum
         if self.employee_id.date_start:
             self.date_start = self.employee_id.date_start
 

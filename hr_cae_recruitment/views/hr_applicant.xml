@@ -55,10 +55,10 @@
 
             <xpath expr="//field[@name='salary_expected']/../.." position="after">
                 <group string="Job Position" name="job_position">
-                    <field name="turnover_minimum"/>
                     <label for="salary_expected"/>
                     <div>
-                        <field name="salary_expected" class="oe_inline"/>
+                        <field name="currency_id" groups="base.group_multi_currency" />
+                        <field name="salary_expected" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                         <span class="oe_inline" attrs="{'invisible':[('salary_expected_extra','=',False)]}"> + </span>
                         <field name="salary_expected_extra" class="oe_inline" placeholder="Extra advantages..."/>
                     </div>

@@ -9,8 +9,6 @@ from odoo import fields, models
 class Employee(models.Model):
     _inherit = "hr.employee"
 
-    # TODO: check that this one is actually used in logic
-    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
     origin_status_id = fields.Many2one(
         "hr.origin.status", string="Origin Status", required=False
     )

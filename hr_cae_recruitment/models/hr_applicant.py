@@ -25,7 +25,6 @@ class Applicant(models.Model):
     professional_experience = fields.Text(
         string="Professional Experience", required=False
     )
-    turnover_minimum = fields.Monetary(string="Minimum Turn-Over")
     origin_status_id = fields.Many2one(
         "hr.origin.status", string="Origin Status", required=False
     )
@@ -56,7 +55,6 @@ class Applicant(models.Model):
                 applicant.professional_experience
             )
             employee.equipment = applicant.equipment
-            employee.turnover_minimum = applicant.turnover_minimum
             if applicant.partner_id:
                 employee.title = applicant.partner_id.title
                 employee.origin_status_id = (

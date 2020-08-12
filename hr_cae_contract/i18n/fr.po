@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-22 10:34+0000\n"
-"PO-Revision-Date: 2020-04-22 10:34+0000\n"
+"POT-Creation-Date: 2020-08-12 13:36+0000\n"
+"PO-Revision-Date: 2020-08-12 13:36+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,23 +22,23 @@ msgstr "\"O\" pour contrat principal, \"1\" pour son premier avenant, etc."
 
 #. module: hr_cae_contract
 #: model_terms:ir.ui.view,arch_db:hr_cae_contract.hr_contract_view_form
+msgid "<span>/ hour</span>"
+msgstr "<span>/ heure</span>"
+
+#. module: hr_cae_contract
+#: model_terms:ir.ui.view,arch_db:hr_cae_contract.hr_contract_view_form
 msgid "<span>/ month</span>"
 msgstr "<span>/ mois</span>"
 
 #. module: hr_cae_contract
 #: model_terms:ir.ui.view,arch_db:hr_cae_contract.hr_contract_view_form
+msgid "<span>h / month</span>"
+msgstr "<span>h / mois</span>"
+
+#. module: hr_cae_contract
+#: model_terms:ir.ui.view,arch_db:hr_cae_contract.hr_contract_view_form
 msgid "<span>month(s)</span>"
 msgstr "<span>mois</span>"
-
-#. module: hr_cae_contract
-#: model_terms:ir.ui.view,arch_db:hr_cae_contract.hr_contract_view_form
-msgid "<span>€ / hour</span>"
-msgstr "<span>€ / heure</span>"
-
-#. module: hr_cae_contract
-#: model_terms:ir.ui.view,arch_db:hr_cae_contract.hr_contract_view_form
-msgid "<span>€ / month</span>"
-msgstr "<span>€ / mois</span>"
 
 #. module: hr_cae_contract
 #: model:ir.model.fields,field_description:hr_cae_contract.field_hr_contract__state_admin
@@ -122,6 +122,11 @@ msgid "Cancelled"
 msgstr "Annulé"
 
 #. module: hr_cae_contract
+#: model:ir.model.fields,field_description:hr_cae_contract.field_hr_contract_type__color
+msgid "Color Index"
+msgstr "Couleur"
+
+#. module: hr_cae_contract
 #: model:ir.model,name:hr_cae_contract.model_hr_contract
 msgid "Contract"
 msgstr "Contrat"
@@ -165,6 +170,7 @@ msgstr "Échelon du type de contrat"
 #: model:ir.actions.act_window,name:hr_cae_contract.action_hr_contract_termination
 #: model:ir.model.fields,field_description:hr_cae_contract.field_hr_contract__contract_ids
 #: model:ir.model.fields,field_description:hr_cae_contract.field_hr_contract_group__contract_ids
+#: model:ir.model.fields,field_description:hr_cae_contract.field_hr_employee__contract_ids
 #: model:ir.ui.menu,name:hr_cae_contract.menu_hr_contracts
 msgid "Contracts"
 msgstr "Contrats"
@@ -238,6 +244,7 @@ msgid "Echelon"
 msgstr "Échelon"
 
 #. module: hr_cae_contract
+#: model:ir.model,name:hr_cae_contract.model_hr_employee
 #: model:ir.model.fields,field_description:hr_cae_contract.field_hr_contract__employee_id
 msgid "Employee"
 msgstr "Employé"
@@ -347,11 +354,6 @@ msgid "Maximum Usage"
 msgstr "Utilisation maximale"
 
 #. module: hr_cae_contract
-#: model:ir.model.fields,field_description:hr_cae_contract.field_hr_contract__turnover_minimum
-msgid "Minimum Turn-Over"
-msgstr "Rotation minimale"
-
-#. module: hr_cae_contract
 #: model:ir.model.fields,field_description:hr_cae_contract.field_hr_contract_tag__name
 msgid "Name"
 msgstr "Nom"
@@ -370,6 +372,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_cae_contract.field_hr_contract__attachment_number
 msgid "Number of Attachments"
 msgstr "Nombre de documents joints"
+
+#. module: hr_cae_contract
+#: model:ir.model.fields,field_description:hr_cae_contract.field_hr_employee__ongoing_contract_type_ids
+msgid "Ongoing Contract Types"
+msgstr "Type de contrat en cours"
 
 #. module: hr_cae_contract
 #: model:ir.model.fields,field_description:hr_cae_contract.field_hr_contract__parent_contract_id
@@ -465,13 +472,13 @@ msgid "Termination Contracts"
 msgstr "Contrats de résiliation"
 
 #. module: hr_cae_contract
-#: code:addons/hr_cae_contract/models/hr_contract.py:381
+#: code:addons/hr_cae_contract/models/hr_contract.py:392
 #, python-format
 msgid "The maximum amount of %s contracts of type '%s' has been reached"
-msgstr "Le montant maximal des %s contrats de type "%s" a été atteint"
+msgstr "Le montant maximal des %s contrats de type \"%s\" a été atteint"
 
 #. module: hr_cae_contract
-#: code:addons/hr_cae_contract/models/hr_contract.py:398
+#: code:addons/hr_cae_contract/models/hr_contract.py:409
 #, python-format
 msgid "This contract group already has a termination contract "
 msgstr "Ce groupe de contrats dispose déjà d'un contrat de résiliation "

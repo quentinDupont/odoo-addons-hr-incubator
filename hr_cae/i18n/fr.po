@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-22 10:14+0000\n"
-"PO-Revision-Date: 2020-04-22 10:14+0000\n"
+"POT-Creation-Date: 2020-08-12 11:47+0000\n"
+"PO-Revision-Date: 2020-08-12 11:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,49 +26,6 @@ msgid "Administrative"
 msgstr "Administratif"
 
 #. module: hr_cae
-#: model:ir.model,name:hr_cae.model_hr_applicant
-msgid "Applicant"
-msgstr "Candidat"
-
-#. module: hr_cae
-#: model:hr.recruitment.degree,name:hr_cae.hr_certificate_bachelor
-msgid "Bachelor"
-msgstr "Baccalauréat"
-
-#. module: hr_cae
-#: model_terms:ir.ui.view,arch_db:hr_cae.view_employee_form
-msgid "Bank"
-msgstr "Banque"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__bank_account_payment_id
-msgid "Bank Account Number for Payment"
-msgstr "Numéro de compte bancaire pour le paiement"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__type_id
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__certificate_id
-msgid "Certificate"
-msgstr "Certificat"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__certificate_date
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__certificate_date
-msgid "Certificate Date"
-msgstr "Date de certificat"
-
-#. module: hr_cae
-#: model:ir.model.fields,help:hr_cae.field_hr_applicant__certificate_date
-#: model:ir.model.fields,help:hr_cae.field_hr_employee__certificate_date
-msgid "Certificate Delivery Date"
-msgstr "Date de délivrance du certificat"
-
-#. module: hr_cae
-#: model:ir.ui.menu,name:hr_cae.menu_view_hr_recruitment_degree_tree
-msgid "Certificate Levels"
-msgstr "Niveaux des certificats"
-
-#. module: hr_cae
 #: model_terms:ir.ui.view,arch_db:hr_cae.view_employee_form
 msgid "Civil Status"
 msgstr "État civil"
@@ -79,40 +36,14 @@ msgid "Combining Job and Retirement"
 msgstr "Combiner Emploi et Retraite"
 
 #. module: hr_cae
-#: model:ir.model,name:hr_cae.model_res_partner
-msgid "Contact"
-msgstr ""
-
-#. module: hr_cae
 #: model:ir.ui.menu,name:hr_cae.menu_partner_title_contact_hr
-#: model:ir.ui.menu,name:hr_cae.menu_partner_title_contact_recruitment
 msgid "Contact Titles"
 msgstr "Civilités"
 
 #. module: hr_cae
-#: model_terms:ir.ui.view,arch_db:hr_cae.view_applicant_form
-msgid "Contract"
-msgstr "Contrat"
-
-#. module: hr_cae
-#: model:ir.actions.act_window,name:hr_cae.open_view_contribution_exemption_tree
-#: model:ir.model,name:hr_cae.model_hr_contribution_exemption
-#: model:ir.ui.menu,name:hr_cae.menu_view_contribution_exemption_tree
-msgid "Contribution Exemption"
-msgstr "Exonération de contribution"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__contribution_exemption_ids
-msgid "Contribution Exemptions"
-msgstr "Exemptions de contribution"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__create_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_coop_role__create_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance__create_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance_level__create_uid
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status__create_uid
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status_details__create_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_professional_liability__create_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_sector__create_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_social_insurance__create_uid
@@ -121,12 +52,9 @@ msgid "Created by"
 msgstr "Créé par"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__create_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_coop_role__create_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance__create_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance_level__create_date
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status__create_date
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status_details__create_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_professional_liability__create_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_sector__create_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_social_insurance__create_date
@@ -140,7 +68,6 @@ msgid "Cumulative Other Monthly Working Hours"
 msgstr "Cumul des autres heures de travail mensuelles"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__currency_id
 #: model:ir.model.fields,field_description:hr_cae.field_hr_employee__currency_id
 msgid "Currency"
 msgstr "Devise"
@@ -161,17 +88,9 @@ msgid "Date of Obsolescence"
 msgstr "Date de sortie"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__country_department_of_birth_id
-msgid "Department (France) of Birth"
-msgstr "Département de naissance"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__display_name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_coop_role__display_name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance__display_name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance_level__display_name
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status__display_name
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status_details__display_name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_professional_liability__display_name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_sector__display_name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_social_insurance__display_name
@@ -181,19 +100,8 @@ msgstr "Nom affiché"
 
 #. module: hr_cae
 #: model:ir.model,name:hr_cae.model_hr_employee
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__employee_id
 msgid "Employee"
 msgstr "Employé"
-
-#. module: hr_cae
-#: model:ir.model.fields,help:hr_cae.field_hr_employee__bank_account_payment_id
-msgid "Employee bank salary account"
-msgstr "Compte bancaire du salaire de l'employé"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__date_end
-msgid "End Date of Exemption"
-msgstr "Date de fin de l'exonération"
 
 #. module: hr_cae
 #: model:ir.model.fields,field_description:hr_cae.field_hr_employee__mutual_insurance_date_end
@@ -201,7 +109,6 @@ msgid "End Date of Mutual Insurance"
 msgstr "Date de fin de l'assurance mutuelle"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__equipment
 #: model:ir.model.fields,field_description:hr_cae.field_hr_employee__equipment
 msgid "Equipment"
 msgstr "Équipement"
@@ -212,32 +119,14 @@ msgid "Exemption Date Mutual Insurance"
 msgstr "Date d'exemption Assurance mutuelle"
 
 #. module: hr_cae
-#: model_terms:ir.ui.view,arch_db:hr_cae.view_applicant_form
-msgid "Extra advantages..."
-msgstr "Avantages extra légaux..."
-
-#. module: hr_cae
 #: model_terms:ir.ui.view,arch_db:hr_cae.view_employee_form
 msgid "Family Situation"
 msgstr "Situation familiale"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__valid_mandate_id
-msgid "First Valid Mandate"
-msgstr "Premier mandat valide"
-
-#. module: hr_cae
-#: model_terms:ir.ui.view,arch_db:hr_cae.view_employee_form
-msgid "Flat Contribution"
-msgstr "Sociétariat et contribution fixe"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__id
 #: model:ir.model.fields,field_description:hr_cae.field_hr_coop_role__id
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance__id
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance_level__id
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status__id
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status_details__id
 #: model:ir.model.fields,field_description:hr_cae.field_hr_professional_liability__id
 #: model:ir.model.fields,field_description:hr_cae.field_hr_sector__id
 #: model:ir.model.fields,field_description:hr_cae.field_hr_social_insurance__id
@@ -261,33 +150,14 @@ msgid "Invalidity Rate"
 msgstr "Taux d'invalidité"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__job
-#: model_terms:ir.ui.view,arch_db:hr_cae.view_applicant_form
-msgid "Job"
-msgstr "Poste"
-
-#. module: hr_cae
 #: model:ir.model.fields,field_description:hr_cae.field_hr_employee__job_adaptations
 msgid "Job Adaptations"
 msgstr "Adaptation des emplois"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__job_description
-msgid "Job Description"
-msgstr "Description du poste"
-
-#. module: hr_cae
-#: model_terms:ir.ui.view,arch_db:hr_cae.view_applicant_form
-msgid "Job Position"
-msgstr "Poste de travail"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption____last_update
 #: model:ir.model.fields,field_description:hr_cae.field_hr_coop_role____last_update
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance____last_update
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance_level____last_update
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status____last_update
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status_details____last_update
 #: model:ir.model.fields,field_description:hr_cae.field_hr_professional_liability____last_update
 #: model:ir.model.fields,field_description:hr_cae.field_hr_sector____last_update
 #: model:ir.model.fields,field_description:hr_cae.field_hr_social_insurance____last_update
@@ -296,12 +166,9 @@ msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__write_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_coop_role__write_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance__write_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance_level__write_uid
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status__write_uid
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status_details__write_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_professional_liability__write_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_sector__write_uid
 #: model:ir.model.fields,field_description:hr_cae.field_hr_social_insurance__write_uid
@@ -310,29 +177,15 @@ msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__write_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_coop_role__write_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance__write_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance_level__write_date
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status__write_date
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status_details__write_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_professional_liability__write_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_sector__write_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_social_insurance__write_date
 #: model:ir.model.fields,field_description:hr_cae.field_hr_transport_mode__write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
-
-#. module: hr_cae
-#: model:hr.recruitment.degree,name:hr_cae.hr_certificate_master
-msgid "Master"
-msgstr ""
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__turnover_minimum
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__turnover_minimum
-msgid "Minimum Turn-Over"
-msgstr ""
 
 #. module: hr_cae
 #: model:ir.model,name:hr_cae.model_hr_mutual_insurance
@@ -359,12 +212,9 @@ msgid "Mutual Insurances"
 msgstr "Mutuelles"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_coop_role__name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance__name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_mutual_insurance_level__name
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status__name
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status_details__name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_professional_liability__name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_sector__name
 #: model:ir.model.fields,field_description:hr_cae.field_hr_social_insurance__name
@@ -388,31 +238,6 @@ msgid "Office"
 msgstr "Bureau"
 
 #. module: hr_cae
-#: model:ir.actions.act_window,name:hr_cae.open_view_origin_status_tree
-#: model:ir.model,name:hr_cae.model_hr_origin_status
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__origin_status_id
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__origin_status_id
-#: model:ir.model.fields,field_description:hr_cae.field_hr_origin_status_details__origin_status_id
-#: model:ir.model.fields,field_description:hr_cae.field_res_partner__origin_status_id
-#: model:ir.model.fields,field_description:hr_cae.field_res_users__origin_status_id
-#: model:ir.ui.menu,name:hr_cae.menu_view_origin_status_tree
-msgid "Origin Status"
-msgstr ""
-
-#. module: hr_cae
-#: model:ir.actions.act_window,name:hr_cae.open_view_origin_status_details_tree
-#: model:ir.model,name:hr_cae.model_hr_origin_status_details
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__origin_status_details_id
-#: model:ir.ui.menu,name:hr_cae.menu_view_origin_status_details_tree
-msgid "Origin Status Details"
-msgstr ""
-
-#. module: hr_cae
-#: model:hr.recruitment.degree,name:hr_cae.hr_certificate_other
-msgid "Other"
-msgstr "Autre"
-
-#. module: hr_cae
 #: model:ir.model.fields,field_description:hr_cae.field_hr_employee__job_other_companies
 msgid "Other Employers"
 msgstr "Autres employeurs"
@@ -421,13 +246,6 @@ msgstr "Autres employeurs"
 #: model:ir.model.fields,field_description:hr_cae.field_hr_employee__country_other_ids
 msgid "Other Nationalities"
 msgstr "Autres nationalités"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__professional_experience
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__professional_experience
-#: model_terms:ir.ui.view,arch_db:hr_cae.view_applicant_form
-msgid "Professional Experience"
-msgstr "Expérience professionnelle"
 
 #. module: hr_cae
 #: model:ir.model,name:hr_cae.model_hr_professional_liability
@@ -449,16 +267,6 @@ msgstr "Responsabilité professionnelle"
 #: model:ir.model.fields,field_description:hr_cae.field_hr_employee__professional_liability_insurance_policy_ref
 msgid "Professional Liability Insurance Policy Reference"
 msgstr "Référence de la police d'assurance responsabilité professionnelle"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__reason
-msgid "Reason for Exemption"
-msgstr "Motif de l'exonération"
-
-#. module: hr_cae
-#: model_terms:ir.ui.view,arch_db:hr_cae.view_applicant_form
-msgid "Responsible"
-msgstr "Responsable"
 
 #. module: hr_cae
 #: model:ir.model,name:hr_cae.model_hr_coop_role
@@ -516,24 +324,9 @@ msgid "Social Worker"
 msgstr "Assistance sociale"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_employee__contribution_date_start
-msgid "Start Date of Contributions"
-msgstr "Date de début des contributions"
-
-#. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_contribution_exemption__date_start
-msgid "Start Date of Exemption"
-msgstr "Date de début de l'exonération"
-
-#. module: hr_cae
 #: model:ir.model.fields,field_description:hr_cae.field_hr_employee__mutual_insurance_date_start
 msgid "Start Date of Mutual Insurance"
 msgstr "Date de début de l'assurance mutuelle"
-
-#. module: hr_cae
-#: model_terms:ir.ui.view,arch_db:hr_cae.view_employee_form
-msgid "Status origin"
-msgstr ""
 
 #. module: hr_cae
 #: sql_constraint:hr.employee:0
@@ -541,7 +334,7 @@ msgid "The cumulative other working hours should greater then or equal to 0."
 msgstr "Le cumul des autres heures de travail doit être supérieur ou égal à 0."
 
 #. module: hr_cae
-#: code:addons/hr_cae/models/hr_employee.py:166
+#: code:addons/hr_cae/models/hr_employee.py:117
 #, python-format
 msgid "The entry date must be before obsolescence date"
 msgstr "La date d'entrée doit être antérieure à la date d'obsolescence"
@@ -557,8 +350,7 @@ msgid "The percentage of an invalidity_rate should be between 0 and 100."
 msgstr "Le pourcentage d'un taux d'invalidité doit être compris entre 0 et 100."
 
 #. module: hr_cae
-#: code:addons/hr_cae/models/hr_employee.py:179
-#: code:addons/hr_cae/models/hr_exemption.py:33
+#: code:addons/hr_cae/models/hr_employee.py:130
 #, python-format
 msgid "The start date of mutual insurance must be before the end date"
 msgstr "La date de début de l'assurance mutuelle doit être antérieure à la date de fin"
@@ -569,7 +361,6 @@ msgid "Time"
 msgstr "Heure"
 
 #. module: hr_cae
-#: model:ir.model.fields,field_description:hr_cae.field_hr_applicant__title
 #: model:ir.model.fields,field_description:hr_cae.field_hr_employee__title
 msgid "Title"
 msgstr "Titre"
