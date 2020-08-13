@@ -77,6 +77,7 @@
                             <field name="work_phone"/>
                         </group>
                         <group name="sumpup_position" string="Position">
+                            <field name="worker_activity"/>
                             <field name="job_title"/>
                             <field name="date_start"/>
                         </group>
