@@ -5,8 +5,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "HR CAE Contract - Recruitment, Glue module",
-    "summary": "Manage recruitment in a CAE.",
+    "name": "HR CAE Contract - Recruitment",
+    "summary": "Manage link between recruitment and contract in a CAE.",
     "author": "Coop IT Easy SCRLfs, GRAP",
     "website": "https://www.coopiteasy.be, http://www.grap.coop",
     "category": "Human Resources",
