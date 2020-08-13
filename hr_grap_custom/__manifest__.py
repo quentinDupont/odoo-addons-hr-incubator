@@ -8,7 +8,7 @@
     "website": "http://www.grap.coop",
     "category": "Human Resources",
     "version": "12.0.0.1.0",
-    "depends": ["hr_cae", "hr_contract"],
+    "depends": ["hr_cae", "hr_contract", "hr_cae_recruitment"],
     "data": ["views/hr_employee.xml"],
     "demo": [],
     "installable": True,
