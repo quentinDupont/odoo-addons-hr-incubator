@@ -27,6 +27,66 @@
                 <attribute name="attrs">{'invisible': [('mutual_insurance_state', 'in', ('exempted'))]}</attribute>
             </field>
 
+
+            <!-- Move some elements -->
+            <xpath expr="//page[@name='personal_information']//field[@name='marital']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='social_status']//field[@name='children']" position="before">
+                    <field name="marital"/>
+            </xpath>
+
+            <xpath expr="//page[@name='social_status']//group[@name='transportation']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='social_status']//group[@name='family_situation']" position="after">
+                <group name="transportation" string="Transportation">
+                    <field name="transport_mode_id" widget="many2many_tags"/>
+                </group>
+            </xpath>
+
+
+            <!-- new elements -->
+            <xpath expr="//page[@name='personal_information']//field[@name='emergency_phone']" position="after">
+                <field name="show_status_origin"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']//group[@name='origin']" position="attributes">
+                <attribute name="attrs">{'invisible': [('show_status_origin', '!=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='social_status']//field[@name='invalidity_rate']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='social_status']//field[@name='job_adaptations']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='social_status']//field[@name='invalidity_rate']" position="before">
+                <field name="disabled_worker_status"/>
+                <field name="disabled_worker_attachment"/>
+                <field name="job_adaptations"/>
+            </xpath>
+            <field name="disabled_worker_attachment" position="attributes">
+                <attribute name="attrs">{'invisible': [('disabled_worker_status', '!=', True)]}</attribute>
+            </field>
+
+            <!-- new pages -->
+            <xpath expr="//page[@name='public']" position="before">
+                <page name="summary" string="Summary">
+                    <group>
+                        <group name="sumup_contact_info" string="Contact information">
+                            <field name="work_email"/>
+                            <field name="work_phone"/>
+                        </group>
+                        <group name="sumpup_position" string="Position">
+                            <field name="job_title"/>
+                            <field name="date_start"/>
+                        </group>
+                        <group name="sumpup_notes" string="Notes">
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
         </field>
     </record>
 </odoo>
