@@ -26,7 +26,7 @@ addon | version | summary
 [hr_cae_recruitment](hr_cae_recruitment/) | 12.0.1.3.0 | Manage recruitment in a CAE.
 [hr_cae_timesheet_sheet](hr_cae_timesheet_sheet/) | 12.0.1.1.0 | Manage timesheets in a CAE.
 [hr_employee_bank](hr_employee_bank/) | 12.0.1.2.0 | Manage bank information for HR in a CAE.
-[hr_grap_custom](hr_grap_custom/) | 12.0.0.1.0 | Customization specific to GRAP use case.
+[hr_grap_custom](hr_grap_custom/) | 12.0.0.2.0 | Customization specific to GRAP use case.
 [member_data_history](member_data_history/) | 12.0.0.1.0 | Logs value change on selected fields.
 
 [//]: # (end addons)
